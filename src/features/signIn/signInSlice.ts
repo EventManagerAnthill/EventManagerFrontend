@@ -21,11 +21,12 @@ export const incrementAsync = createAsyncThunk(
   }
 );
 
-
 export const signInSlice = createSlice({
   name: 'signIn',
   initialState,
-  reducers: {},
+  reducers: {
+    succses
+  },
   extraReducers: (builder) => {
   },
 });
