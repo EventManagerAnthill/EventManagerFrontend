@@ -1,14 +1,4 @@
 import React from 'react';
-
-import * as actions from "./LoginActions";
-import {
-    LoginFormModel,
-    LoginModel
-} from './LoginModel';
-
-import { ApplicationState } from '../../applicationState';
-import Copyright from '../Copyright/CopyrightComponent';
-
 import {
     Avatar,
     Box,
@@ -21,7 +11,9 @@ import {
     CssBaseline
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
 import { Link } from 'react-router-dom';
+import { Copyright } from '../../components/Copyright';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -45,18 +37,16 @@ const useStyles = makeStyles((theme) => ({
 
 export const SignIn = () => {
     const classes = useStyles();
-    const [state, setState] = React.useState<LoginModel>(initialState);
+
+    // useEffect(() => {
+    //     if (postStatus === 'idle') {
+    //       dispatch(fetchPosts())
+    //     }
+    //   }, [postStatus, dispatch])
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        props.submit(state);
+        e.preventDefault(); 
     }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        if (window.location.search != "") {
-            props.load(window.location.search);
-        }
-    });
 
     return (
         <Container component="main" maxWidth="xs">
@@ -80,7 +70,7 @@ export const SignIn = () => {
                         autoComplete="email"
                         type="email"
                         autoFocus
-                        onChange={(e) => setState({ ...state, email: e.currentTarget.value })}
+                        // onChange={(e) => setState({ ...state, email: e.currentTarget.value })}
                     />
                     <TextField
                         variant="outlined"
@@ -92,7 +82,7 @@ export const SignIn = () => {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        onChange={(e) => setState({ ...state, password: e.currentTarget.value })}
+                        // onChange={(e) => setState({ ...state, password: e.currentTarget.value })}
                     />
                     <Button
                         type="submit"

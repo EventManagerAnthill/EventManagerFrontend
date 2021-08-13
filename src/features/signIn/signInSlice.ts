@@ -4,20 +4,20 @@ import { RootState, AppThunk } from '../../app/store';
 export interface SignInState {
   email: string;
   password: string;
-  status: 'idle' | 'loading' | 'failed';
+  isLoading: boolean;
 }
 
 const initialState: SignInState = {
   email: '',
   password: '',
-  status: 'idle',
+  isLoading: false,
 };
 
 export const incrementAsync = createAsyncThunk(
-  'signIn/fetchSignIn',
+  'signIn/submitSignIn',
   async (amount: number) => {
-    const response = await fetchCount(amount);
-    return response.data;
+    // const response = await fetchCount(amount);
+    // return response.data;
   }
 );
 
@@ -25,7 +25,9 @@ export const signInSlice = createSlice({
   name: 'signIn',
   initialState,
   reducers: {
-    succses
+    requested: (state) => {
+      state.isLoading = true; 
+    },
   },
   extraReducers: (builder) => {
   },
