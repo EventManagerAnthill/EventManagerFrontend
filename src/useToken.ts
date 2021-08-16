@@ -1,5 +1,4 @@
 
-import { useState } from 'react';
 import { TokenModel } from './features/signIn/SignInModel';
 
 export function getToken() {

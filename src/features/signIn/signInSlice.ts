@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { SignInFormModel, SignInModel } from './SignInModel';
 
@@ -18,6 +18,7 @@ export const signInSlice = createSlice({
   reducers: {
     signInRequested: (state, action: PayloadAction<SignInModel>) => {
       state.isLoading = true;
+      state.signInModel = action.payload;
     },
     signInSucceed: (state) => {
       state = initialState;

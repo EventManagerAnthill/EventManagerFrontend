@@ -92,7 +92,7 @@ export const SignIn = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        disabled={}
+                        disabled={state.isLoading}
                     >
                         Sign In
                     </Button>
