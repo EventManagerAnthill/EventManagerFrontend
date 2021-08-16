@@ -1,3 +1,3 @@
-export interface AppSettings {
+export interface Settings {
     baseApiUrl : string;
 }
