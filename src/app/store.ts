@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import signInReducer from '../features/signIn/signInSlice2';
+import signInReducer from '../features/signIn/signInSlice';
 import { rootSaga } from './rootSaga';
 
 let sagaMiddleware = createSagaMiddleware();

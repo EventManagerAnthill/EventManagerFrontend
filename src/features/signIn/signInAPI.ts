@@ -1,8 +1,8 @@
-import { AppSettings } from "../../app/settings";
-import { SignInData, TokenData } from "./signInData";
+import { Settings } from "../../app/settings";
+import { SignInData, TokenData } from "./signInData2";
 import * as baseApi from "../../api/baseApi";
 
-declare const appSettings: AppSettings;
+declare const appSettings: Settings;
 
 export function* postLogin(data: SignInData) {
     const result: TokenData = yield baseApi.post<SignInData, TokenData>(appSettings.baseApiUrl + `/authenticate/auth`, data);

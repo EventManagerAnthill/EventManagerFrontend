@@ -1,5 +1,5 @@
 
-import { TokenModel } from './features/signIn/signInModel';
+import { TokenModel } from './features/signIn/signInModel2';
 
 export function getToken() {
  

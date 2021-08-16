@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { SignInFormModel, SignInModel } from './signInModel';
+import { SignInFormModel, SignInModel } from './signInModel2';
 
 type SignInState = SignInFormModel;
 
