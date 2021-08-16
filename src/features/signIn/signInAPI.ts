@@ -1,5 +1,5 @@
 import { Settings } from "../../app/settings";
-import { SignInData, TokenData } from "./signInData2";
+import { SignInData, TokenData } from "./signInData";
 import * as baseApi from "../../api/baseApi";
 
 declare const appSettings: Settings;
