@@ -14,6 +14,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { Link } from 'react-router-dom';
 import { Copyright } from '../../components/Copyright';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { SignInFormModel } from './SignInModel';
+import { selectSignIn, signInRequested } from './signInSlice';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -37,16 +40,15 @@ const useStyles = makeStyles((theme) => ({
 
 export const SignIn = () => {
     const classes = useStyles();
-
-    // useEffect(() => {
-    //     if (postStatus === 'idle') {
-    //       dispatch(fetchPosts())
-    //     }
-    //   }, [postStatus, dispatch])
+    const dispatch = useAppDispatch();
+    const [state, setState] = React.useState<SignInFormModel>(useAppSelector(selectSignIn));
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); 
+        dispatch(signInRequested(state.signInModel))
     }
+
+    // const onTitleChanged = (e) => setState(... e.target.value)
 
     return (
         <Container component="main" maxWidth="xs">
@@ -70,7 +72,7 @@ export const SignIn = () => {
                         autoComplete="email"
                         type="email"
                         autoFocus
-                        // onChange={(e) => setState({ ...state, email: e.currentTarget.value })}
+                        // onChange={(e) => setState({ ...state, signInModel.email: e.currentTarget.value })}
                     />
                     <TextField
                         variant="outlined"
@@ -82,7 +84,7 @@ export const SignIn = () => {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        // onChange={(e) => setState({ ...state, password: e.currentTarget.value })}
+                        // onChange={(e) => setState({ ...state.signInModel, pa: e.currentTarget.value })}
                     />
                     <Button
                         type="submit"
@@ -90,6 +92,7 @@ export const SignIn = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        disabled={}
                     >
                         Sign In
                     </Button>
