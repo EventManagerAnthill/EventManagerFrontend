@@ -1,41 +1,38 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../app/store';
+import { RootState } from '../../app/store';
+import { SignInFormModel, SignInModel } from './SignInModel';
 
-export interface SignInState {
-  email: string;
-  password: string;
-  isLoading: boolean;
-}
+type SignInState = SignInFormModel;
 
 const initialState: SignInState = {
-  email: '',
-  password: '',
+  signInModel: {
+    email: '',
+    password: '',
+  },
   isLoading: false,
 };
-
-export const incrementAsync = createAsyncThunk(
-  'signIn/submitSignIn',
-  async (amount: number) => {
-    // const response = await fetchCount(amount);
-    // return response.data;
-  }
-);
 
 export const signInSlice = createSlice({
   name: 'signIn',
   initialState,
   reducers: {
-    requested: (state) => {
-      state.isLoading = true; 
+    signInRequested: (state, action: PayloadAction<SignInModel>) => {
+      state.isLoading = true;
     },
-  },
-  extraReducers: (builder) => {
+    signInSucceed: (state) => {
+      state = initialState;
+    },
+    signInFailed: (state, action: PayloadAction<Error>) => {
+      state.isLoading = false;
+    },
   },
 });
 
-export const {} = signInSlice.actions;
+export const { signInRequested, signInSucceed, signInFailed } = signInSlice.actions;
 
-export const selectEmail = (state: RootState) => state.signIn.email;
-export const selectPassword = (state: RootState) => state.signIn.password;
+export const selectSignIn = (state: RootState) => state.signIn;
+export const selectSignInEmail = (state: RootState) => state.signIn.signInModel.email;
+export const selectSignInPassword = (state: RootState) => state.signIn.signInModel.password;
+export const selectSignInIsLoading = (state: RootState) => state.signIn.isLoading;
 
 export default signInSlice.reducer;

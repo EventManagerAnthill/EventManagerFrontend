@@ -1,13 +1,19 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
 import signInReducer from '../features/signIn/signInSlice';
+import { rootSaga } from './rootSaga';
+
+let sagaMiddleware = createSagaMiddleware();
+const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     signIn: signInReducer,
   },
+  middleware
 });
+
+sagaMiddleware.run(rootSaga);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
