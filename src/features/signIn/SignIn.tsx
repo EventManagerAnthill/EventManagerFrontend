@@ -15,8 +15,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Link } from 'react-router-dom';
 import { Copyright } from '../../components/Copyright';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { SignInFormModel } from './SignInModel';
-import { selectSignIn, signInRequested } from './signInSlice';
+import { SignInFormModel } from './signInModel';
+import { selectSignIn, signInRequested } from './signInSlice2';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
