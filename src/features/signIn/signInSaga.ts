@@ -1,15 +1,16 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { ActionType, getType } from "typesafe-actions";
+// import { ActionType, getType } from "typesafe-actions";
 import { TokenData } from "./signInData";
-import { TokenModel } from "./signInModel";
+import { SignInModel, TokenModel } from "./signInModel";
 import { signInSlice} from "./signInSlice";
 import * as Api from "./signInAPI"; 
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export function* signInSaga() {
-    yield takeLatest(getType(signInSlice.actions.signInRequested), signInRequested);
+    yield takeLatest(signInSlice.actions.signInRequested, signInRequested);
 }
 
-function* signInRequested(action: ActionType<typeof signInSlice.actions.signInRequested>) {
+function* signInRequested(action: PayloadAction<SignInModel>) {
     try {
         const data: TokenData = yield call(Api.postLogin, action.payload);
         const model: TokenModel = { ...data }
