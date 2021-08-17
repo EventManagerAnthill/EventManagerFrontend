@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 import { Copyright } from '../../components/Copyright';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { SignInModel } from './signInModel';
-import { selectSignInIsLoading, selectSignInModel, signInRequested } from './signInSlice';
+import { selectSignInEmail, selectSignInIsLoading, selectSignInModel, signInRequested } from './signInSlice';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -46,7 +46,7 @@ export const SignIn = () => {
     const [state, setState] = React.useState<SignInModel>(signInModel);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); 
+        e.preventDefault();
         dispatch(signInRequested(state));
     }
 

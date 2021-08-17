@@ -21,7 +21,9 @@ export const signInSlice = createSlice({
       state.signInModel = action.payload;
     },
     signInSucceed: (state) => {
-      state = initialState;
+      state.signInModel.email = '';
+      state.signInModel.password = '';
+      state.isLoading = false;
     },
     signInFailed: (state, action: PayloadAction<Error>) => {
       state.isLoading = false;

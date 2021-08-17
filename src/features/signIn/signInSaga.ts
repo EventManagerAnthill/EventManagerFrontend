@@ -13,8 +13,8 @@ export function* signInSaga() {
 function* signInRequested(action: PayloadAction<SignInModel>) {
     try {
         const data: TokenData = yield call(Api.postLogin, action.payload);
-        const model: TokenModel = { ...data }
-        
+        const model: TokenModel = { ...data };
+
         localStorage.setItem('token', JSON.stringify(model));
 
         yield put(signInSlice.actions.signInSucceed());
