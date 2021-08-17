@@ -1,4 +1,4 @@
-import { AppSettings } from "../../appSettings2";
+import { AppSettings } from "../../AppSettings";
 import { SignInData, TokenData } from "./signInData";
 import * as baseApi from "../../api/baseApi";
 
