@@ -16,13 +16,13 @@ export const routerSlice = createSlice({
     routerRedirect: (state, action: PayloadAction<string>) => {
       state.redirectTo = action.payload;
     },
-    routerDiscard: (state) => {
+    routerReset: (state) => {
       state.redirectTo = undefined;
     }
   },
 });
 
-export const { routerRedirect, routerDiscard } = routerSlice.actions;
+export const { routerRedirect, routerReset } = routerSlice.actions;
 
 export const selectRouterRedirectTo = (state: RootState) => state.routerState.redirectTo;
 
