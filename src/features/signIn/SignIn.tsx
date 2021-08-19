@@ -14,9 +14,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { Link } from 'react-router-dom';
 import { Copyright } from '../../components/Copyright';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/state/store';
 import { SignInModel } from './signInModel';
-import { selectSignInEmail, selectSignInIsLoading, selectSignInModel, signInRequested } from './signInSlice';
+import { selectSignInIsLoading, selectSignInModel, signInRequested } from './signInSlice';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -73,6 +73,7 @@ export const SignIn = () => {
                         type="email"
                         autoFocus
                         onChange={(e) => setState({ ...state, email: e.currentTarget.value })}
+                        defaultValue={signInModel.email}
                     />
                     <TextField
                         variant="outlined"
@@ -85,6 +86,7 @@ export const SignIn = () => {
                         id="password"
                         autoComplete="current-password"
                         onChange={(e) => setState({ ...state, password: e.currentTarget.value })}
+                        defaultValue={signInModel.password}
                     />
                     <Button
                         type="submit"
@@ -110,9 +112,6 @@ export const SignIn = () => {
                     </Grid>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
         </Container >
     );
 }

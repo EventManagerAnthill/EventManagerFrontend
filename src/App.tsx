@@ -5,14 +5,14 @@ import { SignIn } from './features/signIn/SignIn';
 
 function App() {
   return (
-    <Switch>
-      <Route path="/signIn">
-        <SignIn />
-      </Route>
-      <Route path="/">
-        <Link to='/signIn'> Sign in</Link>
-      </Route>
-    </Switch>
+      <Switch>
+        <Route path="/signIn">
+          <SignIn />
+        </Route>
+        <Route path="/">
+          <Link to='/signIn'> Sign in</Link>
+        </Route>
+      </Switch>
   );
 }
 

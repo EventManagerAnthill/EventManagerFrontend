@@ -1,5 +1,4 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-// import { ActionType, getType } from "typesafe-actions";
 import { TokenData } from "./signInData";
 import { SignInModel, TokenModel } from "./signInModel";
 import { signInSlice} from "./signInSlice";
