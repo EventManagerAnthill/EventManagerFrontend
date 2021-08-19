@@ -1,9 +1,25 @@
 import React from 'react';
-import './App.css';
-import { Link, Route, Switch } from 'react-router-dom';
+import './App.scss';
+import { Link, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { SignIn } from './features/signIn/SignIn';
+import { useAppDispatch, useAppSelector } from './app/state/store';
+import { selectRouterRedirectTo } from './features/routerSlice';
+import { routerDiscard } from '../src/features/routerSlice';
 
-function App() {
+
+const App = () => {
+  const location = useLocation();
+  const history = useHistory();
+  const redirectTo = useAppSelector(selectRouterRedirectTo);
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    if (redirectTo && location.pathname !== redirectTo) {
+      history.push(redirectTo);
+      dispatch(routerDiscard());
+    }
+  });
+
   return (
       <Switch>
         <Route path="/signIn">
