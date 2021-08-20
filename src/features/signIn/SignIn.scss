@@ -1,0 +1,128 @@
+@import "../../Fonts.scss";
+
+.generalSignInBlock {
+    background: #f3f0e1;
+    border-radius: 20px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+    // overflow: hidden;
+    // position: relative;
+
+    .leftSignInBlock {
+        width: 33%;
+        padding: 107px 30px 49px 30px;
+        // border: 1px solid black;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+
+        .blockImageForLeftSignInBlock {
+            margin-top: 100px;
+
+            .imageForLeftSignInBlock {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .titleForLeftSignInBlock {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 56px;
+            line-height: 124.7%;
+            color: #2c5d7d;
+        }
+        .copyrightForLeftSignInBlock {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 23px;
+            color: #2c5d7d;
+        }
+    }
+
+    .rightSignInBlock {
+        width: 67%;
+        background: #ffffff;
+        box-shadow: 0px 6px 61px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        height: 100vh;
+        border: 1px solid black;
+        // display: flex;
+
+        .topBlockRightSigInBlock {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            padding: 60px 37px 0px 0px;
+            .spanTopBlockRightSigInBlock {
+                font-family: Jost;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 23px;
+                color: #2c5d7d;
+            }
+
+            .linkTopBlockRightSigInBlock {
+                font-family: Jost;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 23px;
+                color: #ef5839;
+                margin-left: 3px;
+            }
+        }
+
+        .formBlockRightSigInBlock {
+            margin: 141px auto 0 auto;
+            width: 70%;
+        
+
+            // display: flex;
+            // flex-direction: column;
+            // align-items: left;
+            // justify-content: center;
+
+
+            .titleformBlockRightSigInBlock {
+                font-family: Jost;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 32px;
+                line-height: 46px;
+                color: #2c5d7d;
+            }
+
+            .buttomSNformBlockRightSigInBlock {
+                .facebookformBlockRightSigInBlock {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    position: absolute;
+                    background: #3b5998;
+                    border-radius: 8px;
+                }
+                .googleformBlockRightSigInBlock {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    position: absolute;
+                    background: #4285f4;
+                    border-radius: 8px;
+                }
+            }
+
+            .inputformBlockRightSigInBlock {
+            }
+        }
+    }
+}
