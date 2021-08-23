@@ -19,30 +19,10 @@ import { useAppDispatch, useAppSelector } from '../../app/state/store';
 import { SignInModel } from './signInModel';
 import { selectSignInIsLoading, selectSignInModel, signInRequested } from './signInSlice';
 import MessyDoodle from '../../assets/images/MessyDoodle.png';
-
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%',
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
+import facebookLogo from '../../assets/images/facebookLogo.png';
+import googleLogo from '../../assets/images/googleLogo.png';
 
 export const SignIn = () => {
-    const classes = useStyles();
     const isLoading = useAppSelector(selectSignInIsLoading);
     const signInModel = useAppSelector(selectSignInModel);
     const dispatch = useAppDispatch();
@@ -54,76 +34,12 @@ export const SignIn = () => {
     }
 
     return (
-        // <Container component="main" maxWidth="xs">
-        //     <CssBaseline />
-        //     <div className={classes.paper}>
-        //         <Avatar className={classes.avatar}>
-        //             <LockOutlinedIcon />
-        //         </Avatar>
-        //         <Typography component="h1" variant="h5">
-        //             Sign in
-        //         </Typography>
-        //         <form className={classes.form} onSubmit={e => handleSubmit(e)}>
-        //             <TextField
-        //                 variant="outlined"
-        //                 margin="normal"
-        //                 required
-        //                 fullWidth
-        //                 id="email"
-        //                 label="Email Address"
-        //                 name="email"
-        //                 autoComplete="email"
-        //                 type="email"
-        //                 autoFocus
-        //                 onChange={(e) => setState({ ...state, email: e.currentTarget.value })}
-        //                 defaultValue={signInModel.email}
-        //             />
-        //             <TextField
-        //                 variant="outlined"
-        //                 margin="normal"
-        //                 required
-        //                 fullWidth
-        //                 name="password"
-        //                 label="Password"
-        //                 type="password"
-        //                 id="password"
-        //                 autoComplete="current-password"
-        //                 onChange={(e) => setState({ ...state, password: e.currentTarget.value })}
-        //                 defaultValue={signInModel.password}
-        //             />
-        //             <Button
-        //                 type="submit"
-        //                 fullWidth
-        //                 variant="contained"
-        //                 color="primary"
-        //                 className={classes.submit}
-        //                 disabled={isLoading}
-        //             >
-        //                 Sign In
-        //             </Button>
-        //             <Grid container>
-        //                 <Grid item xs>
-        //                     <Link to="/identify">
-        //                         {"Forgot password?"}
-        //                     </Link>
-        //                 </Grid>
-        //                 <Grid item>
-        //                     <Link to="/signup">
-        //                         {"Don't have an account? Sign Up"}
-        //                     </Link>
-        //                 </Grid>
-        //             </Grid>
-        //         </form>
-        //     </div>
-        // </Container >
-
         <div className="generalSignInBlock">
             <div className="leftSignInBlock">
                 <div className="blockTileAndImage">
                     <div>
                         <span className="titleForLeftSignInBlock">Work with documents easily</span>
                     </div>
-
                     <div className="blockImageForLeftSignInBlock">
                         <img className="imageForLeftSignInBlock" src={MessyDoodle} alt="SignInImage" />
                     </div>
@@ -135,56 +51,54 @@ export const SignIn = () => {
             <div className="rightSignInBlock">
                 <div className="topBlockRightSigInBlock">
                     <div>
-                        <span className="spanTopBlockRightSigInBlock">Already a member?</span>
+                        <span className="spanTopBlockRightSigInBlock">Not a member yet?</span>
                     </div>
                     <div >
-                        <Link className="linkTopBlockRightSigInBlock" to="/" >Sign In</Link>
+                        <Link className="linkTopBlockRightSigInBlock" to="/" >Sign up</Link>
                     </div>
                 </div>
                 <div className="formBlockRightSigInBlock">
                     <div>
-                        <span className="titleformBlockRightSigInBlock">Sign up to service</span>
+                        <span className="titleformBlockRightSigInBlock">Sign in to service</span>
                     </div>
                     <div className="buttomSNformBlockRightSigInBlock">
-                        <div>
-                            <button className="facebookformBlockRightSigInBlock">
-                                Sign up with Facebook
-                            </button>
-                        </div>
-                        <div>
-                            <button className="googleformBlockRightSigInBlock">Sign up with Google</button>
-                        </div>
+                        <button className="googleformBlockRightSigInBlock">
+                            <img className="imageForButton" src={googleLogo} />
+                            Continue with Google
+                        </button>
+                        <button className="facebookformBlockRightSigInBlock">
+                            <img className="imageForButton" src={facebookLogo} />
+                            Continue with Facebook
+                        </button>
                     </div>
-                    {/* <div className="">
-                        <div>
-                            <hr />
-                            <span>or</span>
-                            <hr />
-                        </div>
-                    </div> */}
+                    <div className="blockForLines">
+                        <hr className="HRLine" />
+                        <span className="text">Or</span>
+                        <hr className="HRLine" />
+                    </div>
                     <div className="inputformBlockRightSigInBlock">
-                        <div>
+                        <div className="blockInputAndLabel">
                             <div>
-                                <span className="labelEmailinputformBlockRightSigInBlock">E-mail</span>
+                                <span className="blockLabel">Email</span>
                             </div>
                             <div>
-                                <input className="inputEmailinputformBlockRightSigInBlock" /> 
+                                <input className="blockInput" />
                             </div>
                         </div>
-                        <div>
+                        <div className="blockInputAndLabel">
                             <div>
-                                <span className="labelPasswordinputformBlockRightSigInBlock">Password</span>
+                                <span className="blockLabel">Password</span>
                             </div>
                             <div>
-                                <input className="inputPasswordinputformBlockRightSigInBlock"/> 
+                                <input className="blockInput" />
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <span>By signing up, you agree to our terms of service and privacy policy.</span>
+                    <div className="blockPolicy">
+                        <Link className="blockPolicy" to="/identify" >Forgot password?</Link>
                     </div>
-                    <div>
-                        <button>Create Accaunt</button>
+                    <div className="buttonformBlockRightSigInBlock">
+                        <button className="AccauntformBlockRightSigInBlock">Sign in</button>
                     </div>
                 </div>
             </div>
