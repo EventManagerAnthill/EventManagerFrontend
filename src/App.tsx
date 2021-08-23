@@ -5,6 +5,8 @@ import { SignIn } from './features/signIn/SignIn';
 import { useAppDispatch, useAppSelector } from './app/state/store';
 import { selectRouterRedirectTo } from './features/routerSlice';
 import { routerReset } from '../src/features/routerSlice';
+import { Home } from './pages/home/Home';
+import { SignUp } from './features/signUp/SignUp';
 
 
 const App = () => {
@@ -21,14 +23,17 @@ const App = () => {
   });
 
   return (
-      <Switch>
-        <Route path="/signIn">
-          <SignIn />
-        </Route>
-        <Route path="/">
-          <Link to='/signIn'> Sign in</Link>
-        </Route>
-      </Switch>
+    <Switch>
+      <Route path="/signIn">
+        <SignIn />
+      </Route>
+      <Route path="/signUp">
+        <SignUp />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
+    </Switch>
   );
 }
 
