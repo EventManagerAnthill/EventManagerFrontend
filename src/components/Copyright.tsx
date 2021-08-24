@@ -1,16 +1,17 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { Link } from 'react-router-dom';
+import './Copyright.scss';
 
 export const Copyright = () => {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <span className="Copyright">
       {'Copyright © '}
-      <Link to="/">
+      <Link className="Copyright" to="/">
         Event Manager
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
-    </Typography>
+    </span>
   );
 }

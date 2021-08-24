@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/state/store';
 import { SignUpFormModel, SignUpModel } from './signUpModel';
 import { selectSignUp, selectSignUpErrors, selectSignUpIsLoading, selectSignUpModel, signUpRequested } from './signUpSlice';
+import { Copyright } from '../../components/Copyright';
 
 export const SignUp = () => {
     const dispatch = useAppDispatch();
@@ -159,13 +160,15 @@ export const SignUp = () => {
                                     className="blockLabel">
                                     Password
                                     <input
-                                        className="blockInput"
+                                        className={state.errors.get('repeatpassword') ? "blockInputError" : "blockInput"}
                                         required
                                         id="password"
                                         name="password"
                                         type="password"
+                                        pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}"
                                         onChange={(e) => setPassword({ ...state.signUpModel, password: e.currentTarget.value })}
                                     />
+                                    <span className="Errors" >{state.errors.get('password')}</span>
                                 </label>
                             </div>
                             <div className="blockInputAndLabel">
@@ -173,13 +176,14 @@ export const SignUp = () => {
                                     className="blockLabel">
                                     Repeat password
                                     <input
-                                        className="blockInput"
+                                        className={state.errors.get('repeatpassword') ? "blockInputError" : "blockInput"}
                                         required
                                         name="repeatpassword"
                                         type="password"
                                         id="repeatpassword"
                                         onChange={(e) => setPassword({ ...state.signUpModel, repeatPassword: e.currentTarget.value })}
                                     />
+                                    <span className="Errors" >{state.errors.get('repeatpassword')}</span>
                                 </label>
                             </div>
                         </div>
@@ -200,16 +204,38 @@ export const SignUp = () => {
                 </div>
             </div>
             <div className="RightSignUpBlock">
-                <div className="blockTileAndImage">
-                    <div>
-                        <span className="titleForRightSignUpBlock">Now you can organize events easier and better</span>
-                    </div>
-                    <div className="blockImageForRightSignUpBlock">
-                        {/* <img className="imageForRightSignUpBlock" src={MessyDoodle} alt="SignInImage" /> */}
-                    </div>
+                {/* <div className="blockTileAndImage"> */}
+                <div className="circle">
+                    <span className="circle-content">
+                        Create company
+                    </span>
                 </div>
+                <div className="circle">
+                    <span className="circle-content">
+                        Add events
+                    </span>
+                </div>
+                <div className="circle">
+                    <span className="circle-content">
+                        invite people
+                    </span>
+                </div>
+                <div className="circle">
+                    <span className="circle-content">
+                        Have a good time!
+                    </span>
+                </div>
+
+                {/* <div>
+                        <span className="titleForRightSignUpBlock">Now you can organize events easier and better</span>
+                    </div> */}
+                {/* <div className="blockImageForRightSignUpBlock">
+                        <img className="imageForRightSignUpBlock" src={MessyDoodle} alt="SignInImage" />
+                    </div> */}
+                {/* </div> */}
                 <div>
-                    <span className="copyrightForRightSignUpBlock">© Copyright: Creative Technologies 2020</span>
+                    {/* <span className="copyrightForRightSignUpBlock">© Copyright: Creative Technologies 2020</span> */}
+                    <Copyright />
                 </div>
             </div>
         </div>

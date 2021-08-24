@@ -7,6 +7,7 @@ import { selectSignInIsLoading, selectSignInModel, signInRequested } from './sig
 import MessyDoodle from '../../assets/images/MessyDoodle.png';
 import facebookLogo from '../../assets/images/facebookLogo.png';
 import googleLogo from '../../assets/images/googleLogo.png';
+import { Copyright } from '../../components/Copyright';
 
 export const SignIn = () => {
     const isLoading = useAppSelector(selectSignInIsLoading);
@@ -31,7 +32,7 @@ export const SignIn = () => {
                     </div>
                 </div>
                 <div>
-                    <span className="copyrightForLeftSignInBlock">© Copyright: Creative Technologies 2020</span>
+                    <Copyright />
                 </div>
             </div>
             <div className="rightSignInBlock">

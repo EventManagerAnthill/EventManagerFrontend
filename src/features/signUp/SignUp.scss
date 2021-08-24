@@ -22,6 +22,22 @@
             display: none;
         }
 
+        .circle {
+            background: #2d507c;
+            border-radius: 50%;
+            color: #fff;
+            height: 8.4em;
+            width: 8.4em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .circle-content {
+            margin: 8px;
+        }
+
         .blockImageForRightSignUpBlock {
             margin-top: 100px;
 
@@ -132,7 +148,6 @@
                     margin-top: 0;
                 }
 
-                
                 .blockInputAndLabel {
                     width: 49%;
 
@@ -175,6 +190,38 @@
 
                         color: #2e354f;
                     }
+
+                    .blockInputError {
+                        margin-top: 12px;
+                        width: 100%;
+                        box-sizing: border-box;
+                        background: #f8f8f8;
+                        border-radius: 8px;
+                        height: 49px;
+                        border: 1px solid #ef5839;;
+                        padding-left: 16px;
+
+                        font-family: Jost;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 16px;
+                        line-height: 23px;
+
+                        color: #2e354f;
+                    }
+
+
+                    
+
+                    .Errors {
+                        font-family: Jost;
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 23px;
+                        text-align: center;
+                        color: #ef5839;
+                    }
                 }
             }
 
@@ -196,7 +243,7 @@
                     border-radius: 8px;
                     height: 56px;
                     border: none;
-                    
+
                     cursor: pointer;
                     font-family: Jost;
                     font-style: normal;
@@ -208,7 +255,7 @@
                     color: #ffffff;
 
                     &:disabled {
-                        background:lightgrey;
+                        background: lightgrey;
                     }
                     @media screen and (max-width: 650px) {
                         width: 100%;
