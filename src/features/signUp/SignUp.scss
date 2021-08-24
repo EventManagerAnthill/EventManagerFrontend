@@ -1,6 +1,6 @@
 @import "../../Fonts.scss";
 
-.generalSignUpBlock {
+.SignUpPage {
     background: #f3f0e1;
     border-radius: 20px;
     width: 100vw;
@@ -8,7 +8,7 @@
     display: flex;
     align-items: stretch;
 
-    .leftSignInBlock {
+    .RightSignUpBlock {
         width: 33%;
         padding: 107px 30px 49px 30px;
         // border: 1px solid black;
@@ -18,16 +18,20 @@
         justify-content: space-between;
         box-sizing: border-box;
 
-        .blockImageForLeftSignInBlock {
+        @media screen and (max-width: 1300px) {
+            display: none;
+        }
+
+        .blockImageForRightSignUpBlock {
             margin-top: 100px;
 
-            .imageForLeftSignInBlock {
+            .imageForRightSignUpBlock {
                 width: 100%;
                 height: 100%;
             }
         }
 
-        .titleForLeftSignInBlock {
+        .titleForRightSignUpBlock {
             font-family: Jost;
             font-style: normal;
             font-weight: 500;
@@ -35,7 +39,7 @@
             line-height: 124.7%;
             color: #2c5d7d;
         }
-        .copyrightForLeftSignInBlock {
+        .copyrightForRightSignUpBlock {
             font-family: Jost;
             font-style: normal;
             font-weight: normal;
@@ -45,7 +49,7 @@
         }
     }
 
-    .rightSignInBlock {
+    .LeftBlock {
         width: 67%;
         background: #ffffff;
         box-shadow: 0px 6px 61px rgba(0, 0, 0, 0.1);
@@ -54,33 +58,42 @@
         // border: 1px solid black;
         // display: flex;
 
-        .topBlockRightSigInBlock {
+        @media screen and (max-width: 1300px) {
+            width: 100%;
+        }
+
+        &-TopBlock {
             display: flex;
             align-items: center;
             justify-content: flex-end;
 
             padding: 60px 37px 0px 0px;
-            .spanTopBlockRightSigInBlock {
-                font-family: Jost;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 16px;
-                line-height: 23px;
-                color: #2c5d7d;
-            }
 
-            .linkTopBlockRightSigInBlock {
-                font-family: Jost;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 16px;
-                line-height: 23px;
-                color: #ef5839;
-                margin-left: 3px;
+            @media screen and (max-width: 650px) {
+                padding: 30px 15px 0px 0px;
             }
         }
 
-        .formBlockRightSigInBlock {
+        &-Span {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 23px;
+            color: #2c5d7d;
+        }
+
+        &-Link {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 23px;
+            color: #ef5839;
+            margin-left: 3px;
+        }
+
+        .formBlockRightSignUpBlock {
             margin: 141px auto 0 auto;
             width: 70%;
 
@@ -89,7 +102,16 @@
             // align-items: left;
             // justify-content: center;
 
-            .titleformBlockRightSigInBlock {
+            @media screen and (max-width: 850px) {
+                width: 95%;
+                margin: 60px auto 0 auto;
+            }
+
+            @media screen and (max-width: 650px) {
+                margin: 30px auto 0 auto;
+            }
+
+            .titleformBlockRightSignUpBlock {
                 font-family: Jost;
                 font-style: normal;
                 font-weight: 500;
@@ -98,98 +120,26 @@
                 color: #2c5d7d;
             }
 
-            .buttomSNformBlockRightSigInBlock {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 26px;
-
-                .imageForButton {
-                    margin-right: 12px;
-                }
-
-                .facebookformBlockRightSigInBlock {
-                    display: flex;
-                    align-items: center;
-                    // padding: 12px 20px;
-
-                    width: 49%;
-                    height: 56px;
-
-                    background: #3b5998;
-                    border-radius: 8px;
-
-                    font-family: Jost;
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 22px;
-                    line-height: 32px;
-                    /* identical to box height */
-                    border: none;
-
-                    color: #ffffff;
-                    cursor: pointer;
-                }
-                .googleformBlockRightSigInBlock {
-                    display: flex;
-                    align-items: center;
-                    // padding: 12px 20px;
-
-                    width: 49%;
-                    height: 56px;
-
-                    background: #4285f4;
-                    border-radius: 8px;
-                    font-family: Jost;
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 22px;
-                    line-height: 32px;
-                    /* identical to box height */
-
-                    color: #ffffff;
-                    border: none;
-                    cursor: pointer;
-                }
-            }
-
-            .blockForLines {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-top: 30px;
-
-                span {
-                    font-family: Jost;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-size: 16px;
-                    line-height: 23px;
-                    text-align: center;
-
-                    color: #2e354f;
-                }
-                .HRLine {
-                    width: 48%;
-                    height: 1px;
-                    background: #e5e5e5;
-                    color: #e5e5e5;
-                    margin-block-start: 0;
-                    margin-block-end: 0;
-                    margin-inline-start: 0;
-                    margin-inline-end: 0;
-                    border-width: 0;
-                }
-            }
-
-            .inputformBlockRightSigInBlock {
+            .inputformBlockRightSignUpBlock {
                 display: flex;
                 justify-content: space-between;
                 margin-top: 23px;
 
-                
+                @media screen and (max-width: 650px) {
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 0;
+                }
 
+                
                 .blockInputAndLabel {
                     width: 49%;
+
+                    @media screen and (max-width: 650px) {
+                        width: 100%;
+                        margin-top: 10px;
+                    }
 
                     input:active,
                     :hover,
@@ -238,18 +188,15 @@
 
                 color: #2c5d7d;
             }
-            .buttonformBlockRightSigInBlock {
+            .buttonformBlockRightSignUpBlock {
                 margin-top: 35px;
-                .AccauntformBlockRightSigInBlock {
+                .AccauntformBlockRightSignUpBlock {
                     width: 49%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    padding: 12px 110px;
                     background: #ef5839;
                     border-radius: 8px;
                     height: 56px;
                     border: none;
+                    
                     cursor: pointer;
                     font-family: Jost;
                     font-style: normal;
@@ -262,6 +209,9 @@
 
                     &:disabled {
                         background:lightgrey;
+                    }
+                    @media screen and (max-width: 650px) {
+                        width: 100%;
                     }
                 }
             }
