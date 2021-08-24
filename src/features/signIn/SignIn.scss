@@ -18,6 +18,10 @@
         justify-content: space-between;
         box-sizing: border-box;
 
+        @media screen and (max-width: 1300px) {
+            display: none;
+        }
+
         .blockImageForLeftSignInBlock {
             margin-top: 100px;
 
@@ -54,12 +58,23 @@
         // border: 1px solid black;
         // display: flex;
 
+        @media screen and (max-width: 1300px) {
+            width: 100%;
+        }
+
+
+
         .topBlockRightSigInBlock {
             display: flex;
             align-items: center;
             justify-content: flex-end;
 
             padding: 60px 37px 0px 0px;
+
+            @media screen and (max-width: 650px) {
+                padding: 30px 15px 0px 0px;
+            }
+
             .spanTopBlockRightSigInBlock {
                 font-family: Jost;
                 font-style: normal;
@@ -84,10 +99,14 @@
             margin: 141px auto 0 auto;
             width: 70%;
 
-            // display: flex;
-            // flex-direction: column;
-            // align-items: left;
-            // justify-content: center;
+            @media screen and (max-width: 850px) {
+                width: 95%;
+                margin: 60px auto 0 auto;
+            }
+
+            @media screen and (max-width: 650px) {
+                margin: 30px auto 0 auto;
+            }
 
             .titleformBlockRightSigInBlock {
                 font-family: Jost;
@@ -102,6 +121,12 @@
                 display: flex;
                 justify-content: space-between;
                 margin-top: 26px;
+
+                @media screen and (max-width: 650px) {
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
 
                 .imageForButton {
                     margin-right: 12px;
@@ -128,6 +153,11 @@
 
                     color: #ffffff;
                     cursor: pointer;
+
+                    @media screen and (max-width: 650px) {
+                        margin-top: 20px;
+                        width: 100%;
+                    }
                 }
                 .googleformBlockRightSigInBlock {
                     display: flex;
@@ -149,6 +179,10 @@
                     color: #ffffff;
                     border: none;
                     cursor: pointer;
+
+                    @media screen and (max-width: 650px) {
+                        width: 100%;
+                    }
                 }
             }
 
@@ -178,6 +212,11 @@
                     margin-inline-start: 0;
                     margin-inline-end: 0;
                     border-width: 0;
+            
+            
+                    @media screen and (max-width: 650px) {
+                        width: 45%;
+                    }
                 }
             }
 
@@ -186,10 +225,23 @@
                 justify-content: space-between;
                 margin-top: 23px;
 
-                
+                @media screen and (max-width: 650px) {
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
 
                 .blockInputAndLabel {
                     width: 49%;
+
+                    @media screen and (max-width: 650px) {
+                        width: 100%;
+                        margin-bottom: 20px;
+                    }
+
+                    // @media screen and (max-width: 500px) {
+                    //     width: 100%;
+                    // }
 
                     input:active,
                     :hover,
@@ -237,15 +289,15 @@
                 line-height: 23px;
 
                 color: #2c5d7d;
+
+                @media screen and (max-width: 650px) {
+                    margin-top: 0px;
+                }
             }
             .buttonformBlockRightSigInBlock {
                 margin-top: 35px;
                 .AccauntformBlockRightSigInBlock {
                     width: 49%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    padding: 12px 110px;
                     background: #ef5839;
                     border-radius: 8px;
                     height: 56px;
@@ -261,7 +313,11 @@
                     color: #ffffff;
 
                     &:disabled {
-                        background:lightgrey;
+                        background: lightgrey;
+                    }
+
+                    @media screen and (max-width: 650px) {
+                        width: 100%;
                     }
                 }
             }

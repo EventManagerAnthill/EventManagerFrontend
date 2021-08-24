@@ -12,11 +12,13 @@ export function* signInSaga() {
 
 function* signInRequested(action: PayloadAction<SignInModel>) {
     try {
-        const data: TokenData = yield call(Api.postLogin, action.payload);
+        const data: TokenData = yield call(Api.postSignIn, action.payload);
         const model: TokenModel = { ...data };
 
         localStorage.setItem('token', JSON.stringify(model));
+        
         yield put(routerSlice.actions.routerRedirect('/'));
+
         yield put(signInSlice.actions.signInSucceed());
     } catch (e) {
         yield put(signInSlice.actions.signInFailed(e))

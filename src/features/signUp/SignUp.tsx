@@ -2,20 +2,78 @@ import React from 'react';
 import './SignUp.scss';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/state/store';
-// import { SignInModel } from './signInModel';
-// import { selectSignInIsLoading, selectSignInModel, signInRequested } from './signInSlice';
-
+import { SignUpFormModel, SignUpModel } from './signUpModel';
+import { selectSignUp, selectSignUpErrors, selectSignUpIsLoading, selectSignUpModel, signUpRequested } from './signUpSlice';
 
 export const SignUp = () => {
-    // const isLoading = useAppSelector(selectSignInIsLoading);
-    // const signInModel = useAppSelector(selectSignInModel);
-    // const dispatch = useAppDispatch();
-    // const [state, setState] = React.useState<SignInModel>(signInModel);
+    const dispatch = useAppDispatch();
+    const signUp = useAppSelector(selectSignUp)
+    const [state, setState] = React.useState<SignUpFormModel>(signUp);
 
-    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     dispatch(signInRequested(state));
-    // }
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(signUpRequested(state.signUpModel));
+    }
+
+    const setModel = (model: SignUpModel) => {
+        setState({
+            ...state,
+            signUpModel: model,
+        });
+    }
+
+    const setPassword = (model: SignUpModel) => {
+        const errors = validatePassword(model);
+
+        setState({
+            ...state,
+            signUpModel: model,
+            errors: errors,
+        });
+    }
+
+    const validatePassword = (model: SignUpModel): Map<string, string> => {
+        let errors: Map<string, string> = new Map;
+        let error: string = '';
+        const reNumber = /(?=.*[0-9])/;
+        const reUpper = /(?=.*[A-Z])/;
+        const reLower = /(?=.*[a-z])/;
+        const reCount = /[0-9a-zA-Z]{8,}/;
+        const reFull = /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}/;
+
+        if (model.repeatPassword == '') {
+            errors.set('repeatpassword', 'Password is required')
+        }
+
+        if (model.password !== '' && model.repeatPassword !== '') {
+            if (model.password !== model.repeatPassword) {
+                errors.set('password', 'Password mismatch')
+                errors.set('repeatpassword', 'Password mismatch')
+            }
+        }
+
+        if (!reCount.test(model.password)) {
+            error += 'At least 8 symbols;\n\r ';
+        }
+
+        if (!reLower.test(model.password)) {
+            error += 'lowercase letters (a-z);\n\r ';
+        }
+
+        if (!reUpper.test(model.password)) {
+            error += 'uppercase letters (A-Z);\n\r ';
+        }
+
+        if (!reNumber.test(model.password)) {
+            error += `numbers (i.e. 0-9);\n\r `;
+        }
+
+        if (!reFull.test(model.password)) {
+            errors.set('password', error)
+        }
+
+        return errors;
+    }
 
     return (
         <div className="SignUpPage">
@@ -25,31 +83,45 @@ export const SignUp = () => {
                         <span className="LeftBlock-Span">Already a member?</span>
                     </div>
                     <div >
-                        <Link className="LeftBlock-Link" to="/signIn">Sign in</Link>
+                        <Link className="LeftBlock-Link" to="/signin">Sign in</Link>
                     </div>
                 </div>
-
-                <div className="formBlockRightSigInBlock">
+                <div className="formBlockRightSignUpBlock">
                     <div>
-                        <span className="titleformBlockRightSigInBlock">Sign up to service</span>
+                        <span className="titleformBlockRightSignUpBlock">Sign up to service</span>
                     </div>
-                    <div className="buttomSNformBlockRightSigInBlock">
-                        <button className="googleformBlockRightSigInBlock">
-                            {/* <img className="imageForButton" src={googleLogo} /> */}
-                            Continue with Google
-                        </button>
-                        <button className="facebookformBlockRightSigInBlock">
-                            {/* <img className="imageForButton" src={facebookLogo} /> */}
-                            Continue with Facebook
-                        </button>
-                    </div>
-                    <div className="blockForLines">
-                        <hr className="HRLine" />
-                        <span className="text">Or</span>
-                        <hr className="HRLine" />
-                    </div>
-                    <form>
-                        <div className="inputformBlockRightSigInBlock">
+                    <form onSubmit={e => handleSubmit(e)}>
+                        <div className="inputformBlockRightSignUpBlock">
+                            <div className="blockInputAndLabel">
+                                <label
+                                    className="blockLabel">
+                                    First Name
+                                    <input
+                                        className="blockInput"
+                                        required
+                                        id="firstName"
+                                        name="firstName"
+                                        autoComplete="fname"
+                                        onChange={(e) => setModel({ ...state.signUpModel, firstName: e.currentTarget.value })}
+                                    />
+                                </label>
+                            </div>
+                            <div className="blockInputAndLabel">
+                                <label
+                                    className="blockLabel">
+                                    Last Name
+                                    <input
+                                        className="blockInput"
+                                        required
+                                        id="lastName"
+                                        name="lastName"
+                                        autoComplete="lname"
+                                        onChange={(e) => setModel({ ...state.signUpModel, lastName: e.currentTarget.value })}
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                        <div className="inputformBlockRightSignUpBlock">
                             <div className="blockInputAndLabel">
                                 <label
                                     className="blockLabel">
@@ -61,55 +133,83 @@ export const SignUp = () => {
                                         name="email"
                                         autoComplete="email"
                                         type="email"
-                                        autoFocus
-                                        // onChange={(e) => setState({ ...state, email: e.currentTarget.value })}
+                                        onChange={(e) => setModel({ ...state.signUpModel, email: e.currentTarget.value })}
                                     />
                                 </label>
                             </div>
                             <div className="blockInputAndLabel">
-                                <div>
-                                    <span className="blockLabel">Password</span>
-                                </div>
-                                <div>
+                                <label
+                                    className="blockLabel">
+                                    Date of birth
                                     <input
                                         className="blockInput"
                                         required
+                                        name="dateofbirth"
+                                        type="date"
+                                        id="dateofbirth"
+                                        autoComplete="bday"
+                                        onChange={(e) => setModel({ ...state.signUpModel, dateOfBirth: e.currentTarget.value })}
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                        <div className="inputformBlockRightSignUpBlock">
+                            <div className="blockInputAndLabel">
+                                <label
+                                    className="blockLabel">
+                                    Password
+                                    <input
+                                        className="blockInput"
+                                        required
+                                        id="password"
                                         name="password"
                                         type="password"
-                                        id="password"
-                                        autoComplete="current-password"
-                                        // onChange={(e) => setState({ ...state, password: e.currentTarget.value })}
+                                        onChange={(e) => setPassword({ ...state.signUpModel, password: e.currentTarget.value })}
                                     />
-                                </div>
+                                </label>
+                            </div>
+                            <div className="blockInputAndLabel">
+                                <label
+                                    className="blockLabel">
+                                    Repeat password
+                                    <input
+                                        className="blockInput"
+                                        required
+                                        name="repeatpassword"
+                                        type="password"
+                                        id="repeatpassword"
+                                        onChange={(e) => setPassword({ ...state.signUpModel, repeatPassword: e.currentTarget.value })}
+                                    />
+                                </label>
                             </div>
                         </div>
                         <div className="blockPolicy">
                             {/* <a className="blockPolicy" href="/identify">Forgot password?</a> */}
-                            <Link className="blockPolicy" to="/identify" >Forgot password?</Link>
+                            <span className="blockPolicy">By signing up, you agree to our terms of service and privacy policy.</span>
                         </div>
-                        <div className="buttonformBlockRightSigInBlock">
+                        <div className="buttonformBlockRightSignUpBlock">
                             <button
                                 type="submit"
-                                className="AccauntformBlockRightSigInBlock"
-                                // disabled={isLoading}
+                                className="AccauntformBlockRightSignUpBlock"
+                                disabled={signUp.isLoading}
                             >
-                                Sign in
+                                Sign up
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div className="leftSignInBlock">
+            <div className="RightSignUpBlock">
                 <div className="blockTileAndImage">
                     <div>
-                        <span className="titleForLeftSignInBlock">Now you can organize events easier and better</span>
+                        <span className="titleForRightSignUpBlock">Now you can organize events easier and better</span>
                     </div>
-                    <div className="blockImageForLeftSignInBlock">
-                        {/* <img className="imageForLeftSignInBlock" src={MessyDoodle} alt="SignInImage" /> */}
+                    <div className="blockImageForRightSignUpBlock">
+                        {/* <img className="imageForRightSignUpBlock" src={MessyDoodle} alt="SignInImage" /> */}
                     </div>
                 </div>
                 <div>
-                    <span className="copyrightForLeftSignInBlock">© Copyright: Creative Technologies 2020</span>
+                    <span className="copyrightForRightSignUpBlock">© Copyright: Creative Technologies 2020</span>
                 </div>
             </div>
         </div>

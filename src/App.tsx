@@ -24,10 +24,10 @@ const App = () => {
 
   return (
     <Switch>
-      <Route path="/signIn">
+      <Route path="/signin">
         <SignIn />
       </Route>
-      <Route path="/signUp">
+      <Route path="/signup">
         <SignUp />
       </Route>
       <Route path="/">

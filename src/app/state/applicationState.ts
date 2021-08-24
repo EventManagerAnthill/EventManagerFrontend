@@ -1,7 +1,10 @@
-import { SignInState } from "../../features/signIn/signInSlice"
 import { RouterState } from "../../features/routerSlice"
+import { SignInState } from "../../features/signIn/signInSlice"
+import { SignUpState } from "../../features/signUp/signUpSlice"
+
 
 export interface ApplicationState {
-    signInState: SignInState;
     routerState: RouterState;
+    signInState: SignInState;
+    signUpState: SignUpState;
 }

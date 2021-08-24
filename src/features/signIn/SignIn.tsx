@@ -40,7 +40,7 @@ export const SignIn = () => {
                         <span className="spanTopBlockRightSigInBlock">Not a member yet?</span>
                     </div>
                     <div >
-                        <Link className="linkTopBlockRightSigInBlock" to="/signUp">Sign up</Link>
+                        <Link className="linkTopBlockRightSigInBlock" to="/signup">Sign up</Link>
                     </div>
                 </div>
 
@@ -82,10 +82,9 @@ export const SignIn = () => {
                                 </label>
                             </div>
                             <div className="blockInputAndLabel">
-                                <div>
-                                    <span className="blockLabel">Password</span>
-                                </div>
-                                <div>
+                                <label
+                                    className="blockLabel">
+                                    Password
                                     <input
                                         className="blockInput"
                                         required
@@ -95,7 +94,7 @@ export const SignIn = () => {
                                         autoComplete="current-password"
                                         onChange={(e) => setState({ ...state, password: e.currentTarget.value })}
                                     />
-                                </div>
+                                </label>
                             </div>
                         </div>
                         <div className="blockPolicy">
