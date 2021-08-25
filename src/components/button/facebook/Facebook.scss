@@ -1,0 +1,31 @@
+.FacebookButton {
+    display: flex;
+    align-items: center;
+    // padding: 12px 20px;
+
+    width: 49%;
+    height: 56px;
+
+    background: #3b5998;
+    border-radius: 8px;
+
+    font-family: Jost;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 32px;
+    /* identical to box height */
+    border: none;
+
+    color: #ffffff;
+    cursor: pointer;
+
+    @media screen and (max-width: 650px) {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    &:disabled {
+        background: lightgrey;
+    }
+}

@@ -13,3 +13,7 @@ export interface SignInFormModel {
     isLoading: boolean;
 }
 
+export interface SignInSNModel {
+    idToken: string;  
+}
+

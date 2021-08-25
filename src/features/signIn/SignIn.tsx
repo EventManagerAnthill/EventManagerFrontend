@@ -1,15 +1,18 @@
 import React from 'react';
 import './SignIn.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/state/store';
 import { SignInModel } from './signInModel';
-import { selectSignInIsLoading, selectSignInModel, signInRequested } from './signInSlice';
+import { selectSignInIsLoading, selectSignInModel, signInRequested, signInValidateUser } from './signInSlice';
 import MessyDoodle from '../../assets/images/MessyDoodle.png';
 import facebookLogo from '../../assets/images/facebookLogo.png';
 import googleLogo from '../../assets/images/googleLogo.png';
-import { Copyright } from '../../components/Copyright';
+import { Copyright } from '../../components/copyright/Copyright';
+import SignInGoogle from '../../components/button/google/Google';
+import SignInFacebook from '../../components/button/facebook/Facebook';
 
 export const SignIn = () => {
+    const location = useLocation();
     const isLoading = useAppSelector(selectSignInIsLoading);
     const signInModel = useAppSelector(selectSignInModel);
     const dispatch = useAppDispatch();
@@ -19,6 +22,13 @@ export const SignIn = () => {
         e.preventDefault();
         dispatch(signInRequested(state));
     }
+
+    React.useEffect(() => {
+        if (location.search !="") {
+            console.log(location.search);
+            dispatch(signInValidateUser(location.search));  
+        }
+    });
 
     return (
         <div className="generalSignInBlock">
@@ -50,14 +60,12 @@ export const SignIn = () => {
                         <span className="titleformBlockRightSigInBlock">Sign in to service</span>
                     </div>
                     <div className="buttomSNformBlockRightSigInBlock">
-                        <button className="googleformBlockRightSigInBlock">
+                        {/* <button className="googleformBlockRightSigInBlock">
                             <img className="imageForButton" src={googleLogo} />
                             Continue with Google
-                        </button>
-                        <button className="facebookformBlockRightSigInBlock">
-                            <img className="imageForButton" src={facebookLogo} />
-                            Continue with Facebook
-                        </button>
+                        </button> */}
+                        <SignInGoogle disabled={isLoading} />
+                        <SignInFacebook disabled={isLoading} />
                     </div>
                     <div className="blockForLines">
                         <hr className="HRLine" />

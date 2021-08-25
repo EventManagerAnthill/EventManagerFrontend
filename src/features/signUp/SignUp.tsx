@@ -3,8 +3,8 @@ import './SignUp.scss';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/state/store';
 import { SignUpFormModel, SignUpModel } from './signUpModel';
-import { selectSignUp, selectSignUpErrors, selectSignUpIsLoading, selectSignUpModel, signUpRequested } from './signUpSlice';
-import { Copyright } from '../../components/Copyright';
+import { selectSignUp, signUpRequested } from './signUpSlice';
+import { Copyright } from '../../components/copyright/Copyright';
 
 export const SignUp = () => {
     const dispatch = useAppDispatch();
@@ -160,7 +160,7 @@ export const SignUp = () => {
                                     className="blockLabel">
                                     Password
                                     <input
-                                        className={state.errors.get('repeatpassword') ? "blockInputError" : "blockInput"}
+                                        className={state.errors.get('password') ? "blockInputError" : "blockInput"}
                                         required
                                         id="password"
                                         name="password"
@@ -205,25 +205,42 @@ export const SignUp = () => {
             </div>
             <div className="RightSignUpBlock">
                 {/* <div className="blockTileAndImage"> */}
-                <div className="circle">
-                    <span className="circle-content">
-                        Create company
-                    </span>
+                <div>
+                    <div className="circle">
+                        <span className="circle-content">
+                            Create company
+                        </span>
+                    </div>
                 </div>
-                <div className="circle">
-                    <span className="circle-content">
-                        Add events
-                    </span>
+                <div className="arrow-hover">
+                    <div className="arrow-hover-div"></div>
                 </div>
-                <div className="circle">
-                    <span className="circle-content">
-                        invite people
-                    </span>
+                <div className="RightCircle">
+                    <div className="circle">
+                        <span className="circle-content">
+                            Add events
+                        </span>
+                    </div>
                 </div>
-                <div className="circle">
-                    <span className="circle-content">
-                        Have a good time!
-                    </span>
+                <div className="arrow-hover">
+                    <div className="arrow-hover-div-left"></div>
+                </div>
+                <div>
+                    <div className="circle">
+                        <span className="circle-content">
+                            Invite people
+                        </span>
+                    </div>
+                </div>
+                <div className="arrow-hover">
+                    <div className="arrow-hover-div"></div>
+                </div>
+                <div className="RightCircle">
+                    <div className="circle">
+                        <span className="circle-content">
+                            Have a good time!
+                        </span>
+                    </div>
                 </div>
 
                 {/* <div>

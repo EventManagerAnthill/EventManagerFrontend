@@ -1,0 +1,29 @@
+.GoogleButton {
+    display: flex;
+    align-items: center;
+    // padding: 12px 20px;
+
+    width: 49%;
+    height: 56px;
+
+    background: #4285f4;
+    border-radius: 8px;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 32px;
+    /* identical to box height */
+
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+
+    @media screen and (max-width: 650px) {
+        width: 100%;
+    }
+
+    &:disabled {
+        background: lightgrey;
+    }
+}

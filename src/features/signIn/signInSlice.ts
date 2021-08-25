@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/state/store';
-import { SignInFormModel, SignInModel } from './signInModel';
+import { SignInFormModel, SignInModel, SignInSNModel } from './signInModel';
 
 export type SignInState = SignInFormModel;
 
@@ -20,6 +20,14 @@ export const signInSlice = createSlice({
       state.isLoading = true;
       state.signInModel = action.payload;
     },
+    signInGoogleRequested: (state, action: PayloadAction<SignInSNModel>) => {
+      state.isLoading = true;
+    },
+    signInFacebookRequested: (state, action: PayloadAction<SignInSNModel>) => {
+      state.isLoading = true;
+    },
+    signInValidateUser: (state, action: PayloadAction<string>) => {
+    },
     signInSucceed: (state) => {
       state.signInModel.email = '';
       state.signInModel.password = '';
@@ -31,7 +39,7 @@ export const signInSlice = createSlice({
   },
 });
 
-export const { signInRequested, signInSucceed, signInFailed } = signInSlice.actions;
+export const { signInRequested, signInGoogleRequested, signInFacebookRequested, signInValidateUser, signInSucceed, signInFailed } = signInSlice.actions;
 
 export const selectSignInModel = (state: RootState) => state.signInState.signInModel;
 export const selectSignInEmail = (state: RootState) => state.signInState.signInModel.email;
