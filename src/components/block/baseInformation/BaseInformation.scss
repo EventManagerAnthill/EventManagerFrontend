@@ -1,0 +1,29 @@
+.BaseInformation {
+    width: 33%;
+    padding: 107px 30px 49px 30px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 1300px) {
+        display: none;
+    }
+
+    &-Span {
+        font-family: Jost;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 56px;
+        line-height: 124.7%;
+        color: #2c5d7d;
+    }
+    &-DivImage {
+        margin-top: 100px;
+    }
+    &-Image {
+        width: 100%;
+        height: 100%;
+    }
+}

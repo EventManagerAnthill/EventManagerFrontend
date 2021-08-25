@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.scss';
-import { Link, Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { SignIn } from './features/signIn/SignIn';
 import { useAppDispatch, useAppSelector } from './app/state/store';
 import { selectRouterRedirectTo } from './features/routerSlice';
 import { routerReset } from '../src/features/routerSlice';
-import { Home } from './pages/home/Home';
+import { Welcome } from './pages/welcome/Welcome';
 import { SignUp } from './features/signUp/SignUp';
+import { Identify } from './features/identify/Identify';
+import { ResetPassword } from './features/resetPassword/ResetPassword';
 
 
 const App = () => {
@@ -24,6 +26,12 @@ const App = () => {
 
   return (
     <Switch>
+      <Route path="/identify">
+        <Identify />
+      </Route>
+      <Route path="/resetpassword">
+        <ResetPassword />
+      </Route>
       <Route path="/signin">
         <SignIn />
       </Route>
@@ -31,7 +39,7 @@ const App = () => {
         <SignUp />
       </Route>
       <Route path="/">
-        <Home />
+        <Welcome />
       </Route>
     </Switch>
   );

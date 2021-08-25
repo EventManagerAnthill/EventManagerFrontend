@@ -1,10 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import LogoBlue from "../../assets/images/LogoBlue.png";
-import './Home.scss';
+import './Welcome.scss';
 
 
-export const Home = () => {
+export const Welcome = () => {
   const history = useHistory();
   return (
     <div className="HomePage">

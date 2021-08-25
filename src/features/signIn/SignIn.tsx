@@ -4,12 +4,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/state/store';
 import { SignInModel } from './signInModel';
 import { selectSignInIsLoading, selectSignInModel, signInRequested, signInValidateUser } from './signInSlice';
-import MessyDoodle from '../../assets/images/MessyDoodle.png';
-import facebookLogo from '../../assets/images/facebookLogo.png';
-import googleLogo from '../../assets/images/googleLogo.png';
-import { Copyright } from '../../components/copyright/Copyright';
 import SignInGoogle from '../../components/button/google/Google';
 import SignInFacebook from '../../components/button/facebook/Facebook';
+import { BaseInformation } from '../../components/block/baseInformation/BaseInformation';
 
 export const SignIn = () => {
     const location = useLocation();
@@ -32,19 +29,7 @@ export const SignIn = () => {
 
     return (
         <div className="generalSignInBlock">
-            <div className="leftSignInBlock">
-                <div className="blockTileAndImage">
-                    <div>
-                        <span className="titleForLeftSignInBlock">Now you can organize events easier and better</span>
-                    </div>
-                    <div className="blockImageForLeftSignInBlock">
-                        <img className="imageForLeftSignInBlock" src={MessyDoodle} alt="SignInImage" />
-                    </div>
-                </div>
-                <div>
-                    <Copyright />
-                </div>
-            </div>
+            <BaseInformation />
             <div className="rightSignInBlock">
                 <div className="topBlockRightSigInBlock">
                     <div>
@@ -60,10 +45,6 @@ export const SignIn = () => {
                         <span className="titleformBlockRightSigInBlock">Sign in to service</span>
                     </div>
                     <div className="buttomSNformBlockRightSigInBlock">
-                        {/* <button className="googleformBlockRightSigInBlock">
-                            <img className="imageForButton" src={googleLogo} />
-                            Continue with Google
-                        </button> */}
                         <SignInGoogle disabled={isLoading} />
                         <SignInFacebook disabled={isLoading} />
                     </div>
