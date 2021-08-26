@@ -16,6 +16,8 @@ function SignInFacebook(props) {
     <FacebookLogin
       appId="223750043009109"
       callback={fbResponse}
+      status={false}
+      // autoLoad={false}
       fields="name,email,picture"
       render={renderProps => (
         <button

@@ -1,0 +1,80 @@
+@import "../../../Fonts.scss";
+
+.Header {
+    background: #2d507c;
+
+    .HeadDiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+
+        .HeadLeft {
+            padding-top: 23px;
+            padding-bottom: 26px;
+            padding-left: 31px;
+            display: flex;
+            align-items: center;
+
+            .HeadMenu {
+                display: inline-block;
+                cursor: pointer;
+                margin-right: 17px;
+
+                &-One,
+                &-Two,
+                &-Three {
+                    width: 22px;
+                    height: 3.5px;
+                    background-color: #ffffff;
+                    margin: 3.5px 0;
+                    transition: 0.4s;
+                }
+                &-OneClick {
+                    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+                    transform: rotate(-45deg) translate(-9px, 6px);
+                }
+
+                &-TwoClick {
+                    opacity: 0;
+                }
+
+                 &-ThreeClick {
+                    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+                    transform: rotate(45deg) translate(-8px, -8px);
+                  }
+            }
+            .DivLink {
+                &-Link {
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 24px;
+                    line-height: 35px;
+                    color: #ffffff;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .DivUser {
+            padding-right: 33px;
+            display: flex;
+
+            &-Img {
+                border-radius: 100px;
+                width: 22px;
+                margin-right: 10px;
+            }
+            &-Text {
+                font-family: Jost;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 23px;
+                text-align: right;
+                color: #ffffff;
+            }
+        }
+    }
+}

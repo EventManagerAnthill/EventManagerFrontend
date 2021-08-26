@@ -9,6 +9,7 @@ import { Welcome } from './pages/welcome/Welcome';
 import { SignUp } from './features/signUp/SignUp';
 import { Identify } from './features/identify/Identify';
 import { ResetPassword } from './features/resetPassword/ResetPassword';
+import { Header } from './components/authorized/header/Header';
 
 
 const App = () => {
@@ -28,6 +29,9 @@ const App = () => {
     <Switch>
       <Route path="/identify">
         <Identify />
+      </Route>
+      <Route path="/header">
+        <Header />
       </Route>
       <Route path="/resetpassword">
         <ResetPassword />

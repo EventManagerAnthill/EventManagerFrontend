@@ -13,7 +13,9 @@ export const SignUp = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(signUpRequested(state.signUpModel));
+        if (state.errors.size == 0) {
+            dispatch(signUpRequested(state.signUpModel));
+        }
     }
 
     const setModel = (model: SignUpModel) => {

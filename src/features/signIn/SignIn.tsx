@@ -25,7 +25,7 @@ export const SignIn = () => {
             console.log(location.search);
             dispatch(signInValidateUser(location.search));  
         }
-    });
+    },[]);
 
     return (
         <div className="generalSignInBlock">
