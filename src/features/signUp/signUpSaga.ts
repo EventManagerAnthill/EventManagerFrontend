@@ -3,9 +3,10 @@ import { signUpSlice } from "./signUpSlice";
 import { routerSlice } from "../routerSlice";
 import * as Api from "./signUpAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { UserData } from "./signUpData";
-import { SignUpModel, UserModel } from "./signUpModel";
+import { SignUpModel } from "./signUpModel";
 import { mapToRequestModel } from "./signUpMapper";
+import { UserData } from "../user/userData";
+import { UserModel } from "../user/userModel";
 
 export function* signUpSaga() {
     yield takeLatest(signUpSlice.actions.signUpRequested, signUpRequested);

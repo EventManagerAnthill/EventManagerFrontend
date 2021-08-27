@@ -1,0 +1,35 @@
+@import "../../Fonts.scss";
+
+.leftBar {
+    width: 33%;
+    height: calc(100vh - 80px);
+    background: #213c5f;
+
+    .blockContent {
+        padding: 25px;
+        font-family: Jost;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 29px;
+
+        color: #ffffff;
+
+        .mainBlockContent {
+            cursor: pointer;
+            
+        }
+
+        .childrenBlockContent {
+            cursor: pointer;
+            padding-top: 30px;
+            padding-left: 20px;
+        }
+        
+    }
+}
+
+.leftBarClose {
+    display: none;
+    width: 0;
+} 

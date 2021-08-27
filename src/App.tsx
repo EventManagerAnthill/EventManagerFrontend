@@ -10,6 +10,7 @@ import { SignUp } from './features/signUp/SignUp';
 import { Identify } from './features/identify/Identify';
 import { ResetPassword } from './features/resetPassword/ResetPassword';
 import { Header } from './components/authorized/header/Header';
+import { LeftBar } from './features/leftBar/LeftBar';
 
 
 const App = () => {
@@ -31,7 +32,10 @@ const App = () => {
         <Identify />
       </Route>
       <Route path="/header">
-        <Header />
+        <div>
+          <Header />
+          <LeftBar />
+        </div>
       </Route>
       <Route path="/resetpassword">
         <ResetPassword />

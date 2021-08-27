@@ -20,15 +20,3 @@ export interface SignUpRequestModel {
     email : string;
     password : string;
 }
-
-export interface UserModel {
-    id : number;
-    firstName : string;
-    lastName : string;
-    middleName? : string;
-    birthDate? : Date;
-    email : string;
-    phone? : string;
-    sex? : number;
-    username? : string;
-}
