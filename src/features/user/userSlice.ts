@@ -1,22 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { act } from 'react-dom/test-utils';
 import { RootState } from '../../app/state/store';
-import { UserModel } from './userModel';
+import { UserFormModel, UserModel } from './userModel';
 
-export type UserState = UserModel;
+export type UserState = UserFormModel;
 
 const initialState: UserState = {
-    id: 0,
-    firstName: "",
-    lastName: "",
-    middleName: undefined,
-    birthDate: undefined,
-    email: "",
-    phone: undefined,
-    sex: undefined,
-    username: undefined,
-    originalFileName: undefined,
-    serverFileName: undefined,
-    fotoUrl: undefined,
+    userModel: {
+        id: 0,
+        firstName: "",
+        lastName: "",
+        middleName: undefined,
+        birthDate: undefined,
+        email: "",
+        phone: undefined,
+        sex: undefined,
+        username: undefined,
+        originalFileName: undefined,
+        serverFileName: undefined,
+        fotoUrl: undefined,
+    },
+    errors: new Map,
+    isLoading: false,
 };
 
 export const userSlice = createSlice({
@@ -26,10 +31,18 @@ export const userSlice = createSlice({
         getUserRequested: (state, action: PayloadAction<URLSearchParams>) => {
         },
         getUserSucceed: (state, action: PayloadAction<UserModel>) => {
-            console.log("Reducer: " + action.payload);
-            state.lastName = action.payload.lastName;
-            state.firstName = action.payload.firstName;
-            state.fotoUrl = action.payload.fotoUrl;
+            state.userModel.id = action.payload.id;
+            state.userModel.lastName = action.payload.lastName;
+            state.userModel.firstName = action.payload.firstName;
+            state.userModel.middleName = action.payload.middleName;
+            state.userModel.birthDate = action.payload.birthDate;
+            state.userModel.email = action.payload.email;
+            state.userModel.phone = action.payload.phone;
+            state.userModel.sex = action.payload.sex;
+            state.userModel.username = action.payload.username;
+            state.userModel.originalFileName = action.payload.originalFileName;
+            state.userModel.serverFileName = action.payload.serverFileName;
+            state.userModel.fotoUrl = action.payload.fotoUrl;
         },
         getUserFailed: (state, action: PayloadAction<Error>) => {
         },
@@ -38,8 +51,8 @@ export const userSlice = createSlice({
 
 export const { getUserRequested, getUserSucceed, getUserFailed } = userSlice.actions;
 
-export const selectUserFirstName = (state: RootState) => state.userState.firstName;
-export const selectUserLastName = (state: RootState) => state.userState.lastName;
-export const selectUserfotoUrl = (state: RootState) => state.userState.fotoUrl;
+export const selectUserFirstName = (state: RootState) => state.userState.userModel.firstName;
+export const selectUserLastName = (state: RootState) => state.userState.userModel.lastName;
+export const selectUserfotoUrl = (state: RootState) => state.userState.userModel.fotoUrl;
 
 export default userSlice.reducer;

@@ -20,7 +20,7 @@ export const Header = () => {
         let param = new URLSearchParams();
         param.append("email", getEmail() ?? "");
         dispatch(getUserRequested(param));
-    });
+    },[]);
 
     const onClickMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         isLeftBarOpen ? dispatch(leftBarClose()) : dispatch(leftBarOpen());

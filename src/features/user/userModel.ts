@@ -12,3 +12,9 @@ export interface UserModel {
     serverFileName?: string | null;
     fotoUrl?: string | null;
 }
+
+export interface UserFormModel {
+    userModel: UserModel;
+    errors: Map<string, string>;
+    isLoading: boolean;
+}
