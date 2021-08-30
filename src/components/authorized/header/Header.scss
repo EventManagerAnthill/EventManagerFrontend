@@ -72,12 +72,13 @@
             display: flex;
             cursor: pointer;
             position: relative;
-
+            padding: 5px 5px;
             &-Img {
                 border-radius: 100px;
                 width: 22px;
                 height: 22px;
                 margin-right: 10px;
+                object-fit: cover;
             }
             &-Text {
                 font-family: Jost;
@@ -95,27 +96,35 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: #FFFFFF;
+                background: #f8f8f8;
                 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
                 padding: 5px 0;
-                border-radius: 3px;
+                border-radius: 4px;
 
                 .selectOption {
-                    cursor: pointer; 
+                    cursor: pointer;
                     padding: 10px 20px;
-                    background: #2d507c;
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 23px;
+                    color: #2c5d7d;
                 }
-            }   
-            
+            }
         }
 
-        .DivUser:hover{
-            .customSelectBlock{
+        .DivUser:hover {
+            .customSelectBlock {
                 display: block;
             }
         }
-        .customSelectBlock:hover{
+        .customSelectBlock:hover {
             display: block;
+
+            .selectOption:hover {
+                color: #4285F4;
+            }
         }
     }
 }

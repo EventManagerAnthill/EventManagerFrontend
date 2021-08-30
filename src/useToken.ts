@@ -36,3 +36,7 @@ export function getEmail() {
   return model.email;
 
 }
+
+export function signOut() {
+  localStorage.clear();
+}

@@ -1,0 +1,104 @@
+@import "../../../../Fonts.scss";
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px;
+
+    .profileMain {
+        display: flex;
+        justify-content: center;
+        width: 48%;
+
+        .profileForm {
+            display: flex;
+            width: 98%;
+            flex-direction: column;
+
+            .blockInputAndLabel {
+                width: 100%;
+                margin-bottom: 25px;
+
+                input:active,
+                :hover,
+                :focus {
+                    outline: 0;
+                    outline-offset: 0;
+                }
+
+                .blockLabel {
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 21px;
+                    line-height: 30px;
+
+                    color: #2c5d7d;
+                }
+
+                .blockInput {
+                    margin-top: 12px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    background: #f8f8f8;
+                    border-radius: 8px;
+                    height: 49px;
+                    border: 1px solid #e5e5e5;
+                    padding-left: 16px;
+
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 23px;
+
+                    color: #2e354f;
+                }
+            }
+        }
+
+        .profilePhotoBlock {
+            width: 98%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            .profilePhoto {
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+
+    }
+
+    .profileButtonBlock {
+        margin-top: 10px;
+        width: 48%;
+
+        @media screen and (max-width: 650px) {
+            width: 95%;
+        }
+
+        .profileButton {
+            background: #ef5839;
+            border-radius: 8px;
+            height: 56px;
+            border: none;
+            width: 100%;
+
+            cursor: pointer;
+            font-family: Jost;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 32px;
+            /* identical to box height */
+
+            color: #ffffff;
+
+            &:disabled {
+                background: lightgrey;
+            }
+        }
+    }
+}

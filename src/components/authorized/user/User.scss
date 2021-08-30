@@ -1,0 +1,41 @@
+@import "../../../Fonts.scss";
+
+.user {
+    height: 100%;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    .userTop {
+        height: 80px;
+        width: 100%;
+        background: #f3f0e1;
+
+        .userTopBlock {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .tabUser {
+        cursor: pointer;
+        margin-left: 30px;
+        font-family: Jost;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 32px;
+        text-align: center;
+        color: #2c5d7d;
+        text-decoration: underline;
+    }
+
+    .tabUserNotActive {
+        opacity: 0.2;
+        text-decoration: none;
+    }
+
+    .UserMain {
+        display: flex;
+    }
+}

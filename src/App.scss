@@ -1,0 +1,14 @@
+.page {
+    display: flex;
+
+    .main {
+        width: 100%;
+        height: calc(100vh - 80px);
+    }
+    
+    .mainWithLeftBar {
+        width: 67%;
+        height: calc(100vh - 80px);
+    }
+}
+

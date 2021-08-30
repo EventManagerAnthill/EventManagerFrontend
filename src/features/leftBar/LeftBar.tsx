@@ -4,12 +4,11 @@ import { useAppSelector } from '../../app/state/store';
 import { selectLeftBarOpen } from "./leftBarSlice";
 
 
+const leftBarOptions = [
+    { option: 'My Account', childrenOptions: [{ option: 'Personal settings' }, { option: 'Sign out' }] },
+];
 
 export const LeftBar = () => {
-    const leftBarOptions = [
-        { option: 'My Account', childrenOptions: [{ option: 'Personal settings' }, { option: 'Sign out' }] },
-    ];
-    
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
 
     const onClick = (option: string) => {

@@ -1,15 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import './Header.scss';
 import User from '../../../assets/images/User.png'
 import { useAppDispatch, useAppSelector } from "../../../app/state/store";
 import { leftBarOpen, leftBarClose, selectLeftBarOpen } from '../../../features/leftBar/leftBarSlice';
 import { getUserRequested, selectUserFirstName, selectUserfotoUrl, selectUserLastName } from '../../../features/user/userSlice';
-import { getEmail } from "../../../useToken";
+import { getEmail, signOut } from "../../../useToken";
 
 const optionsForSelect = ["Personal settings", "Sign out"];
 
 export const Header = () => {
+    const history = useHistory();
     const dispatch = useAppDispatch();
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
     const firstName = useAppSelector(selectUserFirstName);
@@ -26,8 +27,16 @@ export const Header = () => {
         isLeftBarOpen ? dispatch(leftBarClose()) : dispatch(leftBarOpen());
     }
 
-    const onClickSelect = (name: string) => {
-        console.log(name);
+    const onClickSelect = (option: string) => {
+        switch (option) {
+            case 'Personal settings':
+                history.push("/personalsettings");
+                break;
+            case 'Sign out':
+                signOut();
+                history.push("/");
+                break;   
+        }
     }
 
     return (
@@ -45,7 +54,7 @@ export const Header = () => {
                 </div>
                 <div className="DivUser">
                     <img className="DivUser-Img" src={fotoUrl ?? User} />
-                    <span className="DivUser-Text">{lastName}{' '}{firstName}</span>
+                    <span className="DivUser-Text">{lastName == "" ? "lastName" : lastName}{' '}{firstName == "" ? "firstName" : firstName}</span>
                     <div className="customSelectBlock">
                         {optionsForSelect.map((option) => (
                             <div className="selectOption" onClick={() => onClickSelect(option)}>
