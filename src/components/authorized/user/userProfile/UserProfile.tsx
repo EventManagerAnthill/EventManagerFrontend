@@ -1,10 +1,36 @@
 import React from "react";
 import './UserProfile.scss';
+import User from '../../../../assets/images/User.png'
+import { UserFormModel, UserModel } from "../../../../features/user/userModel";
+import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
+import { selectUser, updateUserRequested } from "../../../../features/user/userSlice";
+import moment from "moment";
+import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 
 export const UserProfile = () => {
+    const dispatch = useAppDispatch();
+    const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
+    const user = useAppSelector(selectUser);
+    const [state, setState] = React.useState<UserFormModel>(user);
+
+    const setModel = (model: UserModel) => {
+        setState({
+            ...state,
+            userModel: model,
+        });
+    }
+
+    const onClickPhoto = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+        
+    }
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(updateUserRequested(state.userModel));
+    }
 
     return (
-        <form className="profile">
+        <form className={isLeftBarOpen ? "profileWithLeftBar" :"profile"} onSubmit={e => handleSubmit(e)}>
             <div className="profileMain">
                 <div className="profileForm">
                     <div className="blockInputAndLabel">
@@ -17,7 +43,8 @@ export const UserProfile = () => {
                                 id="firstName"
                                 name="firstName"
                                 autoComplete="fname"
-                            // onChange={(e) => setModel({ ...state.signUpModel, firstName: e.currentTarget.value })}
+                                defaultValue={user.userModel.firstName}
+                                onChange={(e) => setModel({ ...state.userModel, firstName: e.currentTarget.value })}
                             />
                         </label>
                     </div>
@@ -31,22 +58,21 @@ export const UserProfile = () => {
                                 id="lastName"
                                 name="lastName"
                                 autoComplete="lname"
-                            // onChange={(e) => setModel({ ...state.signUpModel, lastName: e.currentTarget.value })}
+                                defaultValue={user.userModel.lastName}
+                                onChange={(e) => setModel({ ...state.userModel, lastName: e.currentTarget.value })}
                             />
                         </label>
                     </div>
                     <div className="blockInputAndLabel">
                         <label
                             className="blockLabel">
-                            Email
+                            Middle name
                             <input
                                 className="blockInput"
-                                required
-                                id="email"
-                                name="email"
-                                autoComplete="email"
-                                type="email"
-                            // onChange={(e) => setModel({ ...state.signUpModel, email: e.currentTarget.value })}
+                                id="middleName"
+                                name="middleName"
+                                defaultValue={user.userModel.middleName ?? undefined}
+                                onChange={(e) => setModel({ ...state.userModel, middleName: e.currentTarget.value })}
                             />
                         </label>
                     </div>
@@ -61,13 +87,19 @@ export const UserProfile = () => {
                                 type="date"
                                 id="dateofbirth"
                                 autoComplete="bday"
-                            // onChange={(e) => setModel({ ...state.signUpModel, dateOfBirth: e.currentTarget.value })}
+                                defaultValue={user.userModel.birthDate ?? undefined}
+                                onChange={(e) => setModel({ ...state.userModel, birthDate: e.currentTarget.value })}
                             />
                         </label>
                     </div>
                 </div>
                 <div className="profilePhotoBlock">
-                    <img className="profilePhoto" src="https://icdn.lenta.ru/images/2021/04/27/16/20210427163138131/square_320_c09ebae17387b7d6eeb9fa0d42afe5ee.jpg" />
+                    <img className="profilePhoto" src={user.userModel.fotoUrl ?? User} />
+                    <span className="profilePhotoButton" onClick={(e) => onClickPhoto(e)}>
+                        Add photo for your account
+                        <input className="profilePhotoInput" type="file" accept=".jpg, .jpeg, .png" onClick={(e) => onClickPhoto(e)} />
+                    </span>
+
                 </div>
             </div>
 
@@ -75,6 +107,7 @@ export const UserProfile = () => {
                 <button
                     type="submit"
                     className="profileButton"
+                    disabled={user.isLoading}
                 >
                     Save
                 </button>

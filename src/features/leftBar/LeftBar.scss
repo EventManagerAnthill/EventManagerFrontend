@@ -2,8 +2,12 @@
 
 .leftBar {
     width: 33%;
-    height: calc(100vh - 80px);
+    min-height: calc(100vh - 80px);
     background: #213c5f;
+
+    @media screen and (max-width: 650px) {
+        width: 100%;
+    }
 
     .blockContent {
         padding: 25px;
@@ -17,7 +21,30 @@
 
         .mainBlockContent {
             cursor: pointer;
-            
+
+            .arrow {
+                border: solid #ffffff;
+                border-width: 0 3px 3px 0;
+                display: inline-block;
+                padding: 5px;
+                margin-right: 18px;
+                text-align: center;
+            }
+
+            .up {
+                transform: rotate(-135deg);
+                -webkit-transform: rotate(-135deg);
+            }
+
+            .down {
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+            }
+
+        }
+
+        .childrenBlockContentHidden {
+            display: none;
         }
 
         .childrenBlockContent {
@@ -28,13 +55,12 @@
         }
 
         .childrenBlockContent:hover {
-            background: #2C5D7D;
+            background: #2c5d7d;
         }
-        
     }
 }
 
 .leftBarClose {
     display: none;
     width: 0;
-} 
+}

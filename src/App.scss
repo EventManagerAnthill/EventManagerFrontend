@@ -3,12 +3,17 @@
 
     .main {
         width: 100%;
-        height: calc(100vh - 80px);
+        // height: calc(100vh - 80px);
     }
     
     .mainWithLeftBar {
         width: 67%;
-        height: calc(100vh - 80px);
+        // height: calc(100vh - 80px);
+
+        @media screen and (max-width: 650px) {
+            width: 0%;
+            display: none;
+        }
     }
 }
 

@@ -2,30 +2,39 @@ import React from "react";
 import './LeftBar.scss';
 import { useAppSelector } from '../../app/state/store';
 import { selectLeftBarOpen } from "./leftBarSlice";
+import { signOut } from "../../useToken";
+import { useHistory } from "react-router-dom";
 
 
 const leftBarOptions = [
-    { option: 'My Account', childrenOptions: [{ option: 'Personal settings' }, { option: 'Sign out' }] },
+    { option: 'My Account', isOpen: false, childrenOptions: [{ option: 'Personal settings' }, { option: 'Sign out' }] },
 ];
 
 export const LeftBar = () => {
+    const history = useHistory();
+    const [rerender, setRerender] = React.useState<boolean>(false);
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
 
-    const onClick = (option: string) => {
-        switch (option) {
-            case 'My Account':
-                console.log(option);
-                break;
-        }
+    const onClick = (name: string) => {
+        leftBarOptions.forEach((option) => {
+            if (option.option == name) {
+                option.isOpen = !option.isOpen;
+            };
+            setRerender(!rerender);
+        });
     }
+
+    React.useEffect(() => {
+    }, [rerender]);
 
     const onClickChild = (childOption: string) => {
         switch (childOption) {
-            case 'Sign out':
-                console.log(childOption);
-                break;
             case 'Personal settings':
-                console.log(childOption);
+                history.push("/personalsettings");
+                break;
+            case 'Sign out':
+                signOut();
+                history.push("/");
                 break;
         }
     }
@@ -35,9 +44,10 @@ export const LeftBar = () => {
             <div className="blockContent">
                 {leftBarOptions.map((option) =>
                     <div className="mainBlockContent" onClick={() => onClick(option.option)}>
+                        <div className={option.isOpen ? "arrow down" : "arrow up"}></div>
                         {option.option}
                         {option.childrenOptions.map((childrenOption) =>
-                            <div className="childrenBlockContent" onClick={() => onClickChild(childrenOption.option)}>
+                            <div className={option.isOpen ? "childrenBlockContent" : "childrenBlockContentHidden"} onClick={() => onClickChild(childrenOption.option)}>
                                 {childrenOption.option}
                             </div>
                         )}

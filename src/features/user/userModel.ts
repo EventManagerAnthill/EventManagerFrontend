@@ -3,7 +3,7 @@ export interface UserModel {
     firstName: string;
     lastName: string;
     middleName?: string | null;
-    birthDate?: Date | null;
+    birthDate?: string | null;
     email: string;
     phone?: string | null;
     sex?: number | null;
@@ -13,8 +13,14 @@ export interface UserModel {
     fotoUrl?: string | null;
 }
 
+export interface UserPasswordModel {
+    newPassword: string;
+    confirmNewPassword: string;
+}
+
 export interface UserFormModel {
     userModel: UserModel;
+    userPasswordModel: UserPasswordModel;
     errors: Map<string, string>;
     isLoading: boolean;
 }
