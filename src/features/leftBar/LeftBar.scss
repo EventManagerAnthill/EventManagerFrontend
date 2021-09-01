@@ -21,26 +21,23 @@
 
         .mainBlockContent {
             cursor: pointer;
+            
+
 
             .arrow {
-                border: solid #ffffff;
-                border-width: 0 3px 3px 0;
-                display: inline-block;
-                padding: 5px;
-                margin-right: 18px;
-                text-align: center;
+                width: 1.5em;
+                height: 1.5em;
             }
 
-            .up {
-                transform: rotate(-135deg);
-                -webkit-transform: rotate(-135deg);
-            }
+        }
 
-            .down {
-                transform: rotate(45deg);
-                -webkit-transform: rotate(45deg);
-            }
+        .mainBlock {
+            display: flex;
+            align-items: center;
+        }
 
+        .childrenBlock {
+            display: flex;
         }
 
         .childrenBlockContentHidden {
@@ -51,7 +48,7 @@
             cursor: pointer;
             // padding-top: 30px;
             // padding-left: 20px;
-            padding: 15px 0px 15px 20px;
+            padding: 15px 0px 15px 38px;
         }
 
         .childrenBlockContent:hover {

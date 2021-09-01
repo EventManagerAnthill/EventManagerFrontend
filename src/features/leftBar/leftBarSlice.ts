@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/state/store';
 
 export interface LeftBarState {
-  open: boolean;
+  isOpen: boolean;
 }
 
 const initialState: LeftBarState = {
-    open: false,
+  isOpen: false,
 };
 
 export const leftBarSlice = createSlice({
@@ -14,16 +14,16 @@ export const leftBarSlice = createSlice({
   initialState,
   reducers: {
     leftBarOpen: (state) => {
-      state.open = true;
+      state.isOpen = true;
     },
     leftBarClose: (state) => {
-        state.open = false;
+        state.isOpen = false;
       },
   },
 });
 
 export const { leftBarOpen, leftBarClose } = leftBarSlice.actions;
 
-export const selectLeftBarOpen = (state: RootState) => state.leftBarState.open;
+export const selectLeftBarOpen = (state: RootState) => state.leftBarState.isOpen;
 
 export default leftBarSlice.reducer;

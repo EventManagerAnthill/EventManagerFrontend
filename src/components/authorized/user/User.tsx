@@ -5,11 +5,14 @@ import './User.scss';
 import { getEmail } from "../../../useToken";
 import { useAppDispatch } from "../../../app/state/store";
 import { getUserRequested } from "../../../features/user/userSlice";
+import { useState } from "react";
 
-const optionsForUser = [{ label: "Profile", isActive: true }, { label: "Password", isActive: false}];
+type PersonalSettingTab = 'profile' | 'password';
+
+const optionsForUser = [{ label: "Profile", isActive: true, type: 'profile' as PersonalSettingTab }, { label: "Password", isActive: false, type: 'password' as PersonalSettingTab }];
 
 export const User = () => {
-    const [rerender, setRerender] = React.useState<boolean>(false);
+    const [currentTab, setCurrentTab] = useState<PersonalSettingTab>('profile');
     const dispatch = useAppDispatch();
 
     React.useEffect(() => {
@@ -22,11 +25,9 @@ export const User = () => {
         optionsForUser.forEach((option) => {
             option.label == label ? option.isActive = true : option.isActive = false;
         });
-        setRerender(!rerender);
+        const currTab = optionsForUser.find(x => x.isActive)
+        setCurrentTab(currTab?.type || 'profile');
     };
-
-    React.useEffect(() => {
-    }, [rerender]);
 
     return (
         <div className="user">

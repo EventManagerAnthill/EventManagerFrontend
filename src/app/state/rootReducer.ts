@@ -8,6 +8,7 @@ import identifyReducer from '../../features/identify/identifySlice';
 import resetPasswordReducer from '../../features/resetPassword/resetPasswordSlice';
 import leftBarReducer from '../../features/leftBar/leftBarSlice';
 import userReducer from '../../features/user/userSlice';
+import companyReducer from '../../features/company/companySlice';
 
 export const rootReducer = combineReducers<ApplicationState>({
     routerState: routerReducer,
@@ -17,4 +18,5 @@ export const rootReducer = combineReducers<ApplicationState>({
     resetPasswordState: resetPasswordReducer,
     leftBarState: leftBarReducer,
     userState: userReducer,
+    companyState: companyReducer,
 })

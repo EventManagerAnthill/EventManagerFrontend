@@ -24,7 +24,7 @@ export const UserProfile = () => {
         
     }
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(updateUserRequested(state.userModel));
     }
