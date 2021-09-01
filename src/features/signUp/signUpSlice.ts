@@ -26,14 +26,7 @@ export const signUpSlice = createSlice({
             state.signUpModel = action.payload;
         },
         signUpSucceed: (state) => {
-            state.signUpModel = {...initialState.signUpModel}
-
-            // state.signUpModel.firstName = '';
-            // state.signUpModel.lastName = '';
-            // state.signUpModel.dateOfBirth = undefined;
-            // state.signUpModel.email = '';
-            // state.signUpModel.password = '';
-            // state.signUpModel.repeatPassword = '';
+            state.signUpModel = { ...initialState.signUpModel }
 
             state.errors = new Map;
             state.isLoading = false;

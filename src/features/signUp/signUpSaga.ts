@@ -7,7 +7,7 @@ import { SignUpModel } from "./signUpModel";
 import { mapToRequestModel } from "./signUpMapper";
 import { UserData } from "../user/userData";
 import { UserModel } from "../user/userModel";
-import { mapToModel } from "../user/userMapper";
+import { mapToUserModel } from "../user/userMapper";
 
 export function* signUpSaga() {
     yield takeLatest(signUpSlice.actions.signUpRequested, signUpRequested);
@@ -16,7 +16,7 @@ export function* signUpSaga() {
 function* signUpRequested(action: PayloadAction<SignUpModel>) {
     try {
         const data: UserData = yield call(Api.postSignUp, mapToRequestModel(action.payload));
-        const model: UserModel = mapToModel(data);
+        const model: UserModel = mapToUserModel(data);
 
         yield put(routerSlice.actions.routerRedirect('/signin'));
 

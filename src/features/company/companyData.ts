@@ -1,7 +1,10 @@
+import { UserData } from "../user/userData";
+
 export interface CompanyData {
     id?: number;
     name: string;
-    userId: string;
+    userId: number;
+    user: UserData;
     type: number;
     description?: string;
     del?: number;

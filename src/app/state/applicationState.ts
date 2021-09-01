@@ -1,4 +1,5 @@
 import { CompanyState } from "../../features/company/companySlice"
+import { EventState } from "../../features/event/eventSlicer"
 import { IdentifyState } from "../../features/identify/identifySlice"
 import { LeftBarState } from "../../features/leftBar/leftBarSlice"
 import { ResetPasswordState } from "../../features/resetPassword/resetPasswordSlice"
@@ -17,4 +18,5 @@ export interface ApplicationState {
     leftBarState: LeftBarState;
     userState: UserState;
     companyState: CompanyState;
+    eventState: EventState;
 }

@@ -5,6 +5,7 @@ import { signInSaga } from "../../features/signIn/signInSaga";
 import { signUpSaga } from "../../features/signUp/signUpSaga";
 import { userSaga } from "../../features/user/userSaga";
 import { companySaga } from "../../features/company/companySaga";
+import { eventSaga } from "../../features/event/eventSaga";
 
 export function* rootSaga() {
     yield fork(signInSaga);
@@ -13,4 +14,5 @@ export function* rootSaga() {
     yield fork(resetPasswordSaga);
     yield fork(userSaga);
     yield fork(companySaga);
+    yield fork(eventSaga);
 }

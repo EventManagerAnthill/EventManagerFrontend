@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { actionChannel } from 'redux-saga/effects';
 import { RootState } from '../../app/state/store';
 import { SignInFormModel, SignInModel, SignInSNModel } from './signInModel';
 
@@ -29,8 +30,7 @@ export const signInSlice = createSlice({
     signInValidateUser: (state, action: PayloadAction<string>) => {
     },
     signInSucceed: (state) => {
-      state.signInModel.email = '';
-      state.signInModel.password = '';
+      state.signInModel = { ...initialState.signInModel };
       state.isLoading = false;
     },
     signInFailed: (state, action: PayloadAction<Error>) => {

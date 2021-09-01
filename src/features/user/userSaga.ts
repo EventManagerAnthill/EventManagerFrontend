@@ -5,7 +5,7 @@ import * as Api from "./userAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { UserData } from "./userData";
 import { UserFormModel, UserModel } from "./userModel";
-import { mapToData, mapToModel, mapToUpdateData, mapToUpdatePasswordData } from "./userMapper";
+import { mapToUserData, mapToUserModel, mapToUpdateData, mapToUpdatePasswordData } from "./userMapper";
 
 export function* userSaga() {
     yield takeLatest(userSlice.actions.getUserRequested, getUserRequested);
@@ -16,7 +16,7 @@ export function* userSaga() {
 function* getUserRequested(action: PayloadAction<URLSearchParams>) {
     try {
         const data: UserData = yield call(Api.getUser, action.payload);
-        const model: UserModel = mapToModel(data);
+        const model: UserModel = mapToUserModel(data);
 
         yield put(userSlice.actions.getUserSucceed(model));
     } catch (e) {
@@ -27,7 +27,7 @@ function* getUserRequested(action: PayloadAction<URLSearchParams>) {
 function* updateUserRequested(action: PayloadAction<UserModel>) {
     try {
         const data: UserData = yield call(Api.updateUser, mapToUpdateData(action.payload), action.payload.id);
-        const model: UserModel = mapToModel(data);
+        const model: UserModel = mapToUserModel(data);
 
         yield put(userSlice.actions.updateUserSucceed(model));
     } catch (e) {
@@ -38,7 +38,7 @@ function* updateUserRequested(action: PayloadAction<UserModel>) {
 function* updateUserPasswordRequested(action: PayloadAction<UserFormModel>) {
     try {
         const data: UserData = yield call(Api.updateUserPassword, mapToUpdatePasswordData(action.payload));
-        const model: UserModel = mapToModel(data);
+        const model: UserModel = mapToUserModel(data);
 
         yield put(userSlice.actions.updateUserPasswordSucceed(model));
     } catch (e) {

@@ -2,7 +2,7 @@ import moment from "moment";
 import { UserData, UserUpdateData, UserUpdatePasswordData } from "./userData";
 import { UserFormModel, UserModel } from "./userModel";
 
-export const mapToModel = (data: UserData): UserModel => {
+export const mapToUserModel = (data: UserData): UserModel => {
     return {
         id: data.id,
         firstName: data.firstName,
@@ -19,7 +19,7 @@ export const mapToModel = (data: UserData): UserModel => {
     };
 }
 
-export const mapToData = (model: UserModel): UserData => {
+export const mapToUserData = (model: UserModel): UserData => {
     return {
         id: model.id,
         firstName: model.firstName,

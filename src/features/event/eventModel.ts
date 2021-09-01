@@ -1,12 +1,13 @@
-import { UserModel } from "../user/userModel";
-
-export interface CompanyModel {
+export interface EventModel {
     id?: number;
     name: string;
-    userId: number;
-    user: UserModel;
+    createDate: string;
+    holdingDate: string;
     type: number;
+    userId: number;
+    status: number;
     description?: string;
+    companyId: number;
     del?: number;
     originalFileName?: string;
     serverFileName?: string;
