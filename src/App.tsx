@@ -14,6 +14,9 @@ import { getToken } from './useToken';
 import { Header } from './components/authorized/header/Header';
 import { LeftBar } from './features/leftBar/LeftBar';
 import { selectLeftBarOpen } from './features/leftBar/leftBarSlice';
+import { CompanyNew } from './components/authorized/company/companyNew/CompanyNew';
+import { Company } from './components/authorized/company/company/Company';
+import { EventForCompany } from './components/authorized/event/eventForCompany/EventForCompany';
 
 const App = () => {
   const location = useLocation();
@@ -62,6 +65,9 @@ const App = () => {
             <Route path="/personalsettings">
               <PersonalSettings />
             </Route>
+            <Route exact path="/company/new" component={CompanyNew} />
+            <Route path="/company/:companyId" component={Company} />
+            <Route path="/event" component={EventForCompany} />
           </Switch>
         </div>
       </div>

@@ -24,3 +24,8 @@ export interface UserFormModel {
     errors: Map<string, string>;
     isLoading: boolean;
 }
+
+export interface UserUploadPhotoModel {
+    param: URLSearchParams;
+    formData: FormData;
+}

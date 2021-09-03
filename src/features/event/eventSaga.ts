@@ -8,6 +8,7 @@ import { mapToEventModel } from "./eventMapper";
 
 export function* eventSaga() {
     yield takeLatest(eventSlice.actions.getAllEventsByUserRequested, getAllEventsByUserRequested);
+    yield takeLatest(eventSlice.actions.getCompanyEventsRequested, getCompanyEventsRequested);
 }
 
 function* getAllEventsByUserRequested(action: PayloadAction<URLSearchParams>) {
@@ -18,5 +19,16 @@ function* getAllEventsByUserRequested(action: PayloadAction<URLSearchParams>) {
         yield put(eventSlice.actions.getAllEventsByUserSucceed(model));
     } catch (e) {
         yield put(eventSlice.actions.getAllEventsByUserFailed(e))
+    }
+}
+
+function* getCompanyEventsRequested(action: PayloadAction<URLSearchParams>) {
+    try {
+        const data: EventData[] = yield call(Api.getCompanyEvents, action.payload);
+        const model = data.map(x => { return mapToEventModel(x) });
+
+        yield put(eventSlice.actions.getCompanyEventsSucceed(model));
+    } catch (e) {
+        yield put(eventSlice.actions.getCompanyEventsFailed(e))
     }
 }

@@ -4,7 +4,7 @@ export interface CompanyData {
     id?: number;
     name: string;
     userId: number;
-    user: UserData;
+    user?: UserData;
     type: number;
     description?: string;
     del?: number;

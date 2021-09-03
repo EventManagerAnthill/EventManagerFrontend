@@ -89,6 +89,10 @@
                 height: 22px;
                 margin-right: 10px;
                 object-fit: cover;
+
+                @media screen and (max-width: 650px) {
+                    margin-right: 0px;
+                }
             }
             &-Text {
                 font-family: Jost;

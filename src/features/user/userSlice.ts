@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { act } from 'react-dom/test-utils';
 import { RootState } from '../../app/state/store';
-import { UserFormModel, UserModel } from './userModel';
+import { UserFormModel, UserModel, UserUploadPhotoModel } from './userModel';
 
 export type UserState = UserFormModel;
 
@@ -97,15 +97,29 @@ export const userSlice = createSlice({
         updateUserPasswordFailed: (state, action: PayloadAction<Error>) => {
             state.isLoading = false;
         },
+        uploadPhotoRequested: (state, action: PayloadAction<UserUploadPhotoModel>) => {
+            state.isLoading = true;
+        },
+        uploadPhotoSucceed: (state, action: PayloadAction<UserModel>) => {
+            state.userModel = { ...action.payload };
+
+            state.isLoading = false;
+        },
+        uploadPhotoFailed: (state, action: PayloadAction<Error>) => {
+            state.isLoading = false;
+        },
     },
 });
 
 export const { getUserRequested, getUserSucceed, getUserFailed,
     updateUserRequested, updateUserSucceed, updateUserFailed,
-    updateUserPasswordRequested, updateUserPasswordSucceed, updateUserPasswordFailed } = userSlice.actions;
+    updateUserPasswordRequested, updateUserPasswordSucceed, updateUserPasswordFailed,
+    uploadPhotoRequested, uploadPhotoSucceed, uploadPhotoFailed } = userSlice.actions;
 
 
 export const selectUser = (state: RootState) => state.userState;
+export const selectUserId = (state: RootState) => state.userState.userModel.id;
+export const selectUserEmail = (state: RootState) => state.userState.userModel.email;
 export const selectUserFirstName = (state: RootState) => state.userState.userModel.firstName;
 export const selectUserLastName = (state: RootState) => state.userState.userModel.lastName;
 export const selectUserfotoUrl = (state: RootState) => state.userState.userModel.fotoUrl;

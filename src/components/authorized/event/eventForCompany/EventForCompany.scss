@@ -1,0 +1,178 @@
+.eventForCompany {
+    width: 400px;
+    height: 170px;
+    border-radius: 4px;
+    padding: 30px;
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: space-between;
+    border: 1px solid #2d507c;
+
+    @media screen and (max-width: 1300px) {
+        width: 400px;
+        height: 170px;
+    }
+
+    @media screen and (max-width: 1050px) {
+        width: 300px;
+        height: 190px;
+    }
+
+    @media screen and (max-width: 450px) {
+        width: 250px;
+        height: 240px;
+    }
+
+    @media screen and (max-width: 350px) {
+        width: 220px;
+        height: 260px;
+    }
+    
+
+    .eventForCompanyInfoBlock {
+        display: flex;
+        flex-direction: column;
+        .eventForCompanyName {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 29px;
+            word-break: break-all;
+
+            color: #2c5d7d;
+        }
+        .eventForCompanyDescription {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 23px;
+            word-break: break-all;
+
+            color: #2c5d7d;
+        }
+    }
+
+    .eventForCompanyBlockButton {
+        .eventForCompanyButton {
+            cursor: pointer;
+            font-family: Jost;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 23px;
+
+            color: #ef5839;
+        }
+    }
+}
+
+
+
+
+.eventForCompanyLeftBar {
+    width: 400px;
+    height: 170px;
+    border-radius: 4px;
+    padding: 30px;
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: space-between;
+    border: 1px solid #2d507c;
+
+    @media screen and (max-width: calc(1300px * 1.33)) {
+        width: 400px;
+        height: 170px;
+    }
+
+    @media screen and (max-width: calc(1050px * 1.33)) {
+        width: 300px;
+        height: 190px;
+    }
+
+    @media screen and (max-width: calc(450px * 1.33)) {
+        width: 250px;
+        height: 240px;
+    }
+
+    @media screen and (max-width: calc(350px * 1.33)) {
+        width: 220px;
+        height: 260px;
+    }
+    
+
+    .eventForCompanyInfoBlock {
+        display: flex;
+        flex-direction: column;
+        .eventForCompanyName {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 29px;
+            word-break: break-all;
+
+            color: #2c5d7d;
+        }
+        .eventForCompanyDescription {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 23px;
+            word-break: break-all;
+
+            color: #2c5d7d;
+        }
+    }
+
+    .eventForCompanyBlockButton {
+        .eventForCompanyButton {
+            cursor: pointer;
+            font-family: Jost;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 23px;
+
+            color: #ef5839;
+        }
+    }
+}
+
+.eventForCompany:hover {
+    background-color: #2d507c;
+
+    .eventForCompanyName {
+        color: #ffffff;
+    }
+
+    .eventForCompanyDescription {
+        color: #ffffff;
+    }
+
+    .eventForCompanyButton {
+        color: #ffffff;
+    }
+}
+
+.eventForCompanyLeftBar:hover {
+    background-color: #2d507c;
+
+    .eventForCompanyName {
+        color: #ffffff;
+    }
+
+    .eventForCompanyDescription {
+        color: #ffffff;
+    }
+
+    .eventForCompanyButton {
+        color: #ffffff;
+    }
+}

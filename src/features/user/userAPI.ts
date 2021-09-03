@@ -1,6 +1,7 @@
 import { AppSettings } from "../../AppSettings";
 import * as baseApi from "../../api/baseApi";
 import { UserData, UserUpdateData, UserUpdatePasswordData } from "./userData";
+import { UserUploadPhotoModel } from "./userModel";
 
 declare const appSettings: AppSettings;
 
@@ -16,5 +17,10 @@ export function* updateUser(data: UserUpdateData, id: number) {
 
 export function* updateUserPassword(data: UserUpdatePasswordData) {
     const result: UserData = yield baseApi.put(appSettings.baseApiUrl + `/user/updatePassword`, data);
+    return result;
+}
+
+export function* uploadPhoto(data: UserUploadPhotoModel) {
+    const result: UserData = yield baseApi.postUpload(appSettings.baseApiUrl + `/user/upload?${data.param.toString()}`, data.formData);
     return result;
 }

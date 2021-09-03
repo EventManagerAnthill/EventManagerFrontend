@@ -35,6 +35,29 @@ function* fetchBase(method: string, resourceUrl: string, data: any = null, retry
     return yield handleResponse(result, method, resourceUrl, data);
 }
 
+export function* postUpload<TBody, TRes>(resourceUrl: string, data: TBody) {
+    const result: TRes = (yield fetchBaseUpload('POST', resourceUrl, data));
+    return result;
+};
+
+function* fetchBaseUpload(method: string, resourceUrl: string, data: any = null, retry?: boolean): any {
+    const token = getToken();
+
+    const result: Response = yield fetch(resourceUrl, {
+        method: method,
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            // 'Accept': 'application/json',
+            // 'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Cache-Control': 'no-cache'
+        },
+        body: data,
+    });
+
+    return yield handleResponse(result, method, resourceUrl, data);
+}
+
 
 function* handleResponse(response: Response, method: string, apiName: string, resourceUrl: string, data: any = null): any {
 

@@ -4,7 +4,7 @@ export interface CompanyModel {
     id?: number;
     name: string;
     userId: number;
-    user: UserModel;
+    user?: UserModel;
     type: number;
     description?: string;
     del?: number;
@@ -12,3 +12,16 @@ export interface CompanyModel {
     serverFileName?: string;
     fotoUrl?: string;
 }
+
+export interface CompanyUploadPhotoModel {
+    param?: URLSearchParams;
+    formData: FormData;
+}
+
+export interface CompanyFormModel {
+    companyModel: CompanyModel;
+    errors: Map<string, string>;
+    isLoading: boolean;
+    companyUploadModel?: CompanyUploadPhotoModel
+}
+

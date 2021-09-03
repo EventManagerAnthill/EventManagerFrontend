@@ -1,70 +1,158 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
-import { UserFormModel, UserPasswordModel } from "../../../../features/user/userModel";
-import { selectUser, updateUserPasswordRequested } from "../../../../features/user/userSlice";
 import './CompanyNew.scss';
+import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
+import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
+import { createCompanyRequested, selectCompanyNew } from "../../../../features/company/companySlice";
+import { CompanyFormModel, CompanyModel, CompanyUploadPhotoModel } from "../../../../features/company/companyModel";
+import { selectUserId } from "../../../../features/user/userSlice";
+
+type Avatar = {
+    file: File | null;
+    imagePreviewUrl: string | ArrayBuffer | null;
+}
 
 export const CompanyNew = () => {
     const dispatch = useAppDispatch();
-    const user = useAppSelector(selectUser);
-    const [state, setState] = React.useState<UserFormModel>(user);
+    const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
+    const companyNew = useAppSelector(selectCompanyNew);
+    const [state, setState] = React.useState<CompanyFormModel>(companyNew);
+    const userId = useAppSelector(selectUserId);
+    const [file, setfile] = React.useState<Avatar>({ file: null, imagePreviewUrl: null });
+    const input = React.useRef<HTMLInputElement>(null);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // if (state.errors.size == 0) {
-        //     dispatch(updateUserPasswordRequested(state));
-        // }
-    }
 
-    const setModel = (model: UserPasswordModel) => {
+    const setModel = (model: CompanyModel) => {
         setState({
             ...state,
-            userPasswordModel: model,
+            companyModel: model,
         });
     }
 
+    const setUploadModel = (model: CompanyUploadPhotoModel) => {
+        setState({
+            ...state,
+            companyUploadModel: model,
+        });
+    }
+
+    const onClickPhoto = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+        if (null !== input.current) {
+            input.current.click();
+        }
+    }
+
+    const onChangePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            let reader = new FileReader();
+            let file = e.target.files[0];
+
+            reader.onloadend = () => {
+                setfile({
+                    file: file,
+                    imagePreviewUrl: reader.result
+                });
+            }
+
+            reader.readAsDataURL(file);
+
+            let formData = new FormData();
+            formData.append("file", file);
+            setUploadModel({ ...state.companyUploadModel, formData: formData })
+        }
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(createCompanyRequested({ ...state }));
+    }
+
+    React.useEffect(() => {
+        setModel({ ...state.companyModel, userId: userId });
+    }, []);
+
     return (
-        <form className="userPassword" onSubmit={e => handleSubmit(e)}>
-            <div className="blockInputAndLabel">
-                <label
-                    className="blockLabel">
-                    New password
-                    <input
-                        className={state.errors.get('newpassword') ? "blockInputError" : "blockInput"}
-                        required
-                        id="newpassword"
-                        name="newpassword"
-                        type="password"
-                        pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}"
-                        onChange={(e) => setModel({ ...state.userPasswordModel, newPassword: e.currentTarget.value })}
-                    />
-                    <span className="Errors" >{state.errors.get('newpassword')}</span>
-                </label>
+        <form className={isLeftBarOpen ? "companyWithLeftBar" : "company"} onSubmit={e => handleSubmit(e)}>
+            <div className="companyMain">
+                <div className="companyForm">
+                    <div className="blockInputAndLabel">
+                        <label
+                            className="blockLabel">
+                            Name of your company
+                            <input
+                                className="blockInput"
+                                required
+                                id="nameCompany"
+                                name="nameCompany"
+                                autoComplete="companyname"
+                                defaultValue={companyNew.companyModel.name}
+                                onChange={(e) => setModel({ ...state.companyModel, name: e.currentTarget.value })}
+                            />
+                        </label>
+                    </div>
+                    <div className="blockInputAndLabel">
+                        <label
+                            className="blockLabel">
+                            Description of your company
+                            <textarea
+                                className="blockTextarea"
+                                id="descriptionCompany"
+                                name="descriptionCompany"
+                                autoComplete="companydescription"
+                                defaultValue={companyNew.companyModel.description}
+                                onChange={(e) => setModel({ ...state.companyModel, description: e.currentTarget.value })}
+                            />
+                        </label>
+                    </div>
+                    <div className="blockRadioAndLabel">
+                        <span className="blockLabel"> Choose the type of  your company</span>
+                        <div className="blockRadio">
+                            <label
+                                className="blockRadioLabel">
+                                <input
+                                    className="blockInputRadio"
+                                    type="radio"
+                                    name="type"
+                                    value="1"
+                                    checked={state.companyModel.type == 1}
+                                    onChange={(e) => setModel({ ...state.companyModel, type: +(e.currentTarget.value) })}
+                                />
+                                Public
+                            </label>
+                            <label
+                                className="blockRadioLabel">
+                                <input
+                                    className="blockInputRadio"
+                                    type="radio"
+                                    name="type"
+                                    value="2"
+                                    checked={state.companyModel.type == 2}
+                                    onChange={(e) => setModel({ ...state.companyModel, type: +(e.currentTarget.value) })}
+                                />
+                                Private
+                            </label>
+                            <span className="blockInfoType">{state.companyModel.type == 1 ? "Everyone will see events of this company" : "Only members of this company will see events"}</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="companyPhotoBlock">
+                    <img className="companyPhoto" src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? companyNew.companyModel.fotoUrl} />
+                    <span className="companyPhotoButton" onClick={(e) => onClickPhoto(e)}>
+                        Add logo or photo of your company
+                        <input id="inputFile" ref={input} className="companyPhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
+                    </span>
+
+                </div>
             </div>
-            <div className="blockInputAndLabel">
-                <label
-                    className="blockLabel">
-                    Confirm new password
-                    <input
-                        className={state.errors.get('confirmnewpassword') ? "blockInputError" : "blockInput"}
-                        required
-                        name="confirmnewpassword"
-                        type="password"
-                        id="confirmnewpassword"
-                        onChange={(e) => setModel({ ...state.userPasswordModel, confirmNewPassword: e.currentTarget.value })}
-                    />
-                    <span className="Errors" >{state.errors.get('confirmnewpassword')}</span>
-                </label>
-            </div>
-            <div className="userPasswordButtonBlock">
+
+            <div className="companyButtonBlock">
                 <button
                     type="submit"
-                    className="userPasswordButton"
-                    disabled={user.isLoading}
+                    className="companyButton"
+                    disabled={companyNew.isLoading}
                 >
-                    Save
+                    Create company
                 </button>
             </div>
         </form>
-    )
+    );
 }
