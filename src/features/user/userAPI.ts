@@ -24,3 +24,8 @@ export function* uploadPhoto(data: UserUploadPhotoModel) {
     const result: UserData = yield baseApi.postUpload(appSettings.baseApiUrl + `/user/upload?${data.param.toString()}`, data.formData);
     return result;
 }
+
+export function* deletePhoto(param: URLSearchParams) {
+    const result: UserData = yield baseApi.put(appSettings.baseApiUrl + `/user/deleteFoto?${param.toString()}`, undefined);
+    return result;
+}

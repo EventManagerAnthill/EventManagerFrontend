@@ -1,6 +1,6 @@
 import moment from "moment";
 import { mapToUserData, mapToUserModel } from "../user/userMapper";
-import { CompanyData } from "./companyData";
+import { CompanyData, CompanyEditData } from "./companyData";
 import { CompanyModel } from "./companyModel";
 
 export const mapToCompanyModel = (data: CompanyData): CompanyModel => {
@@ -15,6 +15,7 @@ export const mapToCompanyModel = (data: CompanyData): CompanyModel => {
         originalFileName: data.originalFileName,
         serverFileName: data.serverFileName,
         fotoUrl: data.fotoUrl,
+        userRole: data.userRole,
     };
 }
 
@@ -30,5 +31,18 @@ export const mapToCompanyData = (model: CompanyModel): CompanyData => {
         originalFileName: model.originalFileName,
         serverFileName: model.serverFileName,
         fotoUrl: model.fotoUrl,
+        userRole: model.userRole,
+    };
+}
+
+export const mapToCompanyModelArray = (data: CompanyData[]): CompanyModel[] => {
+    return data.map(x => { return mapToCompanyModel(x) });
+}
+
+export const mapToCompanyEditData = (model: CompanyModel): CompanyEditData => {
+    return {
+        name: model.name,
+        type: model.type,
+        description: model.description,
     };
 }

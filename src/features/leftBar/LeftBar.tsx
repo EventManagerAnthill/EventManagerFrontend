@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { getAllCompaniesByUserRequested, selectCompaniesByUser } from "../company/companySlice";
 import { getAllEventsByUserRequested, selectEventsByUser } from "../event/eventSlicer";
 import { selectRouterRedirectTo } from "../routerSlice";
+import { useConfirm } from 'material-ui-confirm';
 
 
 const leftBarOptions = [
@@ -19,6 +20,7 @@ const leftBarOptions = [
 
 export const LeftBar = () => {
     const history = useHistory();
+    const confirm = useConfirm();
     const dispatch = useAppDispatch();
     const [rerender, setRerender] = React.useState<boolean>(false);
     const companiesByUser = useAppSelector(selectCompaniesByUser);
@@ -26,14 +28,14 @@ export const LeftBar = () => {
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
     const redirectTo = useAppSelector(selectRouterRedirectTo);
 
-    React.useEffect(() => {
-        if (isLeftBarOpen == true) {
-            let param = new URLSearchParams();
-            param.append("email", getEmail() ?? "");
-            dispatch(getAllCompaniesByUserRequested(param));
-            dispatch(getAllEventsByUserRequested(param))
-        }
-    }, [isLeftBarOpen, redirectTo]);
+    // React.useEffect(() => {
+    //     if (isLeftBarOpen == true) {
+    //         let param = new URLSearchParams();
+    //         param.append("email", getEmail() ?? "");
+    //         dispatch(getAllCompaniesByUserRequested(param));
+    //         dispatch(getAllEventsByUserRequested(param))
+    //     }
+    // }, [isLeftBarOpen, redirectTo]);
 
     const onClick = (name: string) => {
         leftBarOptions.forEach((option) => {
@@ -50,8 +52,11 @@ export const LeftBar = () => {
                 history.push("/personalsettings");
                 break;
             case 'Sign out':
-                signOut();
-                history.push("/");
+                confirm({ title: '', description: 'Are you sure you want to sign out?', confirmationText: 'Sign out' })
+                    .then(() => {
+                        signOut();
+                        history.push("/");
+                    });
                 break;
             case 'List of my companies':
                 history.push("/company/list");
@@ -79,17 +84,18 @@ export const LeftBar = () => {
                                 {childrenOption.option}
                             </div>
                         )}
-                        {option.option == "My Companies" && companiesByUser && companiesByUser.map((company) =>
+                        {/* {option.option == "My Companies" && companiesByUser && companiesByUser.map((company) =>
                             <div className={option.isOpen ? "childrenBlockContent" : "childrenBlockContentHidden"} onClick={() => history.push(`/company/${company.id}`)}>
                                 {company.name}
                             </div>)}
                         {option.option == "My Events" && eventsByUser && eventsByUser.map((event) =>
                             <div className={option.isOpen ? "childrenBlockContent" : "childrenBlockContentHidden"} onClick={() => history.push(`/event/${event.id}`)}>
                                 {event.name}
-                            </div>)}
+                            </div>)} */}
                     </div>
                 )}
             </div>
         </div>
     );
 }
+

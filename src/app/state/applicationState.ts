@@ -6,6 +6,7 @@ import { ResetPasswordState } from "../../features/resetPassword/resetPasswordSl
 import { RouterState } from "../../features/routerSlice"
 import { SignInState } from "../../features/signIn/signInSlice"
 import { SignUpState } from "../../features/signUp/signUpSlice"
+import { SnackbarState } from "../../features/snackbar/snackbarSlice"
 import { UserState } from "../../features/user/userSlice"
 
 
@@ -19,4 +20,5 @@ export interface ApplicationState {
     userState: UserState;
     companyState: CompanyState;
     eventState: EventState;
+    snackbarState: SnackbarState;
 }

@@ -2,8 +2,9 @@ import React from "react";
 import './CompanyEdit.scss';
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
-import { createCompanyRequested, selectCompanyNew } from "../../../../features/company/companySlice";
+import { createCompanyRequested, deletePhotoRequested, editCompanyRequested, getCompanyRequested, selectCompany, selectCompanyEdit, uploadPhotoRequested } from "../../../../features/company/companySlice";
 import { CompanyFormModel, CompanyModel, CompanyUploadPhotoModel } from "../../../../features/company/companyModel";
+import { useHistory, useParams } from "react-router-dom";
 import { selectUserId } from "../../../../features/user/userSlice";
 
 type Avatar = {
@@ -12,26 +13,34 @@ type Avatar = {
 }
 
 export const CompanyEdit = () => {
+    let { companyId } = useParams<{ companyId: string | undefined }>();
     const dispatch = useAppDispatch();
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
-    const companyNew = useAppSelector(selectCompanyNew);
-    const [state, setState] = React.useState<CompanyFormModel>(companyNew);
-    const userId = useAppSelector(selectUserId);
+    const companyEdit = useAppSelector(selectCompanyEdit);
+    const company = useAppSelector(selectCompany);
+    const [state, setState] = React.useState<CompanyFormModel>(companyEdit);
     const [file, setfile] = React.useState<Avatar>({ file: null, imagePreviewUrl: null });
     const input = React.useRef<HTMLInputElement>(null);
+    const userId = useAppSelector(selectUserId);
 
+    React.useEffect(() => {
+        if (companyId) {
+            let paramForCompany = new URLSearchParams();
+            paramForCompany.append("userId", String(userId));
+            dispatch(getCompanyRequested({ companyId: +(companyId), param: paramForCompany }));
+        }
+    }, [companyId]);
+
+    React.useEffect(() => {
+        if (company) {
+            setState({ ...state, companyModel: company })
+        }
+    }, [company?.id]);
 
     const setModel = (model: CompanyModel) => {
         setState({
             ...state,
             companyModel: model,
-        });
-    }
-
-    const setUploadModel = (model: CompanyUploadPhotoModel) => {
-        setState({
-            ...state,
-            companyUploadModel: model,
         });
     }
 
@@ -45,35 +54,41 @@ export const CompanyEdit = () => {
         if (e.target.files) {
             let reader = new FileReader();
             let file = e.target.files[0];
-
-            reader.onloadend = () => {
-                setfile({
-                    file: file,
-                    imagePreviewUrl: reader.result
-                });
+            if (file) {
+                reader.onloadend = () => {
+                    setfile({
+                        file: file,
+                        imagePreviewUrl: reader.result
+                    });
+                }
+                reader.readAsDataURL(file);
             }
-
-            reader.readAsDataURL(file);
-
-            let formData = new FormData();
-            formData.append("file", file);
-            setUploadModel({ ...state.companyUploadModel, formData: formData })
         }
+    }
+
+    const onClickDeletePhoto = () => {
+        setfile({ file: null, imagePreviewUrl: null });
+        let param = new URLSearchParams();
+        param.append("CompanyId", String(state.companyModel.id));
+        dispatch(deletePhotoRequested(param));
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(createCompanyRequested({ ...state }));
+        dispatch(editCompanyRequested(state.companyModel));
+        if (file.file !== null) {
+            let param = new URLSearchParams();
+            param.append("id", String(state.companyModel.id));
+            let formData = new FormData();
+            formData.append("file", file.file);
+            dispatch(uploadPhotoRequested({ ...state.companyUploadModel, param: param, formData: formData }));
+        }
     }
 
-    React.useEffect(() => {
-        setModel({ ...state.companyModel, userId: userId });
-    }, []);
-
     return (
-        <form className={isLeftBarOpen ? "companyWithLeftBar" : "company"} onSubmit={e => handleSubmit(e)}>
-            <div className="companyMain">
-                <div className="companyForm">
+        <form className={isLeftBarOpen ? "companyEditWithLeftBar" : "companyEdit"} onSubmit={e => handleSubmit(e)}>
+            <div className="companyEditMain">
+                <div className="companyEditForm">
                     <div className="blockInputAndLabel">
                         <label
                             className="blockLabel">
@@ -84,7 +99,7 @@ export const CompanyEdit = () => {
                                 id="nameCompany"
                                 name="nameCompany"
                                 autoComplete="companyname"
-                                defaultValue={companyNew.companyModel.name}
+                                defaultValue={state.companyModel.name}
                                 onChange={(e) => setModel({ ...state.companyModel, name: e.currentTarget.value })}
                             />
                         </label>
@@ -98,7 +113,7 @@ export const CompanyEdit = () => {
                                 id="descriptionCompany"
                                 name="descriptionCompany"
                                 autoComplete="companydescription"
-                                defaultValue={companyNew.companyModel.description}
+                                defaultValue={state.companyModel.description}
                                 onChange={(e) => setModel({ ...state.companyModel, description: e.currentTarget.value })}
                             />
                         </label>
@@ -134,23 +149,30 @@ export const CompanyEdit = () => {
                         </div>
                     </div>
                 </div>
-                <div className="companyPhotoBlock">
-                    <img className="companyPhoto" src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? companyNew.companyModel.fotoUrl} />
-                    <span className="companyPhotoButton" onClick={(e) => onClickPhoto(e)}>
-                        Add logo or photo of your company
-                        <input id="inputFile" ref={input} className="companyPhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
+                <div className="companyEditPhotoBlock">
+                    <div className="PhotoBlock">
+                        <img className="companyPhoto"
+                            src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? state.companyModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
+                        />
+                        <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
+                            Change image
+                        </div>
+                    </div>
+                    <span className="companyEditPhotoButton" onClick={onClickDeletePhoto}>
+                        Delete image
+                        <input id="inputFile" ref={input} className="companyEditPhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
                     </span>
 
                 </div>
             </div>
 
-            <div className="companyButtonBlock">
+            <div className="companyEditButtonBlock">
                 <button
                     type="submit"
-                    className="companyButton"
-                    disabled={companyNew.isLoading}
+                    className="companyEditButton"
+                    disabled={companyEdit.isLoading}
                 >
-                    Create company
+                    Save
                 </button>
             </div>
         </form>

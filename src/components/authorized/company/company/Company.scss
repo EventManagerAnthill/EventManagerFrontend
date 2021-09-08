@@ -48,6 +48,7 @@
                     height: 100%;
                     object-fit: cover;
                     border-radius: 50%;
+                    background-color: #ffffff;
                 }
             }
 
@@ -119,6 +120,36 @@
             }
         }
 
+        .companyMainButtonsBlock {
+            width: 100%;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            .companyMainButton {
+                width: 24%;
+                background: #2d507c;
+                border-radius: 8px;
+                height: 56px;
+                border: none;
+
+                cursor: pointer;
+                font-family: Jost;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 22px;
+                line-height: 32px;
+                /* identical to box height */
+                margin: 5px;
+
+                color: #ffffff;
+
+                @media screen and (max-width: 1050px) {
+                    width: 98%;
+                }
+            }
+        }
+
         .companyMainEventsBlock {
             .companyMainEventsBlockSpan {
                 font-family: Jost;
@@ -143,8 +174,6 @@
         }
     }
 }
-
-
 
 .companyContainerLeftBar {
     .companyHeader {
@@ -196,6 +225,7 @@
                     height: 100%;
                     object-fit: cover;
                     border-radius: 50%;
+                    background-color: #ffffff;
                 }
             }
 
@@ -263,6 +293,36 @@
                     line-height: 23px;
                     word-break: break-all;
                     color: #2c5d7d;
+                }
+            }
+        }
+
+        .companyMainButtonsBlock {
+            width: 100%;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            .companyMainButton {
+                width: 24%;
+                background: #2d507c;
+                border-radius: 8px;
+                height: 56px;
+                border: none;
+
+                cursor: pointer;
+                font-family: Jost;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 22px;
+                line-height: 32px;
+                /* identical to box height */
+                margin: 5px;
+
+                color: #ffffff;
+
+                @media screen and (max-width: calc(1050px * 1.33)) {
+                    width: 98%;
                 }
             }
         }

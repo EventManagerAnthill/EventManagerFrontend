@@ -5,13 +5,16 @@ import * as Api from "./userAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { UserData } from "./userData";
 import { UserFormModel, UserModel, UserUploadPhotoModel } from "./userModel";
-import { mapToUserData, mapToUserModel, mapToUpdateData, mapToUpdatePasswordData } from "./userMapper";
+import { mapToUserModel, mapToUpdateData, mapToUpdatePasswordData } from "./userMapper";
+import { BadRequestError } from "../../api/exceptions";
+import { snackbarSlice } from "../snackbar/snackbarSlice";
 
 export function* userSaga() {
     yield takeLatest(userSlice.actions.getUserRequested, getUserRequested);
     yield takeLatest(userSlice.actions.updateUserRequested, updateUserRequested);
     yield takeLatest(userSlice.actions.updateUserPasswordRequested, updateUserPasswordRequested);
     yield takeLatest(userSlice.actions.uploadPhotoRequested, uploadPhotoRequested);
+    yield takeLatest(userSlice.actions.deletePhotoRequested, deletePhotoRequested);
 }
 
 function* getUserRequested(action: PayloadAction<URLSearchParams>) {
@@ -22,6 +25,9 @@ function* getUserRequested(action: PayloadAction<URLSearchParams>) {
         yield put(userSlice.actions.getUserSucceed(model));
     } catch (e) {
         yield put(userSlice.actions.getUserFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
     }
 }
 
@@ -30,9 +36,13 @@ function* updateUserRequested(action: PayloadAction<UserModel>) {
         const data: UserData = yield call(Api.updateUser, mapToUpdateData(action.payload), action.payload.id);
         const model: UserModel = mapToUserModel(data);
 
+        yield put(snackbarSlice.actions.snackbarOpen({ message: "Saved successfully", severity: 'success' }));
         yield put(userSlice.actions.updateUserSucceed(model));
     } catch (e) {
         yield put(userSlice.actions.updateUserFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
     }
 }
 
@@ -41,9 +51,13 @@ function* updateUserPasswordRequested(action: PayloadAction<UserFormModel>) {
         const data: UserData = yield call(Api.updateUserPassword, mapToUpdatePasswordData(action.payload));
         const model: UserModel = mapToUserModel(data);
 
+        yield put(snackbarSlice.actions.snackbarOpen({ message: "Saved successfully", severity: 'success' }));
         yield put(userSlice.actions.updateUserPasswordSucceed(model));
     } catch (e) {
         yield put(userSlice.actions.updateUserPasswordFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
     }
 }
 
@@ -55,5 +69,22 @@ function* uploadPhotoRequested(action: PayloadAction<UserUploadPhotoModel>) {
         yield put(userSlice.actions.uploadPhotoSucceed(model));
     } catch (e) {
         yield put(userSlice.actions.uploadPhotoFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
+    }
+}
+
+function* deletePhotoRequested(action: PayloadAction<URLSearchParams>) {
+    try {
+        const data: UserData = yield call(Api.deletePhoto, action.payload);
+        const model: UserModel = mapToUserModel(data);
+
+        yield put(userSlice.actions.deletePhotoSucceed(model));
+    } catch (e) {
+        yield put(userSlice.actions.deletePhotoFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
     }
 }

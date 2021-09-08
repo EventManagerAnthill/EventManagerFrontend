@@ -5,6 +5,8 @@ import { signInSlice} from "./signInSlice";
 import { routerSlice } from "../routerSlice";
 import * as Api from "./signInAPI"; 
 import { PayloadAction } from "@reduxjs/toolkit";
+import { BadRequestError } from "../../api/exceptions";
+import { snackbarSlice } from "../snackbar/snackbarSlice";
 
 export function* signInSaga() {
     yield takeLatest(signInSlice.actions.signInRequested, signInRequested);
@@ -25,6 +27,9 @@ function* signInRequested(action: PayloadAction<SignInModel>) {
         yield put(signInSlice.actions.signInSucceed());
     } catch (e) {
         yield put(signInSlice.actions.signInFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
     }
 }
 
@@ -40,6 +45,9 @@ function* signInGoogleRequested(action: PayloadAction<SignInSNModel>) {
         yield put(signInSlice.actions.signInSucceed());
     } catch (e) {
         yield put(signInSlice.actions.signInFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
     }
 }
 
@@ -55,14 +63,20 @@ function* signInFacebookRequested(action: PayloadAction<SignInSNModel>) {
         yield put(signInSlice.actions.signInSucceed());
     } catch (e) {
         yield put(signInSlice.actions.signInFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
     }
 }
 
 function* signInValidateUser(action: PayloadAction<string>) {
     try {
         const result: string = yield call(Api.postValidateUser, action.payload);
-
+        yield put(snackbarSlice.actions.snackbarOpen({ message: result, severity: 'success' }))
     } catch (e) {
         yield put(signInSlice.actions.signInFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
     }
 }

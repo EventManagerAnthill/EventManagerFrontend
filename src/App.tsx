@@ -17,6 +17,9 @@ import { selectLeftBarOpen } from './features/leftBar/leftBarSlice';
 import { CompanyNew } from './components/authorized/company/companyNew/CompanyNew';
 import { Company } from './components/authorized/company/company/Company';
 import { EventForCompany } from './components/authorized/event/eventForCompany/EventForCompany';
+import { CompanyEdit } from './components/authorized/company/companyEdit/CompanyEdit';
+import { SnackbarComponent } from './features/snackbar/Snackbar';
+import { CompanyList } from './components/authorized/company/companyList/CompanyList';
 
 const App = () => {
   const location = useLocation();
@@ -35,6 +38,8 @@ const App = () => {
 
   if (!token) {
     return (
+      <>
+      <SnackbarComponent />
       <Switch>
         <Route path="/identify">
           <Identify />
@@ -52,11 +57,13 @@ const App = () => {
           <Welcome />
         </Route>
       </Switch>
+      </>
     )
   }
 
   return (
     <div>
+      <SnackbarComponent />
       <Header />
       <div className="page">
         <LeftBar />
@@ -66,6 +73,8 @@ const App = () => {
               <PersonalSettings />
             </Route>
             <Route exact path="/company/new" component={CompanyNew} />
+            <Route exact path="/company/:companyId/edit" component={CompanyEdit} />
+            <Route exact path="/company/list" component={CompanyList} />
             <Route path="/company/:companyId" component={Company} />
             <Route path="/event" component={EventForCompany} />
           </Switch>

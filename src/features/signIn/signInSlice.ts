@@ -33,7 +33,7 @@ export const signInSlice = createSlice({
       state.signInModel = { ...initialState.signInModel };
       state.isLoading = false;
     },
-    signInFailed: (state, action: PayloadAction<Error>) => {
+    signInFailed: (state, action: PayloadAction<unknown>) => {
       state.isLoading = false;
     },
   },

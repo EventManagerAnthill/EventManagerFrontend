@@ -30,7 +30,7 @@ export const resetPasswordSlice = createSlice({
       state.errors = new Map;
       state.isLoading = false;
     },
-    resetPasswordFailed: (state, action: PayloadAction<Error>) => {
+    resetPasswordFailed: (state, action: PayloadAction<unknown>) => {
       state.isLoading = false;
     },
   },

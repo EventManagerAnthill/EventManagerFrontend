@@ -3,7 +3,7 @@ import './UserProfile.scss';
 import User from '../../../../assets/images/User.png'
 import { UserFormModel, UserModel } from "../../../../features/user/userModel";
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
-import { selectUser, updateUserRequested, uploadPhotoRequested } from "../../../../features/user/userSlice";
+import { deletePhotoRequested, selectUser, updateUserRequested, uploadPhotoRequested } from "../../../../features/user/userSlice";
 import moment from "moment";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 
@@ -30,7 +30,14 @@ export const UserProfile = () => {
     const onClickPhoto = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
         if (null !== input.current) {
             input.current.click();
-          }
+        }
+    }
+
+    const onClickDeletePhoto = () => {
+        setfile({ file: null, imagePreviewUrl: null });
+        let param = new URLSearchParams();
+        param.append("email", user.userModel.email);
+        dispatch(deletePhotoRequested(param))
     }
 
     const onChangePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +64,7 @@ export const UserProfile = () => {
             param.append("email", user.userModel.email);
             let formData = new FormData();
             formData.append("file", file.file);
-            dispatch(uploadPhotoRequested({param: param, formData: formData}));
+            dispatch(uploadPhotoRequested({ param: param, formData: formData }));
         }
     }
 
@@ -126,9 +133,16 @@ export const UserProfile = () => {
                     </div>
                 </div>
                 <div className="profilePhotoBlock">
-                    <img className="profilePhoto" src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? user.userModel.fotoUrl ?? User} />
-                    <span className="profilePhotoButton" onClick={(e) => onClickPhoto(e)}>
-                        Add photo for your account
+                    <div className="PhotoBlock">
+                        <img className="profilePhoto"
+                            src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? user.userModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
+                        />
+                        <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
+                            Change photo
+                        </div>
+                    </div>
+                    <span className="profilePhotoButton" onClick={() => onClickDeletePhoto()} >
+                        Delete photo for your account
                         <input id="inputFile" ref={input} className="profilePhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
                     </span>
                 </div>

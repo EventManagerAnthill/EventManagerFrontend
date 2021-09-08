@@ -1,0 +1,48 @@
+.companyList {
+    .companyListTop {
+        height: 80px;
+        width: 100%;
+        background: #f3f0e1;
+
+        @media screen and (max-width: 450px) {
+            height: 55px;
+        }
+
+        .companyListTopBlock {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .tabcompanyList {
+        cursor: pointer;
+        margin-left: 30px;
+        font-family: Jost;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 32px;
+        text-align: center;
+        color: #2c5d7d;
+        text-decoration: underline;
+
+        @media screen and (max-width: 650px) {
+            margin-left: 12px;
+        }
+
+        @media screen and (max-width: 450px) {
+            font-size: 16px;
+            line-height: 23px;
+        }
+    }
+
+    .tabcompanyListNotActive {
+        opacity: 0.2;
+        text-decoration: none;
+    }
+
+    .companyListMain {
+        display: flex;
+    }
+}

@@ -11,4 +11,25 @@ export interface CompanyData {
     originalFileName?: string;
     serverFileName?: string;
     fotoUrl?: string;
+    userRole?: number;
 }
+
+export interface CompanyEditData {
+    name: string;
+    type: number;
+    description?: string;
+}
+
+export interface PagingData {
+    currentPage: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+}
+
+export interface GetCompaniesData {
+    companies?: CompanyData[];
+    paging?: PagingData;
+}
+
+

@@ -31,7 +31,7 @@ export const signUpSlice = createSlice({
             state.errors = new Map;
             state.isLoading = false;
         },
-        signUpFailed: (state, action: PayloadAction<Error>) => {
+        signUpFailed: (state, action: PayloadAction<unknown>) => {
             state.isLoading = false;
         },
     },

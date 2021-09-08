@@ -6,11 +6,13 @@ import { useAppDispatch, useAppSelector } from "../../../app/state/store";
 import { leftBarOpen, leftBarClose, selectLeftBarOpen } from '../../../features/leftBar/leftBarSlice';
 import { getUserRequested, selectUserFirstName, selectUserfotoUrl, selectUserLastName } from '../../../features/user/userSlice';
 import { getEmail, signOut } from "../../../useToken";
+import { useConfirm } from 'material-ui-confirm';
 
 const optionsForSelect = ["Personal settings", "Sign out"];
 
 export const Header = () => {
     const history = useHistory();
+    const confirm = useConfirm();
     const dispatch = useAppDispatch();
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
     const firstName = useAppSelector(selectUserFirstName);
@@ -21,7 +23,7 @@ export const Header = () => {
         let param = new URLSearchParams();
         param.append("email", getEmail() ?? "");
         dispatch(getUserRequested(param));
-    },[]);
+    }, []);
 
     const onClickMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         isLeftBarOpen ? dispatch(leftBarClose()) : dispatch(leftBarOpen());
@@ -33,9 +35,12 @@ export const Header = () => {
                 history.push("/personalsettings");
                 break;
             case 'Sign out':
-                signOut();
-                history.push("/");
-                break;   
+                confirm({ title: '', description: 'Are you sure you want to sign out?', confirmationText: 'Sign out' })
+                    .then(() => {
+                        signOut();
+                        history.push("/");
+                    });
+                break;
         }
     }
 

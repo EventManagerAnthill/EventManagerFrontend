@@ -61,6 +61,10 @@ export const CompanyNew = () => {
         }
     }
 
+    const onClickDeletePhoto = () => {
+        setfile({ file: null, imagePreviewUrl: null });
+    }
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(createCompanyRequested({ ...state }));
@@ -135,12 +139,18 @@ export const CompanyNew = () => {
                     </div>
                 </div>
                 <div className="companyPhotoBlock">
-                    <img className="companyPhoto" src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? companyNew.companyModel.fotoUrl} />
-                    <span className="companyPhotoButton" onClick={(e) => onClickPhoto(e)}>
-                        Add logo or photo of your company
+                    <div className="PhotoBlock">
+                        <img className="companyPhoto"
+                            src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? companyNew.companyModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
+                        />
+                        <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
+                            Change image
+                        </div>
+                    </div>
+                    <span className="companyPhotoButton" onClick={onClickDeletePhoto}>
+                        Delete image
                         <input id="inputFile" ref={input} className="companyPhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
                     </span>
-
                 </div>
             </div>
 

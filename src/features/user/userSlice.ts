@@ -48,7 +48,7 @@ export const userSlice = createSlice({
             state.userModel.serverFileName = action.payload.serverFileName;
             state.userModel.fotoUrl = action.payload.fotoUrl;
         },
-        getUserFailed: (state, action: PayloadAction<Error>) => {
+        getUserFailed: (state, action: PayloadAction<unknown>) => {
         },
         updateUserRequested: (state, action: PayloadAction<UserModel>) => {
             state.isLoading = true;
@@ -69,7 +69,7 @@ export const userSlice = createSlice({
 
             state.isLoading = false;
         },
-        updateUserFailed: (state, action: PayloadAction<Error>) => {
+        updateUserFailed: (state, action: PayloadAction<unknown>) => {
             state.isLoading = false;
         },
         updateUserPasswordRequested: (state, action: PayloadAction<UserFormModel>) => {
@@ -94,7 +94,7 @@ export const userSlice = createSlice({
 
             state.isLoading = false;
         },
-        updateUserPasswordFailed: (state, action: PayloadAction<Error>) => {
+        updateUserPasswordFailed: (state, action: PayloadAction<unknown>) => {
             state.isLoading = false;
         },
         uploadPhotoRequested: (state, action: PayloadAction<UserUploadPhotoModel>) => {
@@ -105,7 +105,18 @@ export const userSlice = createSlice({
 
             state.isLoading = false;
         },
-        uploadPhotoFailed: (state, action: PayloadAction<Error>) => {
+        uploadPhotoFailed: (state, action: PayloadAction<unknown>) => {
+            state.isLoading = false;
+        },
+        deletePhotoRequested: (state, action: PayloadAction<URLSearchParams>) => {
+            state.isLoading = true;
+        },
+        deletePhotoSucceed: (state, action: PayloadAction<UserModel>) => {
+            state.userModel = { ...action.payload };
+
+            state.isLoading = false;
+        },
+        deletePhotoFailed: (state, action: PayloadAction<unknown>) => {
             state.isLoading = false;
         },
     },
@@ -114,7 +125,8 @@ export const userSlice = createSlice({
 export const { getUserRequested, getUserSucceed, getUserFailed,
     updateUserRequested, updateUserSucceed, updateUserFailed,
     updateUserPasswordRequested, updateUserPasswordSucceed, updateUserPasswordFailed,
-    uploadPhotoRequested, uploadPhotoSucceed, uploadPhotoFailed } = userSlice.actions;
+    uploadPhotoRequested, uploadPhotoSucceed, uploadPhotoFailed,
+    deletePhotoRequested, deletePhotoSucceed, deletePhotoFailed } = userSlice.actions;
 
 
 export const selectUser = (state: RootState) => state.userState;

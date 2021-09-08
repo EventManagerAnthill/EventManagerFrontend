@@ -24,7 +24,7 @@ export const identifySlice = createSlice({
       state.identifyModel.email = '';
       state.isLoading = false;
     },
-    identifyFailed: (state, action: PayloadAction<Error>) => {
+    identifyFailed: (state, action: PayloadAction<unknown>) => {
       state.isLoading = false;
     },
   },

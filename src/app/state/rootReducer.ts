@@ -10,6 +10,7 @@ import leftBarReducer from '../../features/leftBar/leftBarSlice';
 import userReducer from '../../features/user/userSlice';
 import companyReducer from '../../features/company/companySlice';
 import eventReducer from '../../features/event/eventSlicer';
+import snackbarReducer from '../../features/snackbar/snackbarSlice';
 
 export const rootReducer = combineReducers<ApplicationState>({
     routerState: routerReducer,
@@ -21,4 +22,5 @@ export const rootReducer = combineReducers<ApplicationState>({
     userState: userReducer,
     companyState: companyReducer,
     eventState: eventReducer,
+    snackbarState: snackbarReducer,
 })

@@ -11,11 +11,17 @@ export interface CompanyModel {
     originalFileName?: string;
     serverFileName?: string;
     fotoUrl?: string;
+    userRole?: number;
 }
 
 export interface CompanyUploadPhotoModel {
     param?: URLSearchParams;
     formData: FormData;
+}
+
+export interface CompanyGetModel {
+    companyId: number;
+    param: URLSearchParams;
 }
 
 export interface CompanyFormModel {
@@ -25,3 +31,14 @@ export interface CompanyFormModel {
     companyUploadModel?: CompanyUploadPhotoModel
 }
 
+export interface PagingModel {
+    currentPage: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+}
+
+export interface GetCompaniesModel {
+    companies?: CompanyModel[];
+    paging?: PagingModel;
+}

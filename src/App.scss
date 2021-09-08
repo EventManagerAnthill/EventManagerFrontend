@@ -5,7 +5,7 @@
         width: 100%;
         // height: calc(100vh - 80px);
     }
-    
+
     .mainWithLeftBar {
         width: 67%;
         // height: calc(100vh - 80px);
@@ -17,3 +17,35 @@
     }
 }
 
+.MuiTypography-body1 {
+    font-family: Jost !important;
+    font-style: bold !important;
+    font-weight: normal !important;
+    font-size: 20px !important;
+    line-height: 29px !important;
+    word-break: break-all !important;
+    color: #2c5d7d !important;
+}
+
+.MuiButton-root {
+    font-family: Jost !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    line-height: 26px !important;
+    text-align: center !important;
+
+    color: #ffffff !important;
+}
+
+.MuiButtonBase-root {
+    background: #ef5839 !important;
+    border-radius: 4px !important;
+    width: 150px;
+    height: 45px;
+}
+
+.MuiButton-textPrimary {
+    background: #2d507c !important;
+    border-radius: 4px !important;
+}
