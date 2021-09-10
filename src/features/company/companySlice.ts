@@ -9,6 +9,7 @@ export type CompanyState = {
     company?: CompanyModel;
     companiesByUser?: GetCompaniesModel;
     companiesByOwner?: GetCompaniesModel;
+    isLoading: boolean;
 };
 
 const initialState: CompanyState = {
@@ -53,6 +54,7 @@ const initialState: CompanyState = {
     company: undefined,
     companiesByUser: undefined,
     companiesByOwner: undefined,
+    isLoading: false,
 };
 
 export const companySlice = createSlice({
@@ -60,18 +62,30 @@ export const companySlice = createSlice({
     initialState,
     reducers: {
         getAllCompaniesByUserRequested: (state, action: PayloadAction<URLSearchParams>) => {
+            state.isLoading = true;
         },
         getAllCompaniesByUserSucceed: (state, action: PayloadAction<GetCompaniesModel>) => {
-            return { ...state, companiesByUser: action.payload }
+            return {
+                ...state,
+                companiesByUser: action.payload,
+                isLoading: false,
+            }
         },
         getAllCompaniesByUserFailed: (state, action: PayloadAction<unknown>) => {
+            state.isLoading = false;
         },
         getAllCompaniesByOwnerRequested: (state, action: PayloadAction<URLSearchParams>) => {
+            state.isLoading = true;
         },
         getAllCompaniesByOwnerSucceed: (state, action: PayloadAction<GetCompaniesModel>) => {
-            return { ...state, companiesByOwner: action.payload }
+            return {
+                ...state,
+                companiesByOwner: action.payload,
+                isLoading: false,
+            }
         },
         getAllCompaniesByOwnerFailed: (state, action: PayloadAction<unknown>) => {
+            state.isLoading = false;
         },
         createCompanyRequested: (state, action: PayloadAction<CompanyFormModel>) => {
             state.companyNew.companyModel = { ...action.payload.companyModel };
@@ -90,11 +104,14 @@ export const companySlice = createSlice({
             state.companyNew.isLoading = false;
         },
         getCompanyRequested: (state, action: PayloadAction<CompanyGetModel>) => {
+            state.isLoading = true;
         },
         getCompanySucceed: (state, action: PayloadAction<CompanyModel>) => {
             state.company = { ...action.payload };
+            state.isLoading = false;
         },
         getCompanyFailed: (state, action: PayloadAction<unknown>) => {
+            state.isLoading = false;
         },
         uploadPhotoRequested: (state, action: PayloadAction<CompanyUploadModel>) => {
         },
@@ -164,5 +181,7 @@ export const selectCompaniesByOwner = (state: RootState) => state.companyState.c
 export const selectCompanyNew = (state: RootState) => state.companyState.companyNew;
 export const selectCompanyEdit = (state: RootState) => state.companyState.companyEdit;
 export const selectCompany = (state: RootState) => state.companyState.company;
+export const selectCompanyIsLoading = (state: RootState) => state.companyState.isLoading;
+
 
 export default companySlice.reducer;

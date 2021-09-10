@@ -33,6 +33,7 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         getUserRequested: (state, action: PayloadAction<URLSearchParams>) => {
+            state.isLoading = true;
         },
         getUserSucceed: (state, action: PayloadAction<UserModel>) => {
             state.userModel.id = action.payload.id;
@@ -47,8 +48,11 @@ export const userSlice = createSlice({
             state.userModel.originalFileName = action.payload.originalFileName;
             state.userModel.serverFileName = action.payload.serverFileName;
             state.userModel.fotoUrl = action.payload.fotoUrl;
+
+            state.isLoading = false;
         },
         getUserFailed: (state, action: PayloadAction<unknown>) => {
+            state.isLoading = false;
         },
         updateUserRequested: (state, action: PayloadAction<UserModel>) => {
             state.isLoading = true;

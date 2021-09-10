@@ -4,9 +4,10 @@ import './Header.scss';
 import User from '../../../assets/images/User.png'
 import { useAppDispatch, useAppSelector } from "../../../app/state/store";
 import { leftBarOpen, leftBarClose, selectLeftBarOpen } from '../../../features/leftBar/leftBarSlice';
-import { getUserRequested, selectUserFirstName, selectUserfotoUrl, selectUserLastName } from '../../../features/user/userSlice';
+import { getUserRequested, selectUserFirstName, selectUserfotoUrl, selectUserisLoading, selectUserLastName } from '../../../features/user/userSlice';
 import { getEmail, signOut } from "../../../useToken";
 import { useConfirm } from 'material-ui-confirm';
+import { Spinner } from "../../spinner/Spinner";
 
 const optionsForSelect = ["Personal settings", "Sign out"];
 
@@ -18,6 +19,7 @@ export const Header = () => {
     const firstName = useAppSelector(selectUserFirstName);
     const lastName = useAppSelector(selectUserLastName);
     const fotoUrl = useAppSelector(selectUserfotoUrl);
+    const UserIsLoading =  useAppSelector(selectUserisLoading)
 
     React.useEffect(() => {
         let param = new URLSearchParams();
@@ -45,29 +47,32 @@ export const Header = () => {
     }
 
     return (
-        <header className="Header">
-            <div className="HeadDiv">
-                <div className="HeadLeft">
-                    <div className="HeadMenu" onClick={(e) => onClickMenu(e)} >
-                        <div className={isLeftBarOpen ? "HeadMenu-One HeadMenu-OneClick" : "HeadMenu-One"}></div>
-                        <div className={isLeftBarOpen ? "HeadMenu-Two HeadMenu-TwoClick" : "HeadMenu-Two"}></div>
-                        <div className={isLeftBarOpen ? "HeadMenu-Three HeadMenu-ThreeClick" : "HeadMenu-Three"}></div>
+        <>
+        {UserIsLoading && <Spinner />}
+            <header className="Header">
+                <div className="HeadDiv">
+                    <div className="HeadLeft">
+                        <div className="HeadMenu" onClick={(e) => onClickMenu(e)} >
+                            <div className={isLeftBarOpen ? "HeadMenu-One HeadMenu-OneClick" : "HeadMenu-One"}></div>
+                            <div className={isLeftBarOpen ? "HeadMenu-Two HeadMenu-TwoClick" : "HeadMenu-Two"}></div>
+                            <div className={isLeftBarOpen ? "HeadMenu-Three HeadMenu-ThreeClick" : "HeadMenu-Three"}></div>
+                        </div>
+                        <div className="DivLink">
+                            <Link className="DivLink-Link" to="/">Event manager</Link>
+                        </div>
                     </div>
-                    <div className="DivLink">
-                        <Link className="DivLink-Link" to="/">Event manager</Link>
+                    <div className="DivUser">
+                        <img className="DivUser-Img" src={fotoUrl ?? User} />
+                        <span className="DivUser-Text">{lastName == "" ? "lastName" : lastName}{' '}{firstName == "" ? "firstName" : firstName}</span>
+                        <div className="customSelectBlock">
+                            {optionsForSelect.map((option) => (
+                                <div className="selectOption" onClick={() => onClickSelect(option)}>
+                                    {option}
+                                </div>))}
+                        </div>
                     </div>
                 </div>
-                <div className="DivUser">
-                    <img className="DivUser-Img" src={fotoUrl ?? User} />
-                    <span className="DivUser-Text">{lastName == "" ? "lastName" : lastName}{' '}{firstName == "" ? "firstName" : firstName}</span>
-                    <div className="customSelectBlock">
-                        {optionsForSelect.map((option) => (
-                            <div className="selectOption" onClick={() => onClickSelect(option)}>
-                                {option}
-                            </div>))}
-                    </div>
-                </div>
-            </div>
-        </header>
+            </header>
+        </>
     );
 }

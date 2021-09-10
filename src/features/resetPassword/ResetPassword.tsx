@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../app/state/store';
 import { BaseInformation } from '../../components/block/baseInformation/BaseInformation';
 import { resetPasswordRequested, selectResetPassword } from './resetPasswordSlice';
 import { ResetPasswordFormModel, ResetPasswordModel, ResetPasswordRequestModel } from './resetPasswordModel';
+import { Spinner } from '../../components/spinner/Spinner';
 
 
 export const ResetPassword = () => {
@@ -82,60 +83,63 @@ export const ResetPassword = () => {
     }
 
     return (
-        <div className="ResetPassword">
-            <BaseInformation />
-            <div className="ResetPasswordMain">
-                <div className="FormResetPasswordMain">
-                    <div>
-                        <span className="FormResetPasswordMain-Span">Reset Password</span>
+        <>
+        {resetPassword.isLoading && <Spinner />}
+            <div className="ResetPassword">
+                <BaseInformation />
+                <div className="ResetPasswordMain">
+                    <div className="FormResetPasswordMain">
+                        <div>
+                            <span className="FormResetPasswordMain-Span">Reset Password</span>
+                        </div>
+                        <form onSubmit={e => handleSubmit(e)}>
+                            <div className="inputformBlockRightSignUpBlock">
+                                <div className="blockInputAndLabel">
+                                    <label
+                                        className="blockLabel">
+                                        New password
+                                        <input
+                                            className={state.errors.get('newpassword') ? "blockInputError" : "blockInput"}
+                                            required
+                                            id="newpassword"
+                                            name="newpassword"
+                                            type="password"
+                                            pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}"
+                                            onChange={(e) => setModel({ ...state.resetPasswordModel, newPassword: e.currentTarget.value })}
+                                        />
+                                        <span className="Errors" >{state.errors.get('newpassword')}</span>
+                                    </label>
+                                </div>
+                                <div className="blockInputAndLabel">
+                                    <label
+                                        className="blockLabel">
+                                        Confirm new password
+                                        <input
+                                            className={state.errors.get('confirmnewpassword') ? "blockInputError" : "blockInput"}
+                                            required
+                                            name="confirmnewpassword"
+                                            type="password"
+                                            id="confirmnewpassword"
+                                            onChange={(e) => setModel({ ...state.resetPasswordModel, confirmNewPassword: e.currentTarget.value })}
+                                        />
+                                        <span className="Errors" >{state.errors.get('confirmnewpassword')}</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="buttonformBlockRightSignUpBlock">
+                                <button
+                                    type="submit"
+                                    className="AccauntformBlockRightSignUpBlock"
+                                    disabled={resetPassword.isLoading}
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <form onSubmit={e => handleSubmit(e)}>
-                        <div className="inputformBlockRightSignUpBlock">
-                            <div className="blockInputAndLabel">
-                                <label
-                                    className="blockLabel">
-                                    New password
-                                    <input
-                                        className={state.errors.get('newpassword') ? "blockInputError" : "blockInput"}
-                                        required
-                                        id="newpassword"
-                                        name="newpassword"
-                                        type="password"
-                                        pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}"
-                                        onChange={(e) => setModel({ ...state.resetPasswordModel, newPassword: e.currentTarget.value })}
-                                    />
-                                    <span className="Errors" >{state.errors.get('newpassword')}</span>
-                                </label>
-                            </div>
-                            <div className="blockInputAndLabel">
-                                <label
-                                    className="blockLabel">
-                                    Confirm new password
-                                    <input
-                                        className={state.errors.get('confirmnewpassword') ? "blockInputError" : "blockInput"}
-                                        required
-                                        name="confirmnewpassword"
-                                        type="password"
-                                        id="confirmnewpassword"
-                                        onChange={(e) => setModel({ ...state.resetPasswordModel, confirmNewPassword: e.currentTarget.value })}
-                                    />
-                                    <span className="Errors" >{state.errors.get('confirmnewpassword')}</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div className="buttonformBlockRightSignUpBlock">
-                            <button
-                                type="submit"
-                                className="AccauntformBlockRightSignUpBlock"
-                                disabled={resetPassword.isLoading}
-                            >
-                                Save
-                            </button>
-                        </div>
-                    </form>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

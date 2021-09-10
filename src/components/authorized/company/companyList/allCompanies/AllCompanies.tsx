@@ -5,9 +5,10 @@ import AddIcon from '@material-ui/icons/Add';
 import InfoIcon from '@material-ui/icons/Info';
 import { CompanyForList } from "../../companyForList/CompanyForList";
 import { selectUserId } from "../../../../../features/user/userSlice";
-import { getAllCompaniesByUserRequested, selectCompaniesByUser } from "../../../../../features/company/companySlice";
+import { getAllCompaniesByUserRequested, selectCompaniesByUser, selectCompanyIsLoading } from "../../../../../features/company/companySlice";
 import { useHistory } from "react-router-dom";
 import { routerReset, selectRouterRedirectTo } from "../../../../../features/routerSlice";
+import { Spinner } from "../../../../spinner/Spinner";
 
 export const AllCompanies = () => {
     const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ export const AllCompanies = () => {
     const companiesByUser = useAppSelector(selectCompaniesByUser);
     const userId = useAppSelector(selectUserId);
     const redirectTo = useAppSelector(selectRouterRedirectTo);
+    const companyIsLoading = useAppSelector(selectCompanyIsLoading);
 
     React.useEffect(() => {
         let param = new URLSearchParams();
@@ -46,44 +48,47 @@ export const AllCompanies = () => {
     };
 
     return (
-        <div className="allCompanies">
-            <div className="allCompaniesMain">
-                {companiesByUser && companiesByUser.paging && companiesByUser.paging.totalItems > 0 ?
-                    companiesByUser && companiesByUser.companies && companiesByUser.companies.map((company) =>
-                        <div className="companyMain">
-                            <CompanyForList id={company.id} name={company.name} fotoUrl={company.fotoUrl!} userRole={company.userRole} />
-                        </div>
-                    ) :
-                    <span className="companyMainText">Here you will see the list of your companies. Create your first company!</span>
-                }
-            </div>
-            <div className="allCompaniesFooter">
-                <div className="blockTotal">
-                    <span className="total">{`Total objects: ${(companiesByUser && companiesByUser.paging && companiesByUser.paging.totalItems) ?? "0"}`}</span>
-                </div>
-                <div className="blockButtons">
-                    <div className="blockPagesButtons">
-                        {companiesByUser && companiesByUser.paging && getPages(companiesByUser.paging.totalPages).map((pageNumber) =>
-                            companiesByUser.paging!.currentPage == pageNumber ?
-                                <div className="pageButton">{pageNumber}</div> :
-                                <div className="pageButton pageButtonNotActive" onClick={() => onClickPage(pageNumber)}>{pageNumber}</div>
-                        )}
-                    </div>
-                    <div>
-                        <div className="blockAddCompanyButton" onClick={() => history.push("/company/new")}>
-                            <div className="AddCompanyButton">
-                                <AddIcon className="AddCompanyButtonLogo" />
+        <>
+            {companyIsLoading && <Spinner />}
+            <div className="allCompanies">
+                <div className="allCompaniesMain">
+                    {companiesByUser && companiesByUser.paging && companiesByUser.paging.totalItems > 0 ?
+                        companiesByUser && companiesByUser.companies && companiesByUser.companies.map((company) =>
+                            <div className="companyMain">
+                                <CompanyForList id={company.id} name={company.name} fotoUrl={company.fotoUrl!} userRole={company.userRole} />
                             </div>
-                            <div className="blockAddCompanyButtonNotify">
-                                <div className="blockNotify">
-                                    <InfoIcon className="notifyIcon" />
-                                    <span className="notifyText">Add company</span>
+                        ) :
+                        <span className="companyMainText">Here you will see the list of your companies. Create your first company!</span>
+                    }
+                </div>
+                <div className="allCompaniesFooter">
+                    <div className="blockTotal">
+                        <span className="total">{`Total objects: ${(companiesByUser && companiesByUser.paging && companiesByUser.paging.totalItems) ?? "0"}`}</span>
+                    </div>
+                    <div className="blockButtons">
+                        <div className="blockPagesButtons">
+                            {companiesByUser && companiesByUser.paging && getPages(companiesByUser.paging.totalPages).map((pageNumber) =>
+                                companiesByUser.paging!.currentPage == pageNumber ?
+                                    <div className="pageButton">{pageNumber}</div> :
+                                    <div className="pageButton pageButtonNotActive" onClick={() => onClickPage(pageNumber)}>{pageNumber}</div>
+                            )}
+                        </div>
+                        <div>
+                            <div className="blockAddCompanyButton" onClick={() => history.push("/company/new")}>
+                                <div className="AddCompanyButton">
+                                    <AddIcon className="AddCompanyButtonLogo" />
+                                </div>
+                                <div className="blockAddCompanyButtonNotify">
+                                    <div className="blockNotify">
+                                        <InfoIcon className="notifyIcon" />
+                                        <span className="notifyText">Add company</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

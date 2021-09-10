@@ -6,6 +6,7 @@ import { createCompanyRequested, deletePhotoRequested, editCompanyRequested, get
 import { CompanyFormModel, CompanyModel, CompanyUploadModel } from "../../../../features/company/companyModel";
 import { useHistory, useParams } from "react-router-dom";
 import { selectUserId } from "../../../../features/user/userSlice";
+import { Spinner } from "../../../spinner/Spinner";
 
 type Avatar = {
     file: File | null;
@@ -86,95 +87,98 @@ export const CompanyEdit = () => {
     }
 
     return (
-        <form className={isLeftBarOpen ? "companyEditWithLeftBar" : "companyEdit"} onSubmit={e => handleSubmit(e)}>
-            <div className="companyEditMain">
-                <div className="companyEditForm">
-                    <div className="blockInputAndLabel">
-                        <label
-                            className="blockLabel">
-                            Name of your company
-                            <input
-                                className="blockInput"
-                                required
-                                id="nameCompany"
-                                name="nameCompany"
-                                autoComplete="companyname"
-                                defaultValue={state.companyModel.name}
-                                onChange={(e) => setModel({ ...state.companyModel, name: e.currentTarget.value })}
-                            />
-                        </label>
-                    </div>
-                    <div className="blockInputAndLabel">
-                        <label
-                            className="blockLabel">
-                            Description of your company
-                            <textarea
-                                className="blockTextarea"
-                                id="descriptionCompany"
-                                name="descriptionCompany"
-                                autoComplete="companydescription"
-                                defaultValue={state.companyModel.description}
-                                onChange={(e) => setModel({ ...state.companyModel, description: e.currentTarget.value })}
-                            />
-                        </label>
-                    </div>
-                    <div className="blockRadioAndLabel">
-                        <span className="blockLabel"> Choose the type of  your company</span>
-                        <div className="blockRadio">
+        <>
+        {companyEdit.isLoading && <Spinner />}
+            <form className={isLeftBarOpen ? "companyEditWithLeftBar" : "companyEdit"} onSubmit={e => handleSubmit(e)}>
+                <div className="companyEditMain">
+                    <div className="companyEditForm">
+                        <div className="blockInputAndLabel">
                             <label
-                                className="blockRadioLabel">
+                                className="blockLabel">
+                                Name of your company
                                 <input
-                                    className="blockInputRadio"
-                                    type="radio"
-                                    name="type"
-                                    value="1"
-                                    checked={state.companyModel.type == 1}
-                                    onChange={(e) => setModel({ ...state.companyModel, type: +(e.currentTarget.value) })}
+                                    className="blockInput"
+                                    required
+                                    id="nameCompany"
+                                    name="nameCompany"
+                                    autoComplete="companyname"
+                                    defaultValue={state.companyModel.name}
+                                    onChange={(e) => setModel({ ...state.companyModel, name: e.currentTarget.value })}
                                 />
-                                Public
                             </label>
+                        </div>
+                        <div className="blockInputAndLabel">
                             <label
-                                className="blockRadioLabel">
-                                <input
-                                    className="blockInputRadio"
-                                    type="radio"
-                                    name="type"
-                                    value="2"
-                                    checked={state.companyModel.type == 2}
-                                    onChange={(e) => setModel({ ...state.companyModel, type: +(e.currentTarget.value) })}
+                                className="blockLabel">
+                                Description of your company
+                                <textarea
+                                    className="blockTextarea"
+                                    id="descriptionCompany"
+                                    name="descriptionCompany"
+                                    autoComplete="companydescription"
+                                    defaultValue={state.companyModel.description}
+                                    onChange={(e) => setModel({ ...state.companyModel, description: e.currentTarget.value })}
                                 />
-                                Private
                             </label>
-                            <span className="blockInfoType">{state.companyModel.type == 1 ? "Everyone will see events of this company" : "Only members of this company will see events"}</span>
+                        </div>
+                        <div className="blockRadioAndLabel">
+                            <span className="blockLabel"> Choose the type of  your company</span>
+                            <div className="blockRadio">
+                                <label
+                                    className="blockRadioLabel">
+                                    <input
+                                        className="blockInputRadio"
+                                        type="radio"
+                                        name="type"
+                                        value="1"
+                                        checked={state.companyModel.type == 1}
+                                        onChange={(e) => setModel({ ...state.companyModel, type: +(e.currentTarget.value) })}
+                                    />
+                                    Public
+                                </label>
+                                <label
+                                    className="blockRadioLabel">
+                                    <input
+                                        className="blockInputRadio"
+                                        type="radio"
+                                        name="type"
+                                        value="2"
+                                        checked={state.companyModel.type == 2}
+                                        onChange={(e) => setModel({ ...state.companyModel, type: +(e.currentTarget.value) })}
+                                    />
+                                    Private
+                                </label>
+                                <span className="blockInfoType">{state.companyModel.type == 1 ? "Everyone will see events of this company" : "Only members of this company will see events"}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="companyEditPhotoBlock">
-                    <div className="PhotoBlock">
-                        <img className="companyPhoto"
-                            src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? state.companyModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
-                        />
-                        <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
-                            Change image
+                    <div className="companyEditPhotoBlock">
+                        <div className="PhotoBlock">
+                            <img className="companyPhoto"
+                                src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? state.companyModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
+                            />
+                            <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
+                                Change image
+                            </div>
                         </div>
+                        <span className="companyEditPhotoButton" onClick={onClickDeletePhoto}>
+                            Delete image
+                            <input id="inputFile" ref={input} className="companyEditPhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
+                        </span>
+
                     </div>
-                    <span className="companyEditPhotoButton" onClick={onClickDeletePhoto}>
-                        Delete image
-                        <input id="inputFile" ref={input} className="companyEditPhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
-                    </span>
-
                 </div>
-            </div>
 
-            <div className="companyEditButtonBlock">
-                <button
-                    type="submit"
-                    className="companyEditButton"
-                    disabled={companyEdit.isLoading}
-                >
-                    Save
-                </button>
-            </div>
-        </form>
+                <div className="companyEditButtonBlock">
+                    <button
+                        type="submit"
+                        className="companyEditButton"
+                        disabled={companyEdit.isLoading}
+                    >
+                        Save
+                    </button>
+                </div>
+            </form>
+        </>
     );
 }

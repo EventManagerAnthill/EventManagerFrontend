@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { deletePhotoRequested, selectUser, updateUserRequested, uploadPhotoRequested } from "../../../../features/user/userSlice";
 import moment from "moment";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
+import { Spinner } from "../../../spinner/Spinner";
 
 type Avatar = {
     file: File | null;
@@ -69,81 +70,84 @@ export const UserProfile = () => {
     }
 
     return (
-        <form className={isLeftBarOpen ? "profileWithLeftBar" : "profile"} onSubmit={e => handleSubmit(e)}>
-            <div className="profileMain">
-                <div className="profileForm">
-                    <div className="blockInputAndLabel">
-                        <label
-                            className="blockLabel">
-                            First Name
-                            <input
-                                className="blockInput"
-                                required
-                                id="firstName"
-                                name="firstName"
-                                autoComplete="fname"
-                                defaultValue={user.userModel.firstName}
-                                onChange={(e) => setModel({ ...state.userModel, firstName: e.currentTarget.value })}
-                            />
-                        </label>
-                    </div>
-                    <div className="blockInputAndLabel">
-                        <label
-                            className="blockLabel">
-                            Last Name
-                            <input
-                                className="blockInput"
-                                required
-                                id="lastName"
-                                name="lastName"
-                                autoComplete="lname"
-                                defaultValue={user.userModel.lastName}
-                                onChange={(e) => setModel({ ...state.userModel, lastName: e.currentTarget.value })}
-                            />
-                        </label>
-                    </div>
-                    <div className="blockInputAndLabel">
-                        <label
-                            className="blockLabel">
-                            Date of birth
-                            <input
-                                className="blockInput"
-                                required
-                                name="dateofbirth"
-                                type="date"
-                                id="dateofbirth"
-                                autoComplete="bday"
-                                defaultValue={user.userModel.birthDate ?? undefined}
-                                onChange={(e) => setModel({ ...state.userModel, birthDate: e.currentTarget.value })}
-                            />
-                        </label>
-                    </div>
-                </div>
-                <div className="profilePhotoBlock">
-                    <div className="PhotoBlock">
-                        <img className="profilePhoto"
-                            src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? user.userModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
-                        />
-                        <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
-                            Change image
+        <>
+        {user.isLoading && <Spinner />}
+            <form className={isLeftBarOpen ? "profileWithLeftBar" : "profile"} onSubmit={e => handleSubmit(e)}>
+                <div className="profileMain">
+                    <div className="profileForm">
+                        <div className="blockInputAndLabel">
+                            <label
+                                className="blockLabel">
+                                First Name
+                                <input
+                                    className="blockInput"
+                                    required
+                                    id="firstName"
+                                    name="firstName"
+                                    autoComplete="fname"
+                                    defaultValue={user.userModel.firstName}
+                                    onChange={(e) => setModel({ ...state.userModel, firstName: e.currentTarget.value })}
+                                />
+                            </label>
+                        </div>
+                        <div className="blockInputAndLabel">
+                            <label
+                                className="blockLabel">
+                                Last Name
+                                <input
+                                    className="blockInput"
+                                    required
+                                    id="lastName"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                    defaultValue={user.userModel.lastName}
+                                    onChange={(e) => setModel({ ...state.userModel, lastName: e.currentTarget.value })}
+                                />
+                            </label>
+                        </div>
+                        <div className="blockInputAndLabel">
+                            <label
+                                className="blockLabel">
+                                Date of birth
+                                <input
+                                    className="blockInput"
+                                    required
+                                    name="dateofbirth"
+                                    type="date"
+                                    id="dateofbirth"
+                                    autoComplete="bday"
+                                    defaultValue={user.userModel.birthDate ?? undefined}
+                                    onChange={(e) => setModel({ ...state.userModel, birthDate: e.currentTarget.value })}
+                                />
+                            </label>
                         </div>
                     </div>
-                    <span className="profilePhotoButton" onClick={() => onClickDeletePhoto()} >
-                        Delete image
-                        <input id="inputFile" ref={input} className="profilePhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
-                    </span>
+                    <div className="profilePhotoBlock">
+                        <div className="PhotoBlock">
+                            <img className="profilePhoto"
+                                src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? user.userModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
+                            />
+                            <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
+                                Change image
+                            </div>
+                        </div>
+                        <span className="profilePhotoButton" onClick={() => onClickDeletePhoto()} >
+                            Delete image
+                            <input id="inputFile" ref={input} className="profilePhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-            <div className="profileButtonBlock">
-                <button
-                    type="submit"
-                    className="profileButton"
-                    disabled={user.isLoading}
-                >
-                    Save
-                </button>
-            </div>
-        </form>
+                <div className="profileButtonBlock">
+                    <button
+                        type="submit"
+                        className="profileButton"
+                        disabled={user.isLoading}
+                    >
+                        Save
+                    </button>
+                </div>
+            </form>
+        </>
     );
 }
