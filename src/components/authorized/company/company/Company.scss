@@ -95,7 +95,7 @@
             width: 100%;
 
             .companyMainDescriptionBlock {
-                height: 105px;
+                min-height: 105px;
                 margin-left: 280px;
 
                 @media screen and (max-width: 850px) {
@@ -272,7 +272,7 @@
             width: 100%;
 
             .companyMainDescriptionBlock {
-                height: 105px;
+                min-height: 105px;
                 margin-left: 280px;
 
                 @media screen and (max-width: calc(850px * 1.33)) {

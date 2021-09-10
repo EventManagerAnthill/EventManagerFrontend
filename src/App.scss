@@ -17,15 +17,20 @@
     }
 }
 
-.MuiTypography-body1 {
-    font-family: Jost !important;
-    font-style: bold !important;
-    font-weight: normal !important;
-    font-size: 20px !important;
-    line-height: 29px !important;
-    word-break: break-all !important;
-    color: #2c5d7d !important;
+
+.MuiSnackbar-root {
+    .MuiTypography-body1 {
+        font-family: Jost !important;
+        font-style: bold !important;
+        font-weight: normal !important;
+        font-size: 20px !important;
+        line-height: 29px !important;
+        word-break: break-all !important;
+        color: #2c5d7d !important;
+    }
 }
+
+
 
 .MuiButton-root {
     font-family: Jost !important;
@@ -38,14 +43,25 @@
     color: #ffffff !important;
 }
 
-.MuiButtonBase-root {
-    background: #ef5839 !important;
-    border-radius: 4px !important;
-    width: 150px;
-    height: 45px;
+.MuiDialog-container {
+    .MuiButtonBase-root {
+        background: #ef5839 !important;
+        border-radius: 4px !important;
+        width: 150px;
+        height: 45px;
+    }
+    .MuiButton-textPrimary {
+        background: #2d507c !important;
+        border-radius: 4px !important;
+    }
 }
 
-.MuiButton-textPrimary {
-    background: #2d507c !important;
-    border-radius: 4px !important;
+
+
+
+.MuiCircularProgress-root {
+    color: #ef5839 !important;
+    .MuiCircularProgress-colorPrimary {
+        
+    }
 }

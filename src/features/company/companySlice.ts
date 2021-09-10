@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/state/store';
-import { CompanyFormModel, CompanyGetModel, CompanyModel, CompanyUploadPhotoModel, GetCompaniesModel } from './companyModel';
+import { CompanyFormModel, CompanyGetModel, CompanyInviteUsersModel, CompanyModel, CompanyNewFormModel, CompanyUploadModel, GetCompaniesModel } from './companyModel';
 
 
 export type CompanyState = {
-    companyNew: CompanyFormModel;
+    companyNew: CompanyNewFormModel;
     companyEdit: CompanyFormModel;
     company?: CompanyModel;
     companiesByUser?: GetCompaniesModel;
@@ -28,7 +28,9 @@ const initialState: CompanyState = {
         },
         errors: new Map,
         isLoading: false,
-        companyUploadModel: undefined,
+        companyUploadPhotoModel: undefined,
+        companyInviteUsersModel: undefined,
+        companyAddUsersCSVModel: undefined,
     },
     companyEdit: {
         companyModel: {
@@ -77,9 +79,11 @@ export const companySlice = createSlice({
         },
         createCompanySucceed: (state, action: PayloadAction<CompanyModel>) => {
             state.companyNew.companyModel = { ...initialState.companyNew.companyModel };
+            state.companyNew.companyUploadPhotoModel = undefined;
+            state.companyNew.companyInviteUsersModel = undefined;
+            state.companyNew.companyAddUsersCSVModel = undefined;
             state.companyNew.isLoading = false;
             state.companyNew.errors = new Map;
-
             state.company = { ...action.payload };
         },
         createCompanyFailed: (state, action: PayloadAction<unknown>) => {
@@ -92,10 +96,13 @@ export const companySlice = createSlice({
         },
         getCompanyFailed: (state, action: PayloadAction<unknown>) => {
         },
-        uploadPhotoRequested: (state, action: PayloadAction<CompanyUploadPhotoModel>) => {
+        uploadPhotoRequested: (state, action: PayloadAction<CompanyUploadModel>) => {
         },
         uploadPhotoSucceed: (state, action: PayloadAction<CompanyModel>) => {
-            state.company = { ...action.payload };
+            if (state.company) {
+                state.company.originalFileName = action.payload.originalFileName;
+                state.company.fotoUrl = action.payload.fotoUrl;
+            }
         },
         uploadPhotoFailed: (state, action: PayloadAction<unknown>) => {
         },
@@ -126,6 +133,18 @@ export const companySlice = createSlice({
         },
         makeCompanyDelFailed: (state, action: PayloadAction<unknown>) => {
         },
+        addUsersCSVRequested: (state, action: PayloadAction<CompanyUploadModel>) => {
+        },
+        addUsersCSVSucceed: (state) => {
+        },
+        addUsersCSVFailed: (state, action: PayloadAction<unknown>) => {
+        },
+        inviteUsersRequested: (state, action: PayloadAction<CompanyInviteUsersModel>) => {
+        },
+        inviteUsersSucceed: (state) => {
+        },
+        inviteUsersFailed: (state, action: PayloadAction<unknown>) => {
+        },
     },
 });
 
@@ -136,7 +155,9 @@ export const { getAllCompaniesByUserRequested, getAllCompaniesByUserSucceed, get
     uploadPhotoRequested, uploadPhotoSucceed, uploadPhotoFailed,
     editCompanyRequested, editCompanySucceed, editCompanyFailed,
     deletePhotoRequested, deletePhotoSucceed, deletePhotoFailed,
-    makeCompanyDelRequested, makeCompanyDelSucceed, makeCompanyDelFailed  } = companySlice.actions;
+    makeCompanyDelRequested, makeCompanyDelSucceed, makeCompanyDelFailed,
+    addUsersCSVRequested, addUsersCSVSucceed, addUsersCSVFailed,
+    inviteUsersRequested, inviteUsersSucceed, inviteUsersFailed } = companySlice.actions;
 
 export const selectCompaniesByUser = (state: RootState) => state.companyState.companiesByUser;
 export const selectCompaniesByOwner = (state: RootState) => state.companyState.companiesByOwner;

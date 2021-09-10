@@ -3,7 +3,7 @@ import './CompanyEdit.scss';
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 import { createCompanyRequested, deletePhotoRequested, editCompanyRequested, getCompanyRequested, selectCompany, selectCompanyEdit, uploadPhotoRequested } from "../../../../features/company/companySlice";
-import { CompanyFormModel, CompanyModel, CompanyUploadPhotoModel } from "../../../../features/company/companyModel";
+import { CompanyFormModel, CompanyModel, CompanyUploadModel } from "../../../../features/company/companyModel";
 import { useHistory, useParams } from "react-router-dom";
 import { selectUserId } from "../../../../features/user/userSlice";
 
@@ -78,7 +78,7 @@ export const CompanyEdit = () => {
         dispatch(editCompanyRequested(state.companyModel));
         if (file.file !== null) {
             let param = new URLSearchParams();
-            param.append("id", String(state.companyModel.id));
+            param.append("companyId", String(state.companyModel.id));
             let formData = new FormData();
             formData.append("file", file.file);
             dispatch(uploadPhotoRequested({ ...state.companyUploadModel, param: param, formData: formData }));

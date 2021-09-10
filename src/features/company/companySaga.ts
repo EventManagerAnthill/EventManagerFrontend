@@ -3,14 +3,11 @@ import { companySlice } from "./companySlice";
 import { routerSlice } from "../routerSlice";
 import * as Api from "./companyAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { CompanyFormModel, CompanyGetModel, CompanyModel, CompanyUploadPhotoModel, GetCompaniesModel } from "./companyModel";
+import { CompanyFormModel, CompanyGetModel, CompanyInviteUsersModel, CompanyModel, CompanyNewFormModel, CompanyUploadModel, GetCompaniesModel } from "./companyModel";
 import { CompanyData, GetCompaniesData } from "./companyData";
 import { mapToCompanyData, mapToCompanyEditData, mapToCompanyModel, mapToCompanyModelArray } from "./companyMapper";
 import { BadRequestError } from "../../api/exceptions";
 import { snackbarSlice } from "../snackbar/snackbarSlice";
-import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../app/state/store";
-import { selectUserId } from "../user/userSlice";
 
 export function* companySaga() {
     yield takeLatest(companySlice.actions.getAllCompaniesByUserRequested, getAllCompaniesByUserRequested);
@@ -21,6 +18,8 @@ export function* companySaga() {
     yield takeLatest(companySlice.actions.editCompanyRequested, editCompanyRequested);
     yield takeLatest(companySlice.actions.deletePhotoRequested, deletePhotoRequested);
     yield takeLatest(companySlice.actions.makeCompanyDelRequested, makeCompanyDelRequested);
+    yield takeLatest(companySlice.actions.addUsersCSVRequested, addUsersCSVRequested);
+    yield takeLatest(companySlice.actions.inviteUsersRequested, inviteUsersRequested);
 }
 
 function* getAllCompaniesByUserRequested(action: PayloadAction<URLSearchParams>) {
@@ -51,15 +50,25 @@ function* getAllCompaniesByOwnerRequested(action: PayloadAction<URLSearchParams>
     }
 }
 
-function* createCompanyRequested(action: PayloadAction<CompanyFormModel>) {
+function* createCompanyRequested(action: PayloadAction<CompanyNewFormModel>) {
     try {
         const data: CompanyData = yield call(Api.createCompany, mapToCompanyData(action.payload.companyModel));
         const model: CompanyModel = mapToCompanyModel(data);
 
         let param = new URLSearchParams();
-        param.append("id", String(model.id));
+        param.append("companyId", String(model.id));
 
-        yield put(companySlice.actions.uploadPhotoRequested({ ...action.payload.companyUploadModel!, param: param }));
+        if (action.payload.companyUploadPhotoModel) {
+            yield put(companySlice.actions.uploadPhotoRequested({ ...action.payload.companyUploadPhotoModel, param: param }));
+        }
+
+        if (action.payload.companyAddUsersCSVModel) {
+            yield put(companySlice.actions.addUsersCSVRequested({ ...action.payload.companyAddUsersCSVModel, param: param }));
+        }
+
+        if (action.payload.companyInviteUsersModel) {
+            yield put(companySlice.actions.inviteUsersRequested({ ...action.payload.companyInviteUsersModel, companyId: model.id }));
+        }
 
         yield put(routerSlice.actions.routerRedirect(`/company/${model.id}`));
 
@@ -86,7 +95,7 @@ function* getCompanyRequested(action: PayloadAction<CompanyGetModel>) {
     }
 }
 
-function* uploadPhotoRequested(action: PayloadAction<CompanyUploadPhotoModel>) {
+function* uploadPhotoRequested(action: PayloadAction<CompanyUploadModel>) {
     try {
         const data: CompanyData = yield call(Api.uploadPhoto, action.payload);
         const model: CompanyModel = mapToCompanyModel(data);
@@ -135,13 +144,41 @@ function* makeCompanyDelRequested(action: PayloadAction<number>) {
         const data: CompanyData = yield call(Api.makeCompanyDel, action.payload);
         const model: CompanyModel = mapToCompanyModel(data);
 
-        yield put(routerSlice.actions.routerRedirect(`/`));
+        yield put(routerSlice.actions.routerRedirect(`/company/list`));
 
         yield put(companySlice.actions.makeCompanyDelSucceed());
     } catch (e) {
         yield put(companySlice.actions.makeCompanyDelFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        }
+    }
+}
+
+function* addUsersCSVRequested(action: PayloadAction<CompanyUploadModel>) {
+    try {
+        const result:string = yield call(Api.addUsersCSV, action.payload);
+
+        // yield put(snackbarSlice.actions.snackbarOpen({ message: result, severity: 'error' }));
+        yield put(companySlice.actions.addUsersCSVSucceed());
+    } catch (e) {
+        yield put(companySlice.actions.addUsersCSVFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }));
+        }
+    }
+}
+
+function* inviteUsersRequested(action: PayloadAction<CompanyInviteUsersModel>) {
+    try {
+        const result:string = yield call(Api.inviteUsers, action.payload);
+
+        yield put(snackbarSlice.actions.snackbarOpen({ message: result, severity: 'success' }));
+        yield put(companySlice.actions.inviteUsersSucceed());
+    } catch (e) {
+        yield put(companySlice.actions.inviteUsersFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }));
         }
     }
 }

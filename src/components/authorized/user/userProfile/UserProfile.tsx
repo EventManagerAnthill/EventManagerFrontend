@@ -105,19 +105,6 @@ export const UserProfile = () => {
                     <div className="blockInputAndLabel">
                         <label
                             className="blockLabel">
-                            Middle name
-                            <input
-                                className="blockInput"
-                                id="middleName"
-                                name="middleName"
-                                defaultValue={user.userModel.middleName ?? undefined}
-                                onChange={(e) => setModel({ ...state.userModel, middleName: e.currentTarget.value })}
-                            />
-                        </label>
-                    </div>
-                    <div className="blockInputAndLabel">
-                        <label
-                            className="blockLabel">
                             Date of birth
                             <input
                                 className="blockInput"
@@ -138,11 +125,11 @@ export const UserProfile = () => {
                             src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? user.userModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
                         />
                         <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
-                            Change photo
+                            Change image
                         </div>
                     </div>
                     <span className="profilePhotoButton" onClick={() => onClickDeletePhoto()} >
-                        Delete photo for your account
+                        Delete image
                         <input id="inputFile" ref={input} className="profilePhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
                     </span>
                 </div>

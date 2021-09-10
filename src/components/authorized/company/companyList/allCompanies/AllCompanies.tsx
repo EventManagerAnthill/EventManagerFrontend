@@ -7,13 +7,14 @@ import { CompanyForList } from "../../companyForList/CompanyForList";
 import { selectUserId } from "../../../../../features/user/userSlice";
 import { getAllCompaniesByUserRequested, selectCompaniesByUser } from "../../../../../features/company/companySlice";
 import { useHistory } from "react-router-dom";
-import { selectRouterRedirectTo } from "../../../../../features/routerSlice";
+import { routerReset, selectRouterRedirectTo } from "../../../../../features/routerSlice";
 
 export const AllCompanies = () => {
     const dispatch = useAppDispatch();
     const history = useHistory();
     const companiesByUser = useAppSelector(selectCompaniesByUser);
     const userId = useAppSelector(selectUserId);
+    const redirectTo = useAppSelector(selectRouterRedirectTo);
 
     React.useEffect(() => {
         let param = new URLSearchParams();
@@ -21,7 +22,10 @@ export const AllCompanies = () => {
         param.append("page", String(companiesByUser?.paging?.currentPage ?? "1"));
         param.append("pagesize", "10");
         dispatch(getAllCompaniesByUserRequested(param));
-    }, [userId]);
+        if (redirectTo) {
+            dispatch(routerReset());
+        }
+    }, [userId, redirectTo]);
 
     const onClickPage = (numberPage: number) => {
         let param = new URLSearchParams();

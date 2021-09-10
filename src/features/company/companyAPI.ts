@@ -1,7 +1,7 @@
 import { AppSettings } from "../../AppSettings";
 import * as baseApi from "../../api/baseApi";
-import { CompanyData, CompanyEditData, GetCompaniesData } from "./companyData";
-import { CompanyGetModel, CompanyUploadPhotoModel } from "./companyModel";
+import { CompanyData, CompanyEditData, CompanyInviteUsersData, GetCompaniesData } from "./companyData";
+import { CompanyGetModel, CompanyInviteUsersModel, CompanyUploadModel } from "./companyModel";
 
 declare const appSettings: AppSettings;
 
@@ -30,7 +30,7 @@ export function* getCompany(data: CompanyGetModel) {
     return result;
 };
 
-export function* uploadPhoto(data: CompanyUploadPhotoModel) {
+export function* uploadPhoto(data: CompanyUploadModel) {
     const result: CompanyData = yield baseApi.postUpload(appSettings.baseApiUrl + `/company/upload?${data.param!.toString()}`, data.formData);
     return result;
 };
@@ -42,5 +42,15 @@ export function* deletePhoto(param: URLSearchParams) {
 
 export function* makeCompanyDel(companuId: number) {
     const result: CompanyData = yield baseApi.put<undefined, CompanyData>(appSettings.baseApiUrl + `/company/MakeCompanyDel/${companuId}`, undefined);
+    return result;
+};
+
+export function* addUsersCSV(data: CompanyUploadModel) {
+    const result: string = yield baseApi.postUpload(appSettings.baseApiUrl + `/company/addUsersCSV?${data.param!.toString()}`, data.formData);
+    return result;
+};
+
+export function* inviteUsers(data: CompanyInviteUsersData) {
+    const result: string = yield baseApi.post<CompanyInviteUsersData, string>(appSettings.baseApiUrl + `/company/inviteUsers`, data);
     return result;
 };

@@ -14,9 +14,14 @@ export interface CompanyModel {
     userRole?: number;
 }
 
-export interface CompanyUploadPhotoModel {
+export interface CompanyUploadModel {
     param?: URLSearchParams;
     formData: FormData;
+}
+
+export interface CompanyInviteUsersModel {
+    companyId?: number;
+    email: string[];
 }
 
 export interface CompanyGetModel {
@@ -28,7 +33,16 @@ export interface CompanyFormModel {
     companyModel: CompanyModel;
     errors: Map<string, string>;
     isLoading: boolean;
-    companyUploadModel?: CompanyUploadPhotoModel
+    companyUploadModel?: CompanyUploadModel
+}
+
+export interface CompanyNewFormModel {
+    companyModel: CompanyModel;
+    errors: Map<string, string>;
+    isLoading: boolean;
+    companyUploadPhotoModel?: CompanyUploadModel;
+    companyInviteUsersModel?: CompanyInviteUsersModel;
+    companyAddUsersCSVModel?: CompanyUploadModel;
 }
 
 export interface PagingModel {

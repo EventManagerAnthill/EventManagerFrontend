@@ -3,7 +3,7 @@ import './CompanyNew.scss';
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 import { createCompanyRequested, selectCompanyNew } from "../../../../features/company/companySlice";
-import { CompanyFormModel, CompanyModel, CompanyUploadPhotoModel } from "../../../../features/company/companyModel";
+import { CompanyFormModel, CompanyInviteUsersModel, CompanyModel, CompanyNewFormModel, CompanyUploadModel } from "../../../../features/company/companyModel";
 import { selectUserId } from "../../../../features/user/userSlice";
 
 type Avatar = {
@@ -15,11 +15,16 @@ export const CompanyNew = () => {
     const dispatch = useAppDispatch();
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
     const companyNew = useAppSelector(selectCompanyNew);
-    const [state, setState] = React.useState<CompanyFormModel>(companyNew);
+    const [state, setState] = React.useState<CompanyNewFormModel>(companyNew);
     const userId = useAppSelector(selectUserId);
     const [file, setfile] = React.useState<Avatar>({ file: null, imagePreviewUrl: null });
     const input = React.useRef<HTMLInputElement>(null);
-
+    const inputCSV = React.useRef<HTMLInputElement>(null);
+    const [fileCSV, setfileCSV] = React.useState<Avatar>({ file: null, imagePreviewUrl: null });
+    const [email, setEmail] = React.useState<string>("");
+    const [emails, setEmails] = React.useState<string[]>([]);
+    const [isValidated, setIsValidated] = React.useState<boolean>(true);
+    const inputEmail = React.useRef<HTMLInputElement>(null);
 
     const setModel = (model: CompanyModel) => {
         setState({
@@ -28,16 +33,39 @@ export const CompanyNew = () => {
         });
     }
 
-    const setUploadModel = (model: CompanyUploadPhotoModel) => {
+    const setUploadModel = (model: CompanyUploadModel, type: "photo" | "csv") => {
+        switch (type) {
+            case 'photo':
+                setState({
+                    ...state,
+                    companyUploadPhotoModel: model,
+                });
+                break;
+            case 'csv':
+                setState({
+                    ...state,
+                    companyAddUsersCSVModel: model,
+                });
+                break;
+        }
+    }
+
+    const setInviteUsersModel = (model: CompanyInviteUsersModel) => {
         setState({
             ...state,
-            companyUploadModel: model,
+            companyInviteUsersModel: model,
         });
     }
 
     const onClickPhoto = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
         if (null !== input.current) {
             input.current.click();
+        }
+    }
+
+    const onClickCSV = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+        if (null !== inputCSV.current) {
+            inputCSV.current.click();
         }
     }
 
@@ -57,7 +85,27 @@ export const CompanyNew = () => {
 
             let formData = new FormData();
             formData.append("file", file);
-            setUploadModel({ ...state.companyUploadModel, formData: formData })
+            setUploadModel({ ...state.companyUploadPhotoModel, formData: formData }, "photo")
+        }
+    }
+
+    const onChangeCSV = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            let reader = new FileReader();
+            let file = e.target.files[0];
+
+            reader.onloadend = () => {
+                setfileCSV({
+                    file: file,
+                    imagePreviewUrl: reader.result
+                });
+            }
+
+            reader.readAsDataURL(file);
+
+            let formData = new FormData();
+            formData.append("file", file);
+            setUploadModel({ ...state.companyAddUsersCSVModel, formData: formData }, "csv")
         }
     }
 
@@ -73,6 +121,20 @@ export const CompanyNew = () => {
     React.useEffect(() => {
         setModel({ ...state.companyModel, userId: userId });
     }, []);
+
+    const onClickSendInvitations = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (re.test(email)) {
+            emails.push(email);
+            setInviteUsersModel({ ...state.companyInviteUsersModel, email: emails })
+            setEmail("");
+            setIsValidated(true);
+            if (null !== inputEmail.current) {
+                inputEmail.current.value = "";
+            }   
+        } else
+            setIsValidated(false);
+    }
 
     return (
         <form className={isLeftBarOpen ? "companyWithLeftBar" : "company"} onSubmit={e => handleSubmit(e)}>
@@ -154,6 +216,38 @@ export const CompanyNew = () => {
                 </div>
             </div>
 
+            <div className="companyInviteBlock">
+                <div className="companyInviteTitleBlock">
+                    <span className="companyInviteTitle">Invite people</span>
+                </div>
+                <div className="companyInviteMainBlock">
+                    <div className="blockInputAndLabel">
+                        <label
+                            className="blockLabel">
+                            Email
+                            <div className="inputEmailAndButtonBlock">
+                                <input
+                                    className={isValidated ? "blockInput" : "blockInput blockInputError"}
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    defaultValue={email}
+                                    ref={inputEmail}
+                                />
+                                <button type="button" onClick={(e) => onClickSendInvitations(e)} className="buttonBlock">Send invitations</button>
+                            </div>
+                        </label>
+                    </div>
+                    <div className="companyCSVBlock">
+                        <span className="companyCSVButton" onClick={(e) => onClickCSV(e)}>Download CSV-file</span>
+                        <input id="inputFileCSV" ref={inputCSV} className="companyCSVInput" type="file" accept=".csv" onChange={(e) => onChangeCSV(e)} />
+                    </div>
+                </div>
+            </div>
+            {/* <div className="companyInviteEmailsBlock">
+                {state.companyInviteUsersModel && state.companyInviteUsersModel.email.map((email) => <div>{email}</div>)}
+            </div> */}
             <div className="companyButtonBlock">
                 <button
                     type="submit"
@@ -166,3 +260,7 @@ export const CompanyNew = () => {
         </form>
     );
 }
+
+
+
+

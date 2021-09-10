@@ -20,6 +20,11 @@ export interface CompanyEditData {
     description?: string;
 }
 
+export interface CompanyInviteUsersData {
+    companyId?: number;
+    email: string[];
+}
+
 export interface PagingData {
     currentPage: number;
     pageSize: number;

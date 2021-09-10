@@ -9,8 +9,7 @@ type CompanyListTab = 'all companies' | 'my companies' | 'my invitations';
 
 const optionsForUserCompanies = [
     { label: "All companies", isActive: true, type: 'all companies' as CompanyListTab },
-    { label: "My companies", isActive: false, type: 'my companies' as CompanyListTab },
-    { label: "My invitations", isActive: false, type: 'my invitations' as CompanyListTab }];
+    { label: "My companies", isActive: false, type: 'my companies' as CompanyListTab }];
 
 export const CompanyList = () => {
     const [currentTab, setCurrentTab] = React.useState<CompanyListTab>('all companies');
