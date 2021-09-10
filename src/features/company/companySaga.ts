@@ -20,6 +20,7 @@ export function* companySaga() {
     yield takeLatest(companySlice.actions.makeCompanyDelRequested, makeCompanyDelRequested);
     yield takeLatest(companySlice.actions.addUsersCSVRequested, addUsersCSVRequested);
     yield takeLatest(companySlice.actions.inviteUsersRequested, inviteUsersRequested);
+    yield takeLatest(companySlice.actions.getLinkToJoinCompanyRequested, getLinkToJoinCompanyRequested);
 }
 
 function* getAllCompaniesByUserRequested(action: PayloadAction<URLSearchParams>) {
@@ -177,6 +178,19 @@ function* inviteUsersRequested(action: PayloadAction<CompanyInviteUsersModel>) {
         yield put(companySlice.actions.inviteUsersSucceed());
     } catch (e) {
         yield put(companySlice.actions.inviteUsersFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }));
+        }
+    }
+}
+
+function* getLinkToJoinCompanyRequested(action: PayloadAction<URLSearchParams>) {
+    try {
+        const result:string = yield call(Api.getLinkToJoinCompany, action.payload);
+
+        yield put(companySlice.actions.getLinkToJoinCompanySucceed(result));
+    } catch (e) {
+        yield put(companySlice.actions.getLinkToJoinCompanyFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }));
         }

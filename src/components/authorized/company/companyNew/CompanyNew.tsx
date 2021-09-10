@@ -214,8 +214,8 @@ export const CompanyNew = () => {
                         </div>
                         <span className="companyPhotoButton" onClick={onClickDeletePhoto}>
                             Delete image
-                            <input id="inputFile" ref={input} className="companyPhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
                         </span>
+                        <input id="inputFile" ref={input} className="companyPhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
                     </div>
                 </div>
 

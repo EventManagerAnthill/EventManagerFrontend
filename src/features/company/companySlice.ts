@@ -9,6 +9,7 @@ export type CompanyState = {
     company?: CompanyModel;
     companiesByUser?: GetCompaniesModel;
     companiesByOwner?: GetCompaniesModel;
+    linkToJoinCompany?: string;
     isLoading: boolean;
 };
 
@@ -54,6 +55,7 @@ const initialState: CompanyState = {
     company: undefined,
     companiesByUser: undefined,
     companiesByOwner: undefined,
+    linkToJoinCompany: undefined,
     isLoading: false,
 };
 
@@ -162,6 +164,14 @@ export const companySlice = createSlice({
         },
         inviteUsersFailed: (state, action: PayloadAction<unknown>) => {
         },
+        getLinkToJoinCompanyRequested: (state, action: PayloadAction<URLSearchParams>) => {
+        },
+        getLinkToJoinCompanySucceed: (state, action: PayloadAction<string>) => {
+            state.linkToJoinCompany = action.payload;
+        },
+        getLinkToJoinCompanyFailed: (state, action: PayloadAction<unknown>) => {
+            state.linkToJoinCompany = undefined;
+        },
     },
 });
 
@@ -174,13 +184,15 @@ export const { getAllCompaniesByUserRequested, getAllCompaniesByUserSucceed, get
     deletePhotoRequested, deletePhotoSucceed, deletePhotoFailed,
     makeCompanyDelRequested, makeCompanyDelSucceed, makeCompanyDelFailed,
     addUsersCSVRequested, addUsersCSVSucceed, addUsersCSVFailed,
-    inviteUsersRequested, inviteUsersSucceed, inviteUsersFailed } = companySlice.actions;
+    inviteUsersRequested, inviteUsersSucceed, inviteUsersFailed,
+    getLinkToJoinCompanyRequested, getLinkToJoinCompanySucceed, getLinkToJoinCompanyFailed } = companySlice.actions;
 
 export const selectCompaniesByUser = (state: RootState) => state.companyState.companiesByUser;
 export const selectCompaniesByOwner = (state: RootState) => state.companyState.companiesByOwner;
 export const selectCompanyNew = (state: RootState) => state.companyState.companyNew;
 export const selectCompanyEdit = (state: RootState) => state.companyState.companyEdit;
 export const selectCompany = (state: RootState) => state.companyState.company;
+export const selectCompanylinkToJoin = (state: RootState) => state.companyState.linkToJoinCompany;
 export const selectCompanyIsLoading = (state: RootState) => state.companyState.isLoading;
 
 

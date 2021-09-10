@@ -71,7 +71,7 @@ export const UserProfile = () => {
 
     return (
         <>
-        {user.isLoading && <Spinner />}
+            {user.isLoading && <Spinner />}
             <form className={isLeftBarOpen ? "profileWithLeftBar" : "profile"} onSubmit={e => handleSubmit(e)}>
                 <div className="profileMain">
                     <div className="profileForm">
@@ -133,8 +133,8 @@ export const UserProfile = () => {
                         </div>
                         <span className="profilePhotoButton" onClick={() => onClickDeletePhoto()} >
                             Delete image
-                            <input id="inputFile" ref={input} className="profilePhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
                         </span>
+                        <input id="inputFile" ref={input} className="profilePhotoInput" type="file" accept=".jpg, .jpeg, .png" onChange={(e) => onChangePhoto(e)} />
                     </div>
                 </div>
 

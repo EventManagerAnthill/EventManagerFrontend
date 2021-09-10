@@ -54,3 +54,8 @@ export function* inviteUsers(data: CompanyInviteUsersData) {
     const result: string = yield baseApi.post<CompanyInviteUsersData, string>(appSettings.baseApiUrl + `/company/inviteUsers`, data);
     return result;
 };
+
+export function* getLinkToJoinCompany(param: URLSearchParams) {
+    const result: string = yield baseApi.get(appSettings.baseApiUrl + `/company/getLinkToJoinCompany?${param.toString()}`);
+    return result;
+};
