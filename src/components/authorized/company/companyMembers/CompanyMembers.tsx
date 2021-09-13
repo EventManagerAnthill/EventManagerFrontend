@@ -45,6 +45,24 @@ export const CompanyMembers = () => {
         }
     }, [redirectTo, search.firstName, search.lastName]);
 
+    React.useEffect(() => {
+        if (companyUsers && companyUsers.paging) {
+            if (companyUsers.paging.currentPage > companyUsers.paging.totalPages) {
+                let param = new URLSearchParams();
+                param.append("CompanyId", String(companyId));
+                param.append("page", "1");;
+                param.append("pagesize", "10");
+                if (search.firstName !== "") {
+                    param.append("firstName", search.firstName);
+                }
+                if (search.lastName !== "") {
+                    param.append("lastName", search.lastName);
+                }
+                dispatch(getCompanyUsersRequested(param));
+            }
+        }
+    });
+
     const getCompanyUser = (companyId: string) => {
         let param = new URLSearchParams();
         param.append("CompanyId", companyId);

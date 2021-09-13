@@ -33,6 +33,21 @@ export const AllCompanies = () => {
         }
     }, [userId, redirectTo, companyName]);
 
+    React.useEffect(() => {
+        if (companiesByUser && companiesByUser.paging) {
+            if (companiesByUser.paging.currentPage > companiesByUser.paging.totalPages) {
+                let param = new URLSearchParams();
+                param.append("userId", String(userId));
+                param.append("page", "1");
+                param.append("pagesize", "10");
+                if (companyName !== "") {
+                    param.append("companyName", companyName);
+                }
+                dispatch(getAllCompaniesByUserRequested(param));
+            }
+        }
+    });
+
     const onClickPage = (numberPage: number) => {
         let param = new URLSearchParams();
         param.append("userId", String(userId));
@@ -65,7 +80,8 @@ export const AllCompanies = () => {
                                 <CompanyForList id={company.id} name={company.name} fotoUrl={company.fotoUrl!} userRole={company.userRole} />
                             </div>
                         ) : companyName == "" ?
-                            <span className="companyMainText">Here you will see the list of your companies. Create your first company!</span> : <></>
+                            <span className="companyMainText">Here you will see the list of your companies. Create your first company!</span> :
+                            <span className="companyMainText">No results were found for your search</span>
                     }
                 </div>
                 <div className="allCompaniesFooter">
