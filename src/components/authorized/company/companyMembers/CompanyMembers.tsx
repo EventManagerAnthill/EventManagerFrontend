@@ -104,6 +104,14 @@ export const CompanyMembers = () => {
                     </div>
                 </div>
             </div>
+            <div className="companyMembersSearch">
+                <div className="searchInput">
+                    <input className="input" placeholder="First name"/>
+                </div>
+                <div className="searchInput">
+                    <input className="input" placeholder="Last name"/>
+                </div>
+            </div>
             <div className="companyMembersMain">
                 {companyUsers && companyUsers.users && companyUsers.users.map((user) =>
                     <div className="membersBlock">
