@@ -1,5 +1,33 @@
 .myCompanies {
     padding: 30px;
+
+    .myCompaniesSearch {
+        padding-bottom: 15px;
+        input:active,
+        :hover,
+        :focus {
+            outline: 0;
+            outline-offset: 0;
+        }
+        .input {
+            width: 100%;
+            box-sizing: border-box;
+            background: #f8f8f8;
+            border-radius: 8px;
+            height: 49px;
+            border: 1px solid #e5e5e5;
+            padding-left: 16px;
+
+            font-family: Jost;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 23px;
+
+            color: #2e354f;
+        }
+    }
+
     .myCompaniesMain {
         display: flex;
         flex-wrap: wrap;
