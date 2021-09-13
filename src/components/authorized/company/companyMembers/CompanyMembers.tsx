@@ -8,6 +8,11 @@ import { getCompanyUsersRequested, selectCompanyUsers } from "../../../../featur
 import { UserForCompanyMembers } from "../../user/userForCompanyMembers/UserForCompanyMembers";
 import './CompanyMembers.scss';
 
+interface CompanyMembersSearch {
+    firstName: string;
+    lastName: string;
+}
+
 export const CompanyMembers = () => {
     let { companyId } = useParams<{ companyId: string | undefined }>();
     const dispatch = useAppDispatch();
@@ -19,6 +24,7 @@ export const CompanyMembers = () => {
     const inputLink = React.useRef<HTMLInputElement>(null);
     const companyUsers = useAppSelector(selectCompanyUsers);
     const redirectTo = useAppSelector(selectRouterRedirectTo);
+    const [search, setSearch] = React.useState<CompanyMembersSearch>({ firstName: "", lastName: "" });
 
 
     React.useEffect(() => {
@@ -37,13 +43,19 @@ export const CompanyMembers = () => {
                 dispatch(routerReset());
             }
         }
-    }, [redirectTo]);
+    }, [redirectTo, search.firstName, search.lastName]);
 
     const getCompanyUser = (companyId: string) => {
         let param = new URLSearchParams();
         param.append("CompanyId", companyId);
         param.append("page", String(companyUsers?.paging?.currentPage ?? "1"));;
         param.append("pagesize", "10");
+        if (search.firstName !== "") {
+            param.append("firstName", search.firstName);
+        }
+        if (search.lastName !== "") {
+            param.append("lastName", search.lastName);
+        }
         dispatch(getCompanyUsersRequested(param));
     }
 
@@ -74,6 +86,12 @@ export const CompanyMembers = () => {
         param.append("CompanyId", String(companyId));
         param.append("page", String(numberPage));
         param.append("pagesize", "10");
+        if (search.firstName !== "") {
+            param.append("firstName", search.firstName);
+        }
+        if (search.lastName !== "") {
+            param.append("lastName", search.lastName);
+        }
         dispatch(getCompanyUsersRequested(param));
     };
 
@@ -102,6 +120,14 @@ export const CompanyMembers = () => {
                         </div>
                         <button className="headerButton" onClick={() => onClickCopyLink()}>Copy</button>
                     </div>
+                </div>
+            </div>
+            <div className="companyMembersSearch">
+                <div className="searchInput">
+                    <input className="input" placeholder="Last name" onChange={e => setSearch({ ...search, lastName: e.currentTarget.value })} />
+                </div>
+                <div className="searchInput">
+                    <input className="input" placeholder="First name" onChange={e => setSearch({ ...search, firstName: e.currentTarget.value })} />
                 </div>
             </div>
             <div className="companyMembersMain">
