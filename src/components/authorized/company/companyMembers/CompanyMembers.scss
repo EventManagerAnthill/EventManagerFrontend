@@ -356,6 +356,48 @@
         }
     }
 
+    .companyMembersSearch {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0px;
+
+        @media screen and (max-width: 650px * 1.33) {
+            flex-direction: column;
+        }
+        .searchInput {
+            width: 48%;
+
+            @media screen and (max-width: 650px * 1.33) {
+                width: 100%;
+                padding: 10px 0px;
+            }
+
+            input:active,
+            :hover,
+            :focus {
+                outline: 0;
+                outline-offset: 0;
+            }
+            .input {
+                width: 100%;
+                box-sizing: border-box;
+                background: #f8f8f8;
+                border-radius: 8px;
+                height: 49px;
+                border: 1px solid #e5e5e5;
+                padding-left: 16px;
+
+                font-family: Jost;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 23px;
+
+                color: #2e354f;
+            }
+        }
+    }
+
     .companyMembersMain {
         display: flex;
         flex-wrap: wrap;
