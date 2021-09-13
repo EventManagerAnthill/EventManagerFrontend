@@ -1,4 +1,4 @@
-.companyForList {
+.userForList {
     width: 400px;
     height: 170px;
     border-radius: 4px;
@@ -30,9 +30,9 @@
         height: 260px;
     }
 
-    .companyForListInfoBlock {
+    .userForListInfoBlock {
         display: flex;
-        .companyPhotoBlock {
+        .userPhotoBlock {
             border-radius: 50%;
             object-fit: cover;
             height: 100px;
@@ -41,7 +41,7 @@
             box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
             // position: relative;
 
-            .companyPhoto {
+            .userPhoto {
                 border-radius: 50%;
                 object-fit: cover;
                 height: 100px;
@@ -50,10 +50,10 @@
             }
         }
 
-        .companyMain {
+        .userMain {
             margin-left: 15px;
-            .companyNameBlock {
-                .companyName {
+            .userNameBlock {
+                .userName {
                     font-family: Jost;
                     font-style: normal;
                     font-weight: bold;
@@ -64,10 +64,10 @@
                     color: #2c5d7d;
                 }
             }
-            .companyButtonsBlock {
+            .userButtonsBlock {
                 display: flex;
                 flex-direction: column;
-                .companyButton {
+                .userButton {
                     cursor: pointer;
                     font-family: Jost;
                     font-style: normal;
@@ -81,8 +81,8 @@
         }
     }
 
-    .companyForListBlockButton {
-        .companyForListButton {
+    .userForListBlockButton {
+        .userForListButton {
             cursor: pointer;
             font-family: Jost;
             font-style: normal;
@@ -95,30 +95,30 @@
     }
 }
 
-.companyForList:hover {
+.userForList:hover {
     background-color: #2d507c;
 
-    .companyForListInfoBlock {
-        .companyMain {
-            .companyNameBlock {
-                .companyName {
+    .userForListInfoBlock {
+        .userMain {
+            .userNameBlock {
+                .userName {
                     color: #ffffff;
                 }
             }
-            .companyButtonsBlock {
-                .companyButton {
+            .userButtonsBlock {
+                .userButton {
                     color: #ffffff;
                 }
             }
         }
     }
 
-    .companyForListButton {
+    .userForListButton {
         color: #ffffff;
     }
 }
 
-.companyForListLeftBar {
+.userForListLeftBar {
     width: 400px;
     height: 170px;
     border-radius: 4px;
@@ -150,9 +150,9 @@
         height: 260px;
     }
 
-    .companyForListInfoBlock {
+    .userForListInfoBlock {
         display: flex;
-        .companyPhotoBlock {
+        .userPhotoBlock {
             border-radius: 50%;
             object-fit: cover;
             height: 100px;
@@ -161,7 +161,7 @@
             box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
             // position: relative;
 
-            .companyPhoto {
+            .userPhoto {
                 border-radius: 50%;
                 object-fit: cover;
                 height: 100px;
@@ -170,10 +170,10 @@
             }
         }
 
-        .companyMain {
+        .userMain {
             margin-left: 15px;
-            .companyNameBlock {
-                .companyName {
+            .userNameBlock {
+                .userName {
                     font-family: Jost;
                     font-style: normal;
                     font-weight: bold;
@@ -184,10 +184,10 @@
                     color: #2c5d7d;
                 }
             }
-            .companyButtonsBlock {
+            .userButtonsBlock {
                 display: flex;
                 flex-direction: column;
-                .companyButton {
+                .userButton {
                     cursor: pointer;
                     font-family: Jost;
                     font-style: normal;
@@ -201,8 +201,8 @@
         }
     }
 
-    .companyForListBlockButton {
-        .companyForListButton {
+    .userForListBlockButton {
+        .userForListButton {
             cursor: pointer;
             font-family: Jost;
             font-style: normal;
@@ -215,25 +215,25 @@
     }
 }
 
-.companyForListLeftBar:hover {
+.userForListLeftBar:hover {
     background-color: #2d507c;
 
-    .companyForListInfoBlock {
-        .companyMain {
-            .companyNameBlock {
-                .companyName {
+    .userForListInfoBlock {
+        .userMain {
+            .userNameBlock {
+                .userName {
                     color: #ffffff;
                 }
             }
-            .companyButtonsBlock {
-                .companyButton {
+            .userButtonsBlock {
+                .userButton {
                     color: #ffffff;
                 }
             }
         }
     }
 
-    .companyForListButton {
+    .userForListButton {
         color: #ffffff;
     }
 }

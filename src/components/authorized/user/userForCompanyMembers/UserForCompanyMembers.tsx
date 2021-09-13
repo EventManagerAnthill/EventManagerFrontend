@@ -15,28 +15,28 @@ export const UserForCompanyMembers = (props: Props) => {
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
 
     return (
-        <div className={isLeftBarOpen ? "companyForListLeftBar" : "companyForList"}>
-            <div className="companyForListInfoBlock">
-                <div className="companyPhotoBlock">
-                    <img className="companyPhoto" src={props.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"} />
+        <div className={isLeftBarOpen ? "userForListLeftBar" : "userForList"}>
+            <div className="userForListInfoBlock">
+                <div className="userPhotoBlock">
+                    <img className="userPhoto" src={props.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"} />
                 </div>
-                <div className="companyMain">
-                    <div className="companyNameBlock">
-                        <span className="companyName">{(props.lastName + " " + props.firstName) ?? "user"}</span>
+                <div className="userMain">
+                    <div className="userNameBlock">
+                        <span className="userName">{(props.lastName + " " + props.firstName) ?? "user"}</span>
                     </div>
                     {/* {(props.userRole == 1 || props.userRole == 2) &&
-                        <div className="companyButtonsBlock">
-                            <div className="companyButton" onClick={() => history.push(`/company/${props.id}/edit`)}>Edit company</div>
+                        <div className="userButtonsBlock">
+                            <div className="userButton" onClick={() => history.push(`/user/${props.id}/edit`)}>Edit user</div>
                             {props.userRole == 1 &&
-                                <div className="companyButton" onClick={() => onClickDeleteCompany(props.id!, props.name)}>Delete company</div>
+                                <div className="userButton" onClick={() => onClickDeleteuser(props.id!, props.name)}>Delete user</div>
                             }
-                            <div className="companyButton" onClick={() => history.push(`/company/${props.id}/event/new`)}>+ Add new event</div>
+                            <div className="userButton" onClick={() => history.push(`/user/${props.id}/event/new`)}>+ Add new event</div>
                         </div>
                     } */}
                 </div>
             </div>
-            <div className="companyForListBlockButton">
-                <div className="companyForListButton">Learn more</div>
+            <div className="userForListBlockButton">
+                <div className="userForListButton">Learn more</div>
             </div>
         </div>
     )

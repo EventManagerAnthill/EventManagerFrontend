@@ -27,3 +27,15 @@ export interface UserUpdateData {
     sex?: number | null;
     username?: string | null;
 }
+
+export interface PagingData {
+    currentPage: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+}
+
+export interface GetCompanyUsersData {
+    users?: UserData[];
+    paging?: PagingData;
+}

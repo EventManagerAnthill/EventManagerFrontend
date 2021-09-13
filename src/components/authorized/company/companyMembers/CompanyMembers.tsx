@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { getLinkToJoinCompanyRequested, inviteUsersRequested, selectCompanylinkToJoin } from "../../../../features/company/companySlice";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
+import { routerReset, selectRouterRedirectTo } from "../../../../features/routerSlice";
+import { getCompanyUsersRequested, selectCompanyUsers } from "../../../../features/user/userSlice";
+import { UserForCompanyMembers } from "../../user/userForCompanyMembers/UserForCompanyMembers";
 import './CompanyMembers.scss';
 
 export const CompanyMembers = () => {
@@ -14,6 +17,8 @@ export const CompanyMembers = () => {
     const [email, setEmail] = React.useState<string>("");
     const [isValidatedEmail, setIsValidatedEmail] = React.useState<boolean>(true);
     const inputLink = React.useRef<HTMLInputElement>(null);
+    const companyUsers = useAppSelector(selectCompanyUsers);
+    const redirectTo = useAppSelector(selectRouterRedirectTo);
 
 
     React.useEffect(() => {
@@ -21,14 +26,32 @@ export const CompanyMembers = () => {
             let param = new URLSearchParams();
             param.append("Id", companyId);
             dispatch(getLinkToJoinCompanyRequested(param));
+            getCompanyUser(companyId);
         }
     }, [companyId]);
+
+    React.useEffect(() => {
+        if (companyId) {
+            getCompanyUser(companyId);
+            if (redirectTo) {
+                dispatch(routerReset());
+            }
+        }
+    }, [redirectTo]);
+
+    const getCompanyUser = (companyId: string) => {
+        let param = new URLSearchParams();
+        param.append("CompanyId", companyId);
+        param.append("page", String(companyUsers?.paging?.currentPage ?? "1"));;
+        param.append("pagesize", "10");
+        dispatch(getCompanyUsersRequested(param));
+    }
 
     const onClickSendInvitations = () => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (re.test(email)) {
             if (companyId) {
-                dispatch(inviteUsersRequested({companyId: +(companyId), email: [email]}));
+                dispatch(inviteUsersRequested({ companyId: +(companyId), email: [email] }));
             }
             setEmail("");
             setIsValidatedEmail(true);
@@ -46,12 +69,30 @@ export const CompanyMembers = () => {
         }
     };
 
+    const onClickPage = (numberPage: number) => {
+        let param = new URLSearchParams();
+        param.append("CompanyId", String(companyId));
+        param.append("page", String(numberPage));
+        param.append("pagesize", "10");
+        dispatch(getCompanyUsersRequested(param));
+    };
+
+    const getPages = (totalPages: number) => {
+        let content = [];
+        let i: number = 1;
+        while (i <= totalPages) {
+            content.push(i)
+            i++;
+        }
+        return content;
+    };
+
     return (
         <div className={isLeftBarOpen ? "companyMembersWithLeftBar" : "companyMembers"}>
             <div className="companyMembersHeader">
                 <div className="headerInputsBlock">
                     <div className="headerInputAndButtonBlock">
-                        <input ref={inputEmail} type="email" className={isValidatedEmail ? "headerInput" : "headerInput headerInputError"} onChange={(e) => setEmail(e.target.value)}/>
+                        <input ref={inputEmail} type="email" className={isValidatedEmail ? "headerInput" : "headerInput headerInputError"} onChange={(e) => setEmail(e.target.value)} />
                         <button className="headerButton" onClick={() => onClickSendInvitations()}>Send invitations</button>
                     </div>
                     <div className="headerInputAndButtonBlock">
@@ -64,19 +105,23 @@ export const CompanyMembers = () => {
                 </div>
             </div>
             <div className="companyMembersMain">
-
+                {companyUsers && companyUsers.users && companyUsers.users.map((user) =>
+                    <div className="membersBlock">
+                        <UserForCompanyMembers id={user.id} firstName={user.firstName} lastName={user.lastName} fotoUrl={user.fotoUrl!} />
+                    </div>)
+                }
             </div>
             <div className="companyMembersFooter">
                 <div className="blockTotal">
-                    <span className="total">{`Total objects: 0`}</span>
+                    <span className="total">{`Total objects: ${(companyUsers && companyUsers.paging && companyUsers.paging.totalItems) ?? "0"}`}</span>
                 </div>
                 <div className="blockButtons">
                     <div className="blockPagesButtons">
-                        {/* {companiesByOwner && companiesByOwner.paging && getPages(companiesByOwner.paging.totalPages).map((pageNumber) =>
-                                companiesByOwner.paging!.currentPage == pageNumber ?
-                                    <div className="pageButton">{pageNumber}</div> :
-                                    <div className="pageButton pageButtonNotActive" onClick={() => onClickPage(pageNumber)}>{pageNumber}</div>
-                            )} */}
+                        {companyUsers && companyUsers.paging && getPages(companyUsers.paging.totalPages).map((pageNumber) =>
+                            companyUsers.paging!.currentPage == pageNumber ?
+                                <div className="pageButton">{pageNumber}</div> :
+                                <div className="pageButton pageButtonNotActive" onClick={() => onClickPage(pageNumber)}>{pageNumber}</div>
+                        )}
                     </div>
                 </div>
             </div>

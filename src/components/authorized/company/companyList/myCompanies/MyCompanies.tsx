@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../app/state/store";
 import AddIcon from '@material-ui/icons/Add';
 import InfoIcon from '@material-ui/icons/Info';
 import { CompanyForList } from "../../companyForList/CompanyForList";
-import { selectUserId } from "../../../../../features/user/userSlice";
+import { selectUserFormId } from "../../../../../features/user/userSlice";
 import { getAllCompaniesByOwnerRequested, selectCompaniesByOwner, selectCompanyIsLoading } from "../../../../../features/company/companySlice";
 import { useHistory } from "react-router-dom";
 import { routerReset, selectRouterRedirectTo } from "../../../../../features/routerSlice";
@@ -14,7 +14,7 @@ export const MyCompanies = () => {
     const dispatch = useAppDispatch();
     const history = useHistory();
     const companiesByOwner = useAppSelector(selectCompaniesByOwner);
-    const userId = useAppSelector(selectUserId);
+    const userId = useAppSelector(selectUserFormId);
     const redirectTo = useAppSelector(selectRouterRedirectTo);
     const companyIsLoading = useAppSelector(selectCompanyIsLoading);
 

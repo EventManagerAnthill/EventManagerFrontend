@@ -1,13 +1,13 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { UserFormModel, UserPasswordModel } from "../../../../features/user/userModel";
-import { selectUser, updateUserPasswordRequested } from "../../../../features/user/userSlice";
+import { selectUserForm, updateUserPasswordRequested } from "../../../../features/user/userSlice";
 import { Spinner } from "../../../spinner/Spinner";
 import './UserPassword.scss';
 
 export const UserPassword = () => {
     const dispatch = useAppDispatch();
-    const user = useAppSelector(selectUser);
+    const user = useAppSelector(selectUserForm);
     const [state, setState] = React.useState<UserFormModel>(user);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

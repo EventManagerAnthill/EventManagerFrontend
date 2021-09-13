@@ -3,7 +3,7 @@ import './UserProfile.scss';
 import User from '../../../../assets/images/User.png'
 import { UserFormModel, UserModel } from "../../../../features/user/userModel";
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
-import { deletePhotoRequested, selectUser, updateUserRequested, uploadPhotoRequested } from "../../../../features/user/userSlice";
+import { deletePhotoRequested, selectUserForm, updateUserRequested, uploadPhotoRequested } from "../../../../features/user/userSlice";
 import moment from "moment";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 import { Spinner } from "../../../spinner/Spinner";
@@ -16,7 +16,7 @@ type Avatar = {
 export const UserProfile = () => {
     const dispatch = useAppDispatch();
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
-    const user = useAppSelector(selectUser);
+    const user = useAppSelector(selectUserForm);
     const [state, setState] = React.useState<UserFormModel>(user);
     const [file, setfile] = React.useState<Avatar>({ file: null, imagePreviewUrl: null });
     const input = React.useRef<HTMLInputElement>(null);

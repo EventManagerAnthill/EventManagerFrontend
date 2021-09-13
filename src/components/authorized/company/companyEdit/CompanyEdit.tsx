@@ -5,7 +5,7 @@ import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 import { createCompanyRequested, deletePhotoRequested, editCompanyRequested, getCompanyRequested, selectCompany, selectCompanyEdit, uploadPhotoRequested } from "../../../../features/company/companySlice";
 import { CompanyFormModel, CompanyModel, CompanyUploadModel } from "../../../../features/company/companyModel";
 import { useHistory, useParams } from "react-router-dom";
-import { selectUserId } from "../../../../features/user/userSlice";
+import { selectUserFormId } from "../../../../features/user/userSlice";
 import { Spinner } from "../../../spinner/Spinner";
 
 type Avatar = {
@@ -22,7 +22,7 @@ export const CompanyEdit = () => {
     const [state, setState] = React.useState<CompanyFormModel>(companyEdit);
     const [file, setfile] = React.useState<Avatar>({ file: null, imagePreviewUrl: null });
     const input = React.useRef<HTMLInputElement>(null);
-    const userId = useAppSelector(selectUserId);
+    const userId = useAppSelector(selectUserFormId);
 
     React.useEffect(() => {
         if (companyId) {

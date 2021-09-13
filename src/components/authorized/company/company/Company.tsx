@@ -7,7 +7,7 @@ import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 import { getCompanyEventsRequested, selectEventsCompany } from "../../../../features/event/eventSlicer";
 import { EventForCompany } from "../../event/eventForCompany/EventForCompany";
 import { useConfirm } from "material-ui-confirm";
-import { selectUserId } from "../../../../features/user/userSlice";
+import { selectUserFormId } from "../../../../features/user/userSlice";
 import { Spinner } from "../../../spinner/Spinner";
 
 export const Company = () => {
@@ -18,7 +18,7 @@ export const Company = () => {
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
     const company = useAppSelector(selectCompany);
     const eventsCompany = useAppSelector(selectEventsCompany);
-    const userId = useAppSelector(selectUserId);
+    const userId = useAppSelector(selectUserFormId);
     const companyIsLoading = useAppSelector(selectCompanyIsLoading);
 
 

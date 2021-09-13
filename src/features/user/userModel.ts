@@ -29,3 +29,15 @@ export interface UserUploadPhotoModel {
     param: URLSearchParams;
     formData: FormData;
 }
+
+export interface PagingModel {
+    currentPage: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+}
+
+export interface GetCompanyUsersModel {
+    users?: UserModel[];
+    paging?: PagingModel;
+}

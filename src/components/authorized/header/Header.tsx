@@ -4,7 +4,7 @@ import './Header.scss';
 import User from '../../../assets/images/User.png'
 import { useAppDispatch, useAppSelector } from "../../../app/state/store";
 import { leftBarOpen, leftBarClose, selectLeftBarOpen } from '../../../features/leftBar/leftBarSlice';
-import { getUserRequested, selectUserFirstName, selectUserfotoUrl, selectUserisLoading, selectUserLastName } from '../../../features/user/userSlice';
+import { getUserRequested, selectUserFormFirstName, selectUserFormfotoUrl, selectUserFormisLoading, selectUserFormLastName } from '../../../features/user/userSlice';
 import { getEmail, signOut } from "../../../useToken";
 import { useConfirm } from 'material-ui-confirm';
 import { Spinner } from "../../spinner/Spinner";
@@ -16,10 +16,10 @@ export const Header = () => {
     const confirm = useConfirm();
     const dispatch = useAppDispatch();
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
-    const firstName = useAppSelector(selectUserFirstName);
-    const lastName = useAppSelector(selectUserLastName);
-    const fotoUrl = useAppSelector(selectUserfotoUrl);
-    const UserIsLoading =  useAppSelector(selectUserisLoading)
+    const firstName = useAppSelector(selectUserFormFirstName);
+    const lastName = useAppSelector(selectUserFormLastName);
+    const fotoUrl = useAppSelector(selectUserFormfotoUrl);
+    const UserIsLoading =  useAppSelector(selectUserFormisLoading)
 
     React.useEffect(() => {
         let param = new URLSearchParams();

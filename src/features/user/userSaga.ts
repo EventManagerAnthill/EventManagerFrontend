@@ -3,9 +3,9 @@ import { userSlice } from "./userSlice";
 import { routerSlice } from "../routerSlice";
 import * as Api from "./userAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { UserData } from "./userData";
-import { UserFormModel, UserModel, UserUploadPhotoModel } from "./userModel";
-import { mapToUserModel, mapToUpdateData, mapToUpdatePasswordData } from "./userMapper";
+import { GetCompanyUsersData, UserData } from "./userData";
+import { GetCompanyUsersModel, UserFormModel, UserModel, UserUploadPhotoModel } from "./userModel";
+import { mapToUserModel, mapToUpdateData, mapToUpdatePasswordData, mapToUserModelArray } from "./userMapper";
 import { BadRequestError } from "../../api/exceptions";
 import { snackbarSlice } from "../snackbar/snackbarSlice";
 
@@ -15,6 +15,7 @@ export function* userSaga() {
     yield takeLatest(userSlice.actions.updateUserPasswordRequested, updateUserPasswordRequested);
     yield takeLatest(userSlice.actions.uploadPhotoRequested, uploadPhotoRequested);
     yield takeLatest(userSlice.actions.deletePhotoRequested, deletePhotoRequested);
+    yield takeLatest(userSlice.actions.getCompanyUsersRequested, getCompanyUsersRequested);
 }
 
 function* getUserRequested(action: PayloadAction<URLSearchParams>) {
@@ -83,6 +84,20 @@ function* deletePhotoRequested(action: PayloadAction<URLSearchParams>) {
         yield put(userSlice.actions.deletePhotoSucceed(model));
     } catch (e) {
         yield put(userSlice.actions.deletePhotoFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        } 
+    }
+}
+
+function* getCompanyUsersRequested(action: PayloadAction<URLSearchParams>) {
+    try {
+        const data: GetCompanyUsersData = yield call(Api.getCompanyUsers, action.payload);
+        const model: GetCompanyUsersModel = { ...data, users: mapToUserModelArray(data.users!) }
+
+        yield put(userSlice.actions.getCompanyUsersSucceed(model));
+    } catch (e) {
+        yield put(userSlice.actions.getCompanyUsersFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
         } 

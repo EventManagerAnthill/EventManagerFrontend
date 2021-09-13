@@ -54,3 +54,7 @@ export const mapToUpdatePasswordData = (model: UserFormModel): UserUpdatePasswor
         password: model.userPasswordModel.newPassword,
     };
 }
+
+export const mapToUserModelArray = (data: UserData[]): UserModel[] => {
+    return data.map(x => { return mapToUserModel(x) });
+}

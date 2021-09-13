@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 import { createCompanyRequested, selectCompanyNew } from "../../../../features/company/companySlice";
 import { CompanyFormModel, CompanyInviteUsersModel, CompanyModel, CompanyNewFormModel, CompanyUploadModel } from "../../../../features/company/companyModel";
-import { selectUserId } from "../../../../features/user/userSlice";
+import { selectUserFormId } from "../../../../features/user/userSlice";
 import { Spinner } from "../../../spinner/Spinner";
 
 type Avatar = {
@@ -17,7 +17,7 @@ export const CompanyNew = () => {
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
     const companyNew = useAppSelector(selectCompanyNew);
     const [state, setState] = React.useState<CompanyNewFormModel>(companyNew);
-    const userId = useAppSelector(selectUserId);
+    const userId = useAppSelector(selectUserFormId);
     const [file, setfile] = React.useState<Avatar>({ file: null, imagePreviewUrl: null });
     const input = React.useRef<HTMLInputElement>(null);
     const inputCSV = React.useRef<HTMLInputElement>(null);

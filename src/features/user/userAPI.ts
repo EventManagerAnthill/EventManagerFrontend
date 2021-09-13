@@ -1,6 +1,6 @@
 import { AppSettings } from "../../AppSettings";
 import * as baseApi from "../../api/baseApi";
-import { UserData, UserUpdateData, UserUpdatePasswordData } from "./userData";
+import { GetCompanyUsersData, UserData, UserUpdateData, UserUpdatePasswordData } from "./userData";
 import { UserUploadPhotoModel } from "./userModel";
 
 declare const appSettings: AppSettings;
@@ -27,5 +27,10 @@ export function* uploadPhoto(data: UserUploadPhotoModel) {
 
 export function* deletePhoto(param: URLSearchParams) {
     const result: UserData = yield baseApi.put(appSettings.baseApiUrl + `/user/deleteFoto?${param.toString()}`, undefined);
+    return result;
+}
+
+export function* getCompanyUsers(param: URLSearchParams) {
+    const result: GetCompanyUsersData = yield baseApi.get(appSettings.baseApiUrl + `/company/getCompanyUsers?${param.toString()}`);
     return result;
 }
