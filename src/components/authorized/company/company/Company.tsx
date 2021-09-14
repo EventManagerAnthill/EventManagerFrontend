@@ -1,8 +1,8 @@
 import React from "react";
 import './Company.scss';
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
-import { getCompanyRequested, makeCompanyDelRequested, selectCompany, selectCompanyIsLoading } from "../../../../features/company/companySlice";
+import { acceptInvitationRequested, getCompanyRequested, makeCompanyDelRequested, selectCompany, selectCompanyIsLoading } from "../../../../features/company/companySlice";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
 import { getCompanyEventsRequested, selectEventIsLoading, selectEventsCompany } from "../../../../features/event/eventSlicer";
 import { EventForCompany } from "../../event/eventForCompany/EventForCompany";
@@ -13,6 +13,7 @@ import { Spinner } from "../../../spinner/Spinner";
 export const Company = () => {
     let { companyId } = useParams<{ companyId: string | undefined }>();
     const history = useHistory();
+    const location = useLocation();
     const dispatch = useAppDispatch();
     const confirm = useConfirm();
     const isLeftBarOpen = useAppSelector(selectLeftBarOpen);
@@ -21,7 +22,6 @@ export const Company = () => {
     const userId = useAppSelector(selectUserFormId);
     const companyIsLoading = useAppSelector(selectCompanyIsLoading);
     const eventIsLoading = useAppSelector(selectEventIsLoading);
-
 
     React.useEffect(() => {
         if (companyId) {
@@ -35,6 +35,13 @@ export const Company = () => {
             dispatch(getCompanyRequested({ companyId: +(companyId), param: paramForCompany }));
         }
     }, [companyId, userId]);
+
+    React.useEffect(() => {
+        if (location.search != "") {
+            let params = new URLSearchParams(location.search);
+            dispatch(acceptInvitationRequested({ companyId: +(params.get("ObjectId")!), email: params.get("email")! }));
+        }
+    }, []);
 
     const onClickDeleteCompany = (companyId: number, companyName: string) => {
         confirm({ title: '', description: `Are you sure you want to delete company "${companyName}"?`, confirmationText: 'Delete' })

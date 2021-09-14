@@ -56,3 +56,8 @@ export interface GetCompaniesModel {
     companies?: CompanyModel[];
     paging?: PagingModel;
 }
+
+export interface CompanyAcceptInvitationModel {
+    companyId: number;
+    email: string;
+}

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/state/store';
-import { CompanyFormModel, CompanyGetModel, CompanyInviteUsersModel, CompanyModel, CompanyNewFormModel, CompanyUploadModel, GetCompaniesModel } from './companyModel';
+import { CompanyAcceptInvitationModel, CompanyFormModel, CompanyGetModel, CompanyInviteUsersModel, CompanyModel, CompanyNewFormModel, CompanyUploadModel, GetCompaniesModel } from './companyModel';
 
 
 export type CompanyState = {
@@ -172,6 +172,12 @@ export const companySlice = createSlice({
         getLinkToJoinCompanyFailed: (state, action: PayloadAction<unknown>) => {
             state.linkToJoinCompany = undefined;
         },
+        acceptInvitationRequested: (state, action: PayloadAction<CompanyAcceptInvitationModel>) => {
+        },
+        acceptInvitationSucceed: (state) => {
+        },
+        acceptInvitationFailed: (state, action: PayloadAction<unknown>) => {
+        },
     },
 });
 
@@ -185,7 +191,8 @@ export const { getAllCompaniesByUserRequested, getAllCompaniesByUserSucceed, get
     makeCompanyDelRequested, makeCompanyDelSucceed, makeCompanyDelFailed,
     addUsersCSVRequested, addUsersCSVSucceed, addUsersCSVFailed,
     inviteUsersRequested, inviteUsersSucceed, inviteUsersFailed,
-    getLinkToJoinCompanyRequested, getLinkToJoinCompanySucceed, getLinkToJoinCompanyFailed } = companySlice.actions;
+    getLinkToJoinCompanyRequested, getLinkToJoinCompanySucceed, getLinkToJoinCompanyFailed,
+    acceptInvitationRequested, acceptInvitationSucceed, acceptInvitationFailed } = companySlice.actions;
 
 export const selectCompaniesByUser = (state: RootState) => state.companyState.companiesByUser;
 export const selectCompaniesByOwner = (state: RootState) => state.companyState.companiesByOwner;

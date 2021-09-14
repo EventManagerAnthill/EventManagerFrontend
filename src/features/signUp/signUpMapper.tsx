@@ -7,5 +7,6 @@ export const mapToRequestModel = (data: SignUpModel): SignUpRequestModel => {
         dateOfBirth: new Date(data.dateOfBirth!),
         email: data.email,
         password: data.password,
+        emailVerification: data.emailVerification,
     };
 }

@@ -1,11 +1,21 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import LogoBlue from "../../assets/images/LogoBlue.png";
 import './Welcome.scss';
 
 
 export const Welcome = () => {
   const history = useHistory();
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.search != "") {
+      history.push("/signin");
+      sessionStorage.setItem('emailVerification', 'true');
+      sessionStorage.setItem('path', location.pathname + location.search);
+    }
+  }, []);
+
   return (
     <div className="HomePage">
       <div className="HomePage-DivHeading">

@@ -12,6 +12,7 @@ const initialState: SignUpState = {
         email: '',
         password: '',
         repeatPassword: '',
+        emailVerification: false,
     },
     errors: new Map,
     isLoading: false,

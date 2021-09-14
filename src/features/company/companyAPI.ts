@@ -1,6 +1,6 @@
 import { AppSettings } from "../../AppSettings";
 import * as baseApi from "../../api/baseApi";
-import { CompanyData, CompanyEditData, CompanyInviteUsersData, GetCompaniesData } from "./companyData";
+import { CompanyAcceptInvitationData, CompanyData, CompanyEditData, CompanyInviteUsersData, GetCompaniesData } from "./companyData";
 import { CompanyGetModel, CompanyInviteUsersModel, CompanyUploadModel } from "./companyModel";
 
 declare const appSettings: AppSettings;
@@ -57,5 +57,10 @@ export function* inviteUsers(data: CompanyInviteUsersData) {
 
 export function* getLinkToJoinCompany(param: URLSearchParams) {
     const result: string = yield baseApi.get(appSettings.baseApiUrl + `/company/getLinkToJoinCompany?${param.toString()}`);
+    return result;
+};
+
+export function* acceptInvitation(data: CompanyAcceptInvitationData) {
+    const result: string = yield baseApi.post<CompanyAcceptInvitationData, string>(appSettings.baseApiUrl + `/company/acceptInvitation`, data);
     return result;
 };

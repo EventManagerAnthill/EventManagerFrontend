@@ -5,6 +5,7 @@ export interface SignUpData {
     email : string;
     password : string;
     repeatPassword : string;
+    emailVerification: boolean;
 }
 
 export interface SignUpRequestData {
@@ -13,4 +14,5 @@ export interface SignUpRequestData {
     dateOfBirth? : Date;
     email : string;
     password : string;
+    emailVerification: boolean;
 }
