@@ -61,7 +61,7 @@ export const CompanyMembers = () => {
                 dispatch(getCompanyUsersRequested(param));
             }
         }
-    });
+    }, [companyUsers?.paging?.totalPages]);
 
     const getCompanyUser = (companyId: string) => {
         let param = new URLSearchParams();

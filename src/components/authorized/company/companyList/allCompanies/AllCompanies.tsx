@@ -46,7 +46,7 @@ export const AllCompanies = () => {
                 dispatch(getAllCompaniesByUserRequested(param));
             }
         }
-    });
+    }, [companiesByUser?.paging?.totalPages]);
 
     const onClickPage = (numberPage: number) => {
         let param = new URLSearchParams();
