@@ -140,6 +140,7 @@ export const CompanyMembers = () => {
                     </div>
                 </div>
             </div>
+            <hr className="companyMemberHR"/>
             <div className="companyMembersSearch">
                 <div className="searchInput">
                     <input className="input" placeholder="Last name" onChange={e => setSearch({ ...search, lastName: e.currentTarget.value })} />

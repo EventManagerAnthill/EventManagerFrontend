@@ -20,7 +20,6 @@ function* signUpRequested(action: PayloadAction<SignUpModel>) {
         const data: UserData = yield call(Api.postSignUp, mapToRequestModel(action.payload));
         const model: UserModel = mapToUserModel(data);
 
-        sessionStorage.setItem('search', location.search);
         yield put(routerSlice.actions.routerRedirect('/signin'));
         yield put(snackbarSlice.actions.snackbarOpen({message: 'Your registration was submitted successfully.', severity: 'success'}))
         yield put(signUpSlice.actions.signUpSucceed());
