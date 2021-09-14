@@ -13,3 +13,15 @@ export interface EventModel {
     serverFileName?: string;
     fotoUrl?: string;
 }
+
+export interface PagingModel {
+    currentPage: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+}
+
+export interface GetCompanyEventsModel {
+    events?: EventModel[];
+    paging?: PagingModel;
+}

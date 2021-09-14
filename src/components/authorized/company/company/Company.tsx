@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { getCompanyRequested, makeCompanyDelRequested, selectCompany, selectCompanyIsLoading } from "../../../../features/company/companySlice";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
-import { getCompanyEventsRequested, selectEventsCompany } from "../../../../features/event/eventSlicer";
+import { getCompanyEventsRequested, selectEventIsLoading, selectEventsCompany } from "../../../../features/event/eventSlicer";
 import { EventForCompany } from "../../event/eventForCompany/EventForCompany";
 import { useConfirm } from "material-ui-confirm";
 import { selectUserFormId } from "../../../../features/user/userSlice";
@@ -20,12 +20,15 @@ export const Company = () => {
     const eventsCompany = useAppSelector(selectEventsCompany);
     const userId = useAppSelector(selectUserFormId);
     const companyIsLoading = useAppSelector(selectCompanyIsLoading);
+    const eventIsLoading = useAppSelector(selectEventIsLoading);
 
 
     React.useEffect(() => {
         if (companyId) {
             let param = new URLSearchParams();
             param.append("CompanyId", companyId);
+            param.append("page", String(eventsCompany?.paging?.currentPage ?? "1"));
+            param.append("pageSize", "6");
             dispatch(getCompanyEventsRequested(param));
             let paramForCompany = new URLSearchParams();
             paramForCompany.append("userId", String(userId));
@@ -40,9 +43,27 @@ export const Company = () => {
             });
     };
 
+    const onClickPage = (numberPage: number) => {
+        let param = new URLSearchParams();
+        param.append("CompanyId", String(companyId));
+        param.append("page", String(numberPage));
+        param.append("pagesize", "6");
+        dispatch(getCompanyEventsRequested(param));
+    };
+
+    const getPages = (totalPages: number) => {
+        let content = [];
+        let i: number = 1;
+        while (i <= totalPages) {
+            content.push(i)
+            i++;
+        }
+        return content;
+    };
+
     return (
         <>
-            {companyIsLoading && <Spinner />}
+            {(companyIsLoading || eventIsLoading) && <Spinner />}
             <div className={isLeftBarOpen ? "companyContainerLeftBar" : "companyContainer"}>
                 <div className="companyHeader">
                     <div className="companyHeaderBlock">
@@ -73,11 +94,25 @@ export const Company = () => {
                     </div>
                     <div>
                         <div className="companyMainEventsWrapBlock">
-                            {eventsCompany && eventsCompany.map((event) =>
+                            {eventsCompany && eventsCompany.events && eventsCompany.events.map((event) =>
                                 <div className="companyMainEvenBlock">
                                     <EventForCompany id={event.id} name={event.name} description={event.description} />
                                 </div>
                             )}
+                        </div>
+                    </div>
+                    <div className="companyMainFooter">
+                        <div className="blockTotal">
+                            <span className="total">{`Total objects: ${(eventsCompany && eventsCompany.paging && eventsCompany.paging.totalItems) ?? "0"}`}</span>
+                        </div>
+                        <div className="blockButtons">
+                            <div className="blockPagesButtons">
+                                {eventsCompany && eventsCompany.paging && getPages(eventsCompany.paging.totalPages).map((pageNumber) =>
+                                    eventsCompany.paging!.currentPage == pageNumber ?
+                                        <div className="pageButton">{pageNumber}</div> :
+                                        <div className="pageButton pageButtonNotActive" onClick={() => onClickPage(pageNumber)}>{pageNumber}</div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

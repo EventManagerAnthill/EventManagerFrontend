@@ -173,6 +173,53 @@
             }
         }
     }
+
+    .companyMainFooter {
+        display: flex;
+        justify-content: flex-start;
+        width: 98%;
+        margin: 20px;
+        padding-top: 30px;
+        .blockTotal {
+            margin-bottom: 40px;
+            .total {
+                font-family: Jost;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 26px;
+
+                color: #2c5d7d;
+            }
+        }
+        .blockButtons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .blockPagesButtons {
+                display: flex;
+                .pageButton {
+                    cursor: pointer;
+                    margin-right: 36px;
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 26px;
+                    color: #2c5d7d;
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none;
+                    -khtml-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                }
+                .pageButtonNotActive {
+                    color: rgba(44, 93, 125, 0.31);
+                }
+            }
+        }
+    }
 }
 
 .companyContainerLeftBar {
@@ -347,6 +394,53 @@
 
             .companyMainEvenBlock {
                 margin: 20px;
+            }
+        }
+
+        .companyMainFooter {
+            display: flex;
+            justify-content: flex-start;
+            width: 98%;
+            margin: 20px;
+            padding-top: 30px;
+            .blockTotal {
+                margin-bottom: 40px;
+                .total {
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 26px;
+
+                    color: #2c5d7d;
+                }
+            }
+            .blockButtons {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .blockPagesButtons {
+                    display: flex;
+                    .pageButton {
+                        cursor: pointer;
+                        margin-right: 36px;
+                        font-family: Jost;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 18px;
+                        line-height: 26px;
+                        color: #2c5d7d;
+                        -webkit-touch-callout: none;
+                        -webkit-user-select: none;
+                        -khtml-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                    }
+                    .pageButtonNotActive {
+                        color: rgba(44, 93, 125, 0.31);
+                    }
+                }
             }
         }
     }

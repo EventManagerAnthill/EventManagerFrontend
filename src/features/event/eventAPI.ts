@@ -1,6 +1,6 @@
 import { AppSettings } from "../../AppSettings";
 import * as baseApi from "../../api/baseApi";
-import { EventData } from "./eventData";
+import { EventData, GetCompanyEventsData } from "./eventData";
 
 declare const appSettings: AppSettings;
 
@@ -10,6 +10,6 @@ export function* getAllEventsByUser(param: URLSearchParams) {
 }
 
 export function* getCompanyEvents(param: URLSearchParams) {
-    const result: EventData[] = yield baseApi.get(appSettings.baseApiUrl + `/company/getCompanyEvents?${param.toString()}`);
+    const result: GetCompanyEventsData = yield baseApi.get(appSettings.baseApiUrl + `/company/getCompanyEvents?${param.toString()}`);
     return result;
 }

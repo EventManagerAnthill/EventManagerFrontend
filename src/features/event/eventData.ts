@@ -13,3 +13,15 @@ export interface EventData {
     serverFileName?: string;
     fotoUrl?: string;
 }
+
+export interface PagingData {
+    currentPage: number;
+    pageSize: number;
+    totalItems: number;
+    totalPages: number;
+}
+
+export interface GetCompanyEventsData {
+    events?: EventData[];
+    paging?: PagingData;
+}

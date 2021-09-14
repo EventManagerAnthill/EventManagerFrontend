@@ -37,3 +37,7 @@ export const mapToEventData = (model: EventModel): EventData => {
         fotoUrl: model.fotoUrl,
     };
 }
+
+export const mapToEventModelArray = (data: EventData[]): EventModel[] => {
+    return data.map(x => { return mapToEventModel(x) });
+}
