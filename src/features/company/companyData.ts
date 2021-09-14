@@ -37,4 +37,7 @@ export interface GetCompaniesData {
     paging?: PagingData;
 }
 
-
+export interface CompanyAcceptInvitationData {
+    companyId: number;
+    email: string;
+}

@@ -36,6 +36,12 @@ export const SignUp = () => {
         });
     }
 
+    React.useEffect(() => {
+        if (sessionStorage.getItem('emailVerification')) {
+            setModel({ ...state.signUpModel, emailVerification: Boolean(sessionStorage.getItem('emailVerification')) })
+        }
+    }, []);
+
     const validatePassword = (model: SignUpModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
         let error: string = '';
@@ -81,7 +87,7 @@ export const SignUp = () => {
 
     return (
         <>
-        {signUp.isLoading && <Spinner />}
+            {signUp.isLoading && <Spinner />}
             <div className="SignUpPage">
                 <div className="LeftBlock">
                     <div className="LeftBlock-TopBlock">

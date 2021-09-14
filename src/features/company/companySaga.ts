@@ -3,7 +3,7 @@ import { companySlice } from "./companySlice";
 import { routerSlice } from "../routerSlice";
 import * as Api from "./companyAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { CompanyFormModel, CompanyGetModel, CompanyInviteUsersModel, CompanyModel, CompanyNewFormModel, CompanyUploadModel, GetCompaniesModel } from "./companyModel";
+import { CompanyAcceptInvitationModel, CompanyFormModel, CompanyGetModel, CompanyInviteUsersModel, CompanyModel, CompanyNewFormModel, CompanyUploadModel, GetCompaniesModel } from "./companyModel";
 import { CompanyData, GetCompaniesData } from "./companyData";
 import { mapToCompanyData, mapToCompanyEditData, mapToCompanyModel, mapToCompanyModelArray } from "./companyMapper";
 import { BadRequestError } from "../../api/exceptions";
@@ -21,6 +21,7 @@ export function* companySaga() {
     yield takeLatest(companySlice.actions.addUsersCSVRequested, addUsersCSVRequested);
     yield takeLatest(companySlice.actions.inviteUsersRequested, inviteUsersRequested);
     yield takeLatest(companySlice.actions.getLinkToJoinCompanyRequested, getLinkToJoinCompanyRequested);
+    yield takeLatest(companySlice.actions.acceptInvitationRequested, acceptInvitationRequested);
 }
 
 function* getAllCompaniesByUserRequested(action: PayloadAction<URLSearchParams>) {
@@ -191,6 +192,21 @@ function* getLinkToJoinCompanyRequested(action: PayloadAction<URLSearchParams>) 
         yield put(companySlice.actions.getLinkToJoinCompanySucceed(result));
     } catch (e) {
         yield put(companySlice.actions.getLinkToJoinCompanyFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }));
+        }
+    }
+}
+
+function* acceptInvitationRequested(action: PayloadAction<CompanyAcceptInvitationModel>) {
+    try {
+        const result:string = yield call(Api.acceptInvitation, action.payload);
+
+        yield put(snackbarSlice.actions.snackbarOpen({ message: result, severity: 'success' }));
+
+        yield put(companySlice.actions.acceptInvitationSucceed());
+    } catch (e) {
+        yield put(companySlice.actions.acceptInvitationFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }));
         }
