@@ -149,10 +149,12 @@ export const CompanyMembers = () => {
                 </div>
             </div>
             <div className="companyMembersMain">
-                {companyUsers && companyUsers.users && companyUsers.users.map((user) =>
-                    <div className="membersBlock">
-                        <UserForCompanyMembers id={user.id} firstName={user.firstName} lastName={user.lastName} fotoUrl={user.fotoUrl!} />
-                    </div>)
+                {companyUsers && companyUsers.paging && (companyUsers.paging.totalItems > 0) ?
+                    companyUsers && companyUsers.users && companyUsers.users.map((user) =>
+                        <div className="membersBlock">
+                            <UserForCompanyMembers id={user.id} firstName={user.firstName} lastName={user.lastName} fotoUrl={user.fotoUrl!} />
+                        </div>) :
+                    <span className="companyMembersMainText">No results were found for your search</span>
                 }
             </div>
             <div className="companyMembersFooter">
