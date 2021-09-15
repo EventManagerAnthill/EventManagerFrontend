@@ -5,7 +5,7 @@ export interface EventData {
     holdingDate: Date;
     type: number;
     userId: number;
-    status: number;
+    status?: number;
     description?: string;
     companyId: number;
     del?: number;
@@ -24,4 +24,9 @@ export interface PagingData {
 export interface GetCompanyEventsData {
     events?: EventData[];
     paging?: PagingData;
+}
+
+export interface EventInviteUsersData {
+    eventId?: number;
+    email: string[];
 }

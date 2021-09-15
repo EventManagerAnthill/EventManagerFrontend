@@ -1,6 +1,7 @@
 import { AppSettings } from "../../AppSettings";
 import * as baseApi from "../../api/baseApi";
-import { EventData, GetCompanyEventsData } from "./eventData";
+import { EventData, EventInviteUsersData, GetCompanyEventsData } from "./eventData";
+import { EventUploadModel } from "./eventModel";
 
 declare const appSettings: AppSettings;
 
@@ -13,3 +14,28 @@ export function* getCompanyEvents(param: URLSearchParams) {
     const result: GetCompanyEventsData = yield baseApi.get(appSettings.baseApiUrl + `/company/getCompanyEvents?${param.toString()}`);
     return result;
 }
+
+export function* createEvent(data: EventData) {
+    const result: EventData = yield baseApi.post<EventData, EventData>(appSettings.baseApiUrl + `/event`, data);
+    return result;
+}
+
+export function* uploadPhoto(data: EventUploadModel) {
+    const result: EventData = yield baseApi.postUpload(appSettings.baseApiUrl + `/event/upload?${data.param!.toString()}`, data.formData);
+    return result;
+};
+
+export function* deletePhoto(param: URLSearchParams) {
+    const result: EventData = yield baseApi.put<undefined, EventData>(appSettings.baseApiUrl + `/event/deleteFoto?${param.toString()}`, undefined);
+    return result;
+};
+
+export function* addUsersCSV(data: EventUploadModel) {
+    const result: string = yield baseApi.postUpload(appSettings.baseApiUrl + `/event/addUsersCSV?${data.param!.toString()}`, data.formData);
+    return result;
+};
+
+export function* inviteUsers(data: EventInviteUsersData) {
+    const result: string = yield baseApi.post<EventInviteUsersData, string>(appSettings.baseApiUrl + `/event/inviteUsers`, data);
+    return result;
+};

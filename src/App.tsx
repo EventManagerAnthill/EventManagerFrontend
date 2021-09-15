@@ -21,6 +21,7 @@ import { CompanyEdit } from './components/authorized/company/companyEdit/Company
 import { SnackbarComponent } from './features/snackbar/Snackbar';
 import { CompanyList } from './components/authorized/company/companyList/CompanyList';
 import { CompanyMembers } from './components/authorized/company/companyMembers/CompanyMembers';
+import { EventNew } from './components/authorized/event/eventNew/EventNew';
 
 const App = () => {
   const location = useLocation();
@@ -73,6 +74,7 @@ const App = () => {
             <Route path="/personalsettings">
               <PersonalSettings />
             </Route>
+            <Route exact path="/company/:companyId/event/new" component={EventNew} />
             <Route exact path="/company/new" component={CompanyNew} />
             <Route exact path="/company/:companyId/edit" component={CompanyEdit} />
             <Route exact path="/company/:companyId/members" component={CompanyMembers} />

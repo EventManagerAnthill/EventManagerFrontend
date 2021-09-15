@@ -5,7 +5,7 @@ export interface EventModel {
     holdingDate: string;
     type: number;
     userId: number;
-    status: number;
+    status?: number;
     description?: string;
     companyId: number;
     del?: number;
@@ -24,4 +24,23 @@ export interface PagingModel {
 export interface GetCompanyEventsModel {
     events?: EventModel[];
     paging?: PagingModel;
+}
+
+export interface EventUploadModel {
+    param?: URLSearchParams;
+    formData: FormData;
+}
+
+export interface EventInviteUsersModel {
+    eventId?: number;
+    email: string[];
+}
+
+export interface EventNewFormModel {
+    eventModel: EventModel;
+    errors: Map<string, string>;
+    isLoading: boolean;
+    eventUploadPhotoModel?: EventUploadModel;
+    eventInviteUsersModel?: EventInviteUsersModel;
+    eventAddUsersCSVModel?: EventUploadModel;
 }
