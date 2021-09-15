@@ -68,12 +68,16 @@ export const EventComponent = () => {
                             <span className="eventMainDescription">{(event && event.description) ?? "Event description"}</span>
                         </div>
                     </div>
-                    <div className="eventMainButtonsBlock">
-                        <button className="eventMainButton" onClick={() => history.push(`/event/${eventId}/members`)}>Members</button>
-                        <button className="eventMainButton" onClick={() => history.push(`/event/${eventId}/edit`)}>Edit event</button>
-                        <button className="eventMainButton" onClick={() => onClickCancelEvent(+(eventId!), event?.name ?? "")}>Cancel event</button>
-                        <button className="eventMainButton" onClick={() => onClickDeleteEvent(+(eventId!), event?.name ?? "")}>Delete event</button>
-                    </div>
+                    {event && event.userRole && (event.userRole == 1 || event.userRole == 1) &&
+                        <div className="eventMainButtonsBlock">
+                            <button className="eventMainButton" onClick={() => history.push(`/event/${eventId}/members`)}>Members</button>
+                            <button className="eventMainButton" onClick={() => history.push(`/event/${eventId}/edit`)}>Edit event</button>
+                            <button className="eventMainButton" onClick={() => onClickCancelEvent(+(eventId!), event?.name ?? "")}>Cancel event</button>
+                            {event.userRole == 1 &&
+                                <button className="eventMainButton" onClick={() => onClickDeleteEvent(+(eventId!), event?.name ?? "")}>Delete event</button>
+                            }
+                        </div>
+                    }
                 </div>
             </div>
         </>

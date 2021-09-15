@@ -12,6 +12,7 @@ export interface EventData {
     originalFileName?: string;
     serverFileName?: string;
     fotoUrl?: string;
+    userRole?: number;
 }
 
 export interface PagingData {
