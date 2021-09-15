@@ -90,12 +90,16 @@ export const Company = () => {
                             <span className="companyMainDescription">{(company && company.description) ?? "Company description"}</span>
                         </div>
                     </div>
-                    <div className="companyMainButtonsBlock">
-                        <button className="companyMainButton" onClick={() => history.push(`/company/${companyId}/members`)}>Members</button>
-                        <button className="companyMainButton" onClick={() => history.push(`/company/${companyId}/edit`)}>Edit company</button>
-                        <button className="companyMainButton" onClick={() => onClickDeleteCompany(+(companyId!), company!.name)}>Delete company</button>
-                        <button className="companyMainButton" onClick={() => history.push(`/company/${companyId}/event/new`)}>+ Add new event</button>
-                    </div>
+                    {company && (company.userRole == 1 || company.userRole == 2) &&
+                        <div className="companyMainButtonsBlock">
+                            <button className="companyMainButton" onClick={() => history.push(`/company/${companyId}/members`)}>Members</button>
+                            <button className="companyMainButton" onClick={() => history.push(`/company/${companyId}/edit`)}>Edit company</button>
+                            {company.userRole == 1 &&
+                                <button className="companyMainButton" onClick={() => onClickDeleteCompany(+(companyId!), company!.name)}>Delete company</button>
+                            }
+                            <button className="companyMainButton" onClick={() => history.push(`/company/${companyId}/event/new`)}>+ Add new event</button>
+                        </div>
+                    }
                     <div className="companyMainEventsBlock">
                         <span className="companyMainEventsBlockSpan">Our events</span>
                     </div>

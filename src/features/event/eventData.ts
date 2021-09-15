@@ -1,7 +1,7 @@
 export interface EventData {
     id?: number;
     name: string;
-    createDate: Date;
+    createDate?: Date;
     holdingDate: Date;
     type: number;
     userId: number;

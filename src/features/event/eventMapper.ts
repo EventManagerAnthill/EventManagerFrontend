@@ -6,7 +6,7 @@ export const mapToEventModel = (data: EventData): EventModel => {
     return {
         id: data.id,
         name: data.name,
-        createDate: moment(new Date(data.createDate!)).format('YYYY-MM-DD'),
+        createDate: data.createDate ? moment(new Date(data.createDate)).format('YYYY-MM-DD') : undefined,
         holdingDate: moment(new Date(data.holdingDate!)).format('YYYY-MM-DD'),
         type: data.type,
         userId: data.userId,
@@ -24,7 +24,7 @@ export const mapToEventData = (model: EventModel): EventData => {
     return {
         id: model.id,
         name: model.name,
-        createDate: new Date(model.createDate!),
+        createDate: model.createDate ? new Date(model.createDate) : undefined,
         holdingDate: new Date(model.holdingDate!),
         type: model.type,
         userId: model.userId,

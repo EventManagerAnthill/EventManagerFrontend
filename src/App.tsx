@@ -22,6 +22,7 @@ import { SnackbarComponent } from './features/snackbar/Snackbar';
 import { CompanyList } from './components/authorized/company/companyList/CompanyList';
 import { CompanyMembers } from './components/authorized/company/companyMembers/CompanyMembers';
 import { EventNew } from './components/authorized/event/eventNew/EventNew';
+import { EventComponent } from './components/authorized/event/event/Event';
 
 const App = () => {
   const location = useLocation();
@@ -80,7 +81,7 @@ const App = () => {
             <Route exact path="/company/:companyId/members" component={CompanyMembers} />
             <Route exact path="/company/list" component={CompanyList} />
             <Route path="/company/:companyId" component={Company} />
-            <Route path="/event" component={EventForCompany} />
+            <Route path="/event/:eventId" component={EventComponent} />
           </Switch>
         </div>
       </div>

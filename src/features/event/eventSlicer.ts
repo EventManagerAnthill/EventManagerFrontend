@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/state/store';
 import { EventData } from './eventData';
-import { EventInviteUsersModel, EventModel, EventNewFormModel, EventUploadModel, GetCompanyEventsModel } from './eventModel';
+import { EventGetModel, EventInviteUsersModel, EventModel, EventNewFormModel, EventUploadModel, GetCompanyEventsModel } from './eventModel';
 
 
 export type EventState = {
@@ -19,7 +19,6 @@ const initialState: EventState = {
     eventNew: {
         eventModel: {
             name: "",
-            createDate: "",
             holdingDate: "",
             type: 1,
             userId: 0,
@@ -93,6 +92,30 @@ export const eventSlice = createSlice({
         },
         inviteUsersFailed: (state, action: PayloadAction<unknown>) => {
         },
+        getEventRequested: (state, action: PayloadAction<EventGetModel>) => {
+            state.isLoading = true;
+        },
+        getEventSucceed: (state, action: PayloadAction<EventModel>) => {
+            state.event = { ...action.payload };
+            state.isLoading = false;
+        },
+        getEventFailed: (state, action: PayloadAction<unknown>) => {
+            state.isLoading = false;
+        },
+        makeEventDelRequested: (state, action: PayloadAction<number>) => {
+        },
+        makeEventDelSucceed: (state) => {
+            state.event = undefined;
+        },
+        makeEventDelFailed: (state, action: PayloadAction<unknown>) => {
+        },
+        cancelEventRequested: (state, action: PayloadAction<number>) => {
+        },
+        cancelEventSucceed: (state) => {
+            state.event = undefined;
+        },
+        cancelEventFailed: (state, action: PayloadAction<unknown>) => {
+        },
     },
 });
 
@@ -101,8 +124,13 @@ export const { getAllEventsByUserRequested, getAllEventsByUserSucceed, getAllEve
     createEventRequested, createEventSucceed, createEventFailed,
     uploadPhotoRequested, uploadPhotoSucceed, uploadPhotoFailed,
     addUsersCSVRequested, addUsersCSVSucceed, addUsersCSVFailed,
-    inviteUsersRequested, inviteUsersSucceed, inviteUsersFailed } = eventSlice.actions;
+    inviteUsersRequested, inviteUsersSucceed, inviteUsersFailed,
+    getEventRequested, getEventSucceed, getEventFailed,
+    makeEventDelRequested, makeEventDelSucceed, makeEventDelFailed,
+    cancelEventRequested, cancelEventSucceed, cancelEventFailed } = eventSlice.actions;
 
+
+export const selectEvent = (state: RootState) => state.eventState.event;
 export const selectEventsByUser = (state: RootState) => state.eventState.eventsByUser;
 export const selectEventsCompany = (state: RootState) => state.eventState.eventsCompany;
 export const selectEventNew = (state: RootState) => state.eventState.eventNew;

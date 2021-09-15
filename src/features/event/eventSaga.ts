@@ -5,7 +5,7 @@ import * as Api from "./eventAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { EventData, GetCompanyEventsData } from "./eventData";
 import { mapToEventData, mapToEventModel, mapToEventModelArray } from "./eventMapper";
-import { EventInviteUsersModel, EventModel, EventNewFormModel, EventUploadModel, GetCompanyEventsModel } from "./eventModel";
+import { EventGetModel, EventInviteUsersModel, EventModel, EventNewFormModel, EventUploadModel, GetCompanyEventsModel } from "./eventModel";
 import { BadRequestError } from "../../api/exceptions";
 import { snackbarSlice } from "../snackbar/snackbarSlice";
 
@@ -16,6 +16,9 @@ export function* eventSaga() {
     yield takeLatest(eventSlice.actions.uploadPhotoRequested, uploadPhotoRequested);
     yield takeLatest(eventSlice.actions.addUsersCSVRequested, addUsersCSVRequested);
     yield takeLatest(eventSlice.actions.inviteUsersRequested, inviteUsersRequested);
+    yield takeLatest(eventSlice.actions.getEventRequested, getEventRequested);
+    yield takeLatest(eventSlice.actions.makeEventDelRequested, makeEventDelRequested);
+    yield takeLatest(eventSlice.actions.cancelEventRequested, cancelEventRequested);
 }
 
 function* getAllEventsByUserRequested(action: PayloadAction<URLSearchParams>) {
@@ -109,6 +112,52 @@ function* inviteUsersRequested(action: PayloadAction<EventInviteUsersModel>) {
         yield put(eventSlice.actions.inviteUsersFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }));
+        }
+    }
+}
+
+function* getEventRequested(action: PayloadAction<EventGetModel>) {
+    try {
+        const data: EventData = yield call(Api.getEvent, action.payload);
+        const model: EventModel = mapToEventModel(data);
+
+        yield put(eventSlice.actions.getEventSucceed(model));
+    } catch (e) {
+        yield put(eventSlice.actions.getEventFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        }
+    }
+}
+
+function* makeEventDelRequested(action: PayloadAction<number>) {
+    try {
+        const data: EventData = yield call(Api.makeEventDel, action.payload);
+        const model: EventModel = mapToEventModel(data);
+
+        yield put(routerSlice.actions.routerRedirect(`/event/list`));
+
+        yield put(eventSlice.actions.makeEventDelSucceed());
+    } catch (e) {
+        yield put(eventSlice.actions.makeEventDelFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        }
+    }
+}
+
+function* cancelEventRequested(action: PayloadAction<number>) {
+    try {
+        const data: EventData = yield call(Api.cancelEvent, action.payload);
+        const model: EventModel = mapToEventModel(data);
+
+        yield put(routerSlice.actions.routerRedirect(`/event/list`));
+
+        yield put(eventSlice.actions.makeEventDelSucceed());
+    } catch (e) {
+        yield put(eventSlice.actions.makeEventDelFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
         }
     }
 }

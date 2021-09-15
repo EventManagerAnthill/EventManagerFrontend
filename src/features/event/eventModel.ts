@@ -1,7 +1,7 @@
 export interface EventModel {
     id?: number;
     name: string;
-    createDate: string;
+    createDate?: string;
     holdingDate: string;
     type: number;
     userId: number;
@@ -43,4 +43,9 @@ export interface EventNewFormModel {
     eventUploadPhotoModel?: EventUploadModel;
     eventInviteUsersModel?: EventInviteUsersModel;
     eventAddUsersCSVModel?: EventUploadModel;
+}
+
+export interface EventGetModel {
+    eventId: number;
+    param: URLSearchParams;
 }

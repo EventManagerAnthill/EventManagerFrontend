@@ -1,7 +1,7 @@
 import { AppSettings } from "../../AppSettings";
 import * as baseApi from "../../api/baseApi";
 import { EventData, EventInviteUsersData, GetCompanyEventsData } from "./eventData";
-import { EventUploadModel } from "./eventModel";
+import { EventGetModel, EventUploadModel } from "./eventModel";
 
 declare const appSettings: AppSettings;
 
@@ -37,5 +37,20 @@ export function* addUsersCSV(data: EventUploadModel) {
 
 export function* inviteUsers(data: EventInviteUsersData) {
     const result: string = yield baseApi.post<EventInviteUsersData, string>(appSettings.baseApiUrl + `/event/inviteUsers`, data);
+    return result;
+};
+
+export function* getEvent(data: EventGetModel) {
+    const result: EventData = yield baseApi.get(appSettings.baseApiUrl + `/event/${data.eventId}?${data.param.toString()}`);
+    return result;
+};
+
+export function* makeEventDel(eventId: number) {
+    const result: EventData = yield baseApi.put<undefined, EventData>(appSettings.baseApiUrl + `/event/MakeEventDel/${eventId}`, undefined);
+    return result;
+};
+
+export function* cancelEvent(eventId: number) {
+    const result: EventData = yield baseApi.put<undefined, EventData>(appSettings.baseApiUrl + `/event/CancelEvent/${eventId}`, undefined);
     return result;
 };
