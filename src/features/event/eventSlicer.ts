@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/state/store';
 import { EventData } from './eventData';
-import { EventGetModel, EventInviteUsersModel, EventModel, EventNewFormModel, EventUploadModel, GetCompanyEventsModel } from './eventModel';
+import { EventFormModel, EventGetModel, EventInviteUsersModel, EventModel, EventNewFormModel, EventUploadModel, GetCompanyEventsModel } from './eventModel';
 
 
 export type EventState = {
@@ -9,6 +9,7 @@ export type EventState = {
     eventsByUser?: EventModel[];
     eventsCompany?: GetCompanyEventsModel;
     eventNew: EventNewFormModel;
+    eventEdit: EventFormModel;
     isLoading: boolean;
 };
 
@@ -17,6 +18,17 @@ const initialState: EventState = {
     eventsByUser: undefined,
     eventsCompany: undefined,
     eventNew: {
+        eventModel: {
+            name: "",
+            holdingDate: "",
+            type: 1,
+            userId: 0,
+            companyId: 0,
+        },
+        errors: new Map,
+        isLoading: false,
+    },
+    eventEdit: {
         eventModel: {
             name: "",
             holdingDate: "",
@@ -116,6 +128,26 @@ export const eventSlice = createSlice({
         },
         cancelEventFailed: (state, action: PayloadAction<unknown>) => {
         },
+        editEventRequested: (state, action: PayloadAction<EventModel>) => {
+            state.eventEdit.isLoading = true;
+        },
+        editEventSucceed: (state, action: PayloadAction<EventModel>) => {
+            state.event = { ...action.payload };
+            state.eventEdit.isLoading = false;
+        },
+        editEventFailed: (state, action: PayloadAction<unknown>) => {
+            state.eventEdit.isLoading = false;
+        },
+        deletePhotoRequested: (state, action: PayloadAction<URLSearchParams>) => {
+            state.eventEdit.isLoading = true;
+        },
+        deletePhotoSucceed: (state, action: PayloadAction<EventModel>) => {
+            state.eventEdit.eventModel = { ...action.payload };
+            state.eventEdit.isLoading = false;
+        },
+        deletePhotoFailed: (state, action: PayloadAction<unknown>) => {
+            state.eventEdit.isLoading = false;
+        },
     },
 });
 
@@ -127,13 +159,16 @@ export const { getAllEventsByUserRequested, getAllEventsByUserSucceed, getAllEve
     inviteUsersRequested, inviteUsersSucceed, inviteUsersFailed,
     getEventRequested, getEventSucceed, getEventFailed,
     makeEventDelRequested, makeEventDelSucceed, makeEventDelFailed,
-    cancelEventRequested, cancelEventSucceed, cancelEventFailed } = eventSlice.actions;
+    cancelEventRequested, cancelEventSucceed, cancelEventFailed,
+    editEventRequested, editEventSucceed, editEventFailed,
+    deletePhotoRequested, deletePhotoSucceed, deletePhotoFailed } = eventSlice.actions;
 
 
 export const selectEvent = (state: RootState) => state.eventState.event;
 export const selectEventsByUser = (state: RootState) => state.eventState.eventsByUser;
 export const selectEventsCompany = (state: RootState) => state.eventState.eventsCompany;
 export const selectEventNew = (state: RootState) => state.eventState.eventNew;
+export const selectEventEdit = (state: RootState) => state.eventState.eventEdit;
 
 export const selectEventIsLoading = (state: RootState) => state.eventState.isLoading;
 

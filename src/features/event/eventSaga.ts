@@ -19,6 +19,8 @@ export function* eventSaga() {
     yield takeLatest(eventSlice.actions.getEventRequested, getEventRequested);
     yield takeLatest(eventSlice.actions.makeEventDelRequested, makeEventDelRequested);
     yield takeLatest(eventSlice.actions.cancelEventRequested, cancelEventRequested);
+    yield takeLatest(eventSlice.actions.editEventRequested, editEventRequested);
+    yield takeLatest(eventSlice.actions.deletePhotoRequested, deletePhotoRequested);
 }
 
 function* getAllEventsByUserRequested(action: PayloadAction<URLSearchParams>) {
@@ -156,6 +158,36 @@ function* cancelEventRequested(action: PayloadAction<number>) {
         yield put(eventSlice.actions.makeEventDelSucceed());
     } catch (e) {
         yield put(eventSlice.actions.makeEventDelFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        }
+    }
+}
+
+function* editEventRequested(action: PayloadAction<EventModel>) {
+    try {
+        const data: EventData = yield call(Api.editEvent, mapToEventData(action.payload));
+        const model: EventModel = mapToEventModel(data);
+
+        yield put(routerSlice.actions.routerRedirect(`/event/${model.id}`));
+
+        yield put(eventSlice.actions.editEventSucceed(model));
+    } catch (e) {
+        yield put(eventSlice.actions.editEventFailed(e))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
+        }
+    }
+}
+
+function* deletePhotoRequested(action: PayloadAction<URLSearchParams>) {
+    try {
+        const data: EventData = yield call(Api.deletePhoto, action.payload);
+        const model: EventModel = mapToEventModel(data);
+
+        yield put(eventSlice.actions.deletePhotoSucceed(model));
+    } catch (e) {
+        yield put(eventSlice.actions.deletePhotoFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
         }
