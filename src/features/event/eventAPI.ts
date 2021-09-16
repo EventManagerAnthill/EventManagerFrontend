@@ -54,3 +54,8 @@ export function* cancelEvent(eventId: number) {
     const result: EventData = yield baseApi.put<undefined, EventData>(appSettings.baseApiUrl + `/event/CancelEvent/${eventId}`, undefined);
     return result;
 };
+
+export function* editEvent(data: EventData) {
+    const result: EventData = yield baseApi.put<EventData, EventData>(appSettings.baseApiUrl + `/event/update`, data);
+    return result;
+};

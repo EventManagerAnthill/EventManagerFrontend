@@ -46,6 +46,13 @@ export interface EventNewFormModel {
     eventAddUsersCSVModel?: EventUploadModel;
 }
 
+export interface EventFormModel {
+    eventModel: EventModel;
+    errors: Map<string, string>;
+    isLoading: boolean;
+    eventUploadPhotoModel?: EventUploadModel
+}
+
 export interface EventGetModel {
     eventId: number;
     param: URLSearchParams;
