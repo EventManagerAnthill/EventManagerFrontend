@@ -124,6 +124,11 @@
         @media screen and (max-width: calc(850px * 1.33)) {
             height: 150px;
         }
+        .eventHeaderPoster {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
     }
 
     .eventMain {

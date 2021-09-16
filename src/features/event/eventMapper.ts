@@ -7,7 +7,7 @@ export const mapToEventModel = (data: EventData): EventModel => {
         id: data.id,
         name: data.name,
         createDate: data.createDate ? moment(new Date(data.createDate)).format('YYYY-MM-DD') : undefined,
-        holdingDate: moment(new Date(data.holdingDate!)).format('YYYY-MM-DD'),
+        holdingDate: moment(new Date(data.holdingDate!)).format('YYYY-MM-DDTHH:mm'),
         type: data.type,
         userId: data.userId,
         status: data.status,
@@ -17,6 +17,7 @@ export const mapToEventModel = (data: EventData): EventModel => {
         originalFileName: data.originalFileName,
         serverFileName: data.serverFileName,
         fotoUrl: data.fotoUrl,
+        userRole: data.userRole,
     };
 }
 
@@ -35,6 +36,7 @@ export const mapToEventData = (model: EventModel): EventData => {
         originalFileName: model.originalFileName,
         serverFileName: model.serverFileName,
         fotoUrl: model.fotoUrl,
+        userRole: model.userRole,
     };
 }
 

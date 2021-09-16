@@ -103,7 +103,7 @@ export const EventEdit = () => {
                                     id="nameevent"
                                     name="nameevent"
                                     autoComplete="eventEditname"
-                                    defaultValue={eventEdit.eventModel.name}
+                                    defaultValue={state.eventModel.name}
                                     onChange={(e) => setModel({ ...state.eventModel, name: e.currentTarget.value })}
                                 />
                             </label>
@@ -117,7 +117,7 @@ export const EventEdit = () => {
                                     id="descriptionevent"
                                     name="descriptionevent"
                                     autoComplete="eventEditdescription"
-                                    defaultValue={eventEdit.eventModel.description}
+                                    defaultValue={state.eventModel.description}
                                     onChange={(e) => setModel({ ...state.eventModel, description: e.currentTarget.value })}
                                 />
                             </label>
@@ -133,7 +133,7 @@ export const EventEdit = () => {
                                     type="datetime-local"
                                     name="descriptionevent"
                                     autoComplete="eventEditholdingdate"
-                                    defaultValue={eventEdit.eventModel.holdingDate}
+                                    defaultValue={state.eventModel.holdingDate}
                                     onChange={(e) => setModel({ ...state.eventModel, holdingDate: e.currentTarget.value })}
                                 />
                             </label>
@@ -172,7 +172,7 @@ export const EventEdit = () => {
                     <div className="eventEditPhotoBlock">
                         <div className="PhotoBlock">
                             <img className="eventEditPhoto"
-                                src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? eventEdit.eventModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
+                                src={(file.imagePreviewUrl && String(file.imagePreviewUrl)) ?? state.eventModel.fotoUrl ?? "https://brilliant24.ru/files/cat/template_01.png"}
                             />
                             <div className="TextBlock" onClick={(e) => onClickPhoto(e)}>
                                 Change poster
@@ -193,7 +193,7 @@ export const EventEdit = () => {
                         className="eventEditButton"
                         disabled={eventEdit.isLoading}
                     >
-                        Create event
+                        Save
                     </button>
                 </div>
             </form>

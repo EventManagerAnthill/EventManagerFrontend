@@ -160,7 +160,7 @@ export const SignUp = () => {
                                             type="date"
                                             id="dateofbirth"
                                             autoComplete="bday"
-                                            onChange={(e) => setModel({ ...state.signUpModel, dateOfBirth: e.currentTarget.value })}
+                                            onChange={(e) => setModel({ ...state.signUpModel, birthDate: e.currentTarget.value })}
                                         />
                                     </label>
                                 </div>

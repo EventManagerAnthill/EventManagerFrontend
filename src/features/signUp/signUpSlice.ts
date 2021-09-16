@@ -8,7 +8,7 @@ const initialState: SignUpState = {
     signUpModel: {
         firstName: '',
         lastName: '',
-        dateOfBirth: undefined,
+        birthDate: undefined,
         email: '',
         password: '',
         repeatPassword: '',

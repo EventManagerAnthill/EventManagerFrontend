@@ -1,7 +1,7 @@
 export interface SignUpData {
     firstName : string;
     lastName : string;
-    dateOfBirth? : string;
+    birthDate? : string;
     email : string;
     password : string;
     repeatPassword : string;
@@ -11,7 +11,7 @@ export interface SignUpData {
 export interface SignUpRequestData {
     firstName : string;
     lastName : string;
-    dateOfBirth? : Date;
+    birthDate? : Date;
     email : string;
     password : string;
     emailVerification: boolean;
