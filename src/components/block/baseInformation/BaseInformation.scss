@@ -1,7 +1,7 @@
 .BaseInformation {
     width: 33%;
     padding: 107px 30px 49px 30px;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
