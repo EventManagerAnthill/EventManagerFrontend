@@ -179,14 +179,30 @@ export const EventNew = () => {
                         <div className="blockInputAndLabel">
                             <label
                                 className="blockLabel">
-                                Add a holding date
+                                Date and time of the beginning
                                 <input
                                     required
                                     className="blockInput"
-                                    id="descriptionevent"
+                                    id="beginHoldingDate"
                                     type="datetime-local"
-                                    name="descriptionevent"
-                                    autoComplete="eventholdingdate"
+                                    name="beginHoldingDate"
+                                    autoComplete="beginHoldingDate"
+                                    defaultValue={eventNew.eventModel.beginHoldingDate}
+                                    onChange={(e) => setModel({ ...state.eventModel, beginHoldingDate: e.currentTarget.value })}
+                                />
+                            </label>
+                        </div>
+                        <div className="blockInputAndLabel">
+                            <label
+                                className="blockLabel">
+                                Date and time of the ending
+                                <input
+                                    required
+                                    className="blockInput"
+                                    id="holdingDate"
+                                    type="datetime-local"
+                                    name="holdingDate"
+                                    autoComplete="holdingDate"
                                     defaultValue={eventNew.eventModel.holdingDate}
                                     onChange={(e) => setModel({ ...state.eventModel, holdingDate: e.currentTarget.value })}
                                 />

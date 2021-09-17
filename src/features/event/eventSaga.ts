@@ -168,7 +168,7 @@ function* editEventRequested(action: PayloadAction<EventModel>) {
     try {
         const data: EventData = yield call(Api.editEvent, mapToEventData(action.payload));
         const model: EventModel = mapToEventModel(data);
-
+        
         yield put(routerSlice.actions.routerRedirect(`/event/${model.id}`));
 
         yield put(eventSlice.actions.editEventSucceed(model));

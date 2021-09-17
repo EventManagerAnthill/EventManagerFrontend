@@ -7,6 +7,7 @@ import { cancelEventRequested, getEventRequested, makeEventDelRequested, selectE
 import { useConfirm } from "material-ui-confirm";
 import { selectUserFormId } from "../../../../features/user/userSlice";
 import { Spinner } from "../../../spinner/Spinner";
+import moment from "moment";
 
 export const EventComponent = () => {
     let { eventId } = useParams<{ eventId: string | undefined }>();
@@ -64,6 +65,13 @@ export const EventComponent = () => {
                                 <span className="eventName">{(event && event.name) ?? "Event name"}</span>
                             </div>
                         </div>
+                        {event && (event.beginHoldingDate || event.holdingDate) &&
+                            <div className="eventMainTimeBlock">
+                                {event && event.beginHoldingDate && <span className="text">{"From " + moment(event.beginHoldingDate).format('MMMM Do YYYY, h:mm a') }</span>}
+                                {event && event.holdingDate && <span className="text">{" to " + moment(event.holdingDate).format('MMMM Do YYYY, h:mm a')}</span>}
+                                <span className="text">{" " + event.eventTimeZone}</span>
+                            </div>
+                        }
                         <div className="eventMainDescriptionBlock">
                             <span className="eventMainDescription">{(event && event.description) ?? "Event description"}</span>
                         </div>

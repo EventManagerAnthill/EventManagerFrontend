@@ -7,6 +7,8 @@ import { Spinner } from "../../../spinner/Spinner";
 import { useParams } from "react-router-dom";
 import { deletePhotoRequested, editEventRequested, getEventRequested, selectEvent, selectEventEdit, selectEventIsLoading, uploadPhotoRequested } from "../../../../features/event/eventSlicer";
 import { EventFormModel, EventModel } from "../../../../features/event/eventModel";
+import moment from "moment";
+import 'moment-timezone';
 
 type Avatar = {
     file: File | null;
@@ -63,6 +65,7 @@ export const EventEdit = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         dispatch(editEventRequested({ ...state.eventModel }));
         if (file.file !== null) {
             let param = new URLSearchParams();
@@ -125,13 +128,29 @@ export const EventEdit = () => {
                         <div className="blockInputAndLabel">
                             <label
                                 className="blockLabel">
-                                Add a holding date
+                                Date and time of the beginning
                                 <input
                                     required
                                     className="blockInput"
-                                    id="descriptionevent"
+                                    id="beginHoldingDate"
                                     type="datetime-local"
-                                    name="descriptionevent"
+                                    name="beginHoldingDate"
+                                    autoComplete="eventEditbeginholdingdate"
+                                    defaultValue={state.eventModel.beginHoldingDate}
+                                    onChange={(e) => setModel({ ...state.eventModel, beginHoldingDate: e.currentTarget.value })}
+                                />
+                            </label>
+                        </div>
+                        <div className="blockInputAndLabel">
+                            <label
+                                className="blockLabel">
+                                Date and time of the ending
+                                <input
+                                    required
+                                    className="blockInput"
+                                    id="holdingDate"
+                                    type="datetime-local"
+                                    name="holdingDate"
                                     autoComplete="eventEditholdingdate"
                                     defaultValue={state.eventModel.holdingDate}
                                     onChange={(e) => setModel({ ...state.eventModel, holdingDate: e.currentTarget.value })}

@@ -2,7 +2,9 @@ export interface EventData {
     id?: number;
     name: string;
     createDate?: Date;
-    holdingDate: Date;
+    holdingDate?: Date;
+    eventTimeZone: string;
+    beginHoldingDate?: Date;
     type: number;
     userId: number;
     status?: number;

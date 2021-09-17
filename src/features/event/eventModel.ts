@@ -2,7 +2,9 @@ export interface EventModel {
     id?: number;
     name: string;
     createDate?: string;
-    holdingDate: string;
+    holdingDate?: string;
+    beginHoldingDate?: string;
+    eventTimeZone: string;
     type: number;
     userId: number;
     status?: number;

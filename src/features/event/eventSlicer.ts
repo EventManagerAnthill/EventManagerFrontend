@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/state/store';
 import { EventData } from './eventData';
 import { EventFormModel, EventGetModel, EventInviteUsersModel, EventModel, EventNewFormModel, EventUploadModel, GetCompanyEventsModel } from './eventModel';
+import moment from "moment";
+import 'moment-timezone';
 
 
 export type EventState = {
@@ -20,10 +22,10 @@ const initialState: EventState = {
     eventNew: {
         eventModel: {
             name: "",
-            holdingDate: "",
             type: 1,
             userId: 0,
             companyId: 0,
+            eventTimeZone: moment.tz.guess(),
         },
         errors: new Map,
         isLoading: false,
@@ -31,10 +33,10 @@ const initialState: EventState = {
     eventEdit: {
         eventModel: {
             name: "",
-            holdingDate: "",
             type: 1,
             userId: 0,
             companyId: 0,
+            eventTimeZone: moment.tz.guess(),
         },
         errors: new Map,
         isLoading: false,
