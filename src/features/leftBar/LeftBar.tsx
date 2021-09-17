@@ -1,7 +1,7 @@
 import React from "react";
 import './LeftBar.scss';
 import { useAppDispatch, useAppSelector } from '../../app/state/store';
-import { selectLeftBarOpen } from "./leftBarSlice";
+import { leftBarClose, selectLeftBarOpen } from "./leftBarSlice";
 import { getEmail, signOut } from "../../useToken";
 import { useHistory } from "react-router-dom";
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -67,6 +67,9 @@ export const LeftBar = () => {
             case 'List of my events':
                 history.push("/event/list");
                 break;
+        }
+        if (document.documentElement.clientWidth < 650) {
+            dispatch(leftBarClose());
         }
     }
 

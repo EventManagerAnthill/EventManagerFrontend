@@ -19,6 +19,10 @@
                 width: 98%;
             }
 
+            @media screen and (max-width: 450px) {
+                flex-direction: column;
+            }
+
             .companyHeaderImageBlock {
                 margin-left: 50px;
                 margin-bottom: -105px;
@@ -38,9 +42,9 @@
                     min-width: 100px;
                 }
 
-                @media screen and (max-width: 450px) {
-                    display: none;
-                }
+                // @media screen and (max-width: 450px) {
+                //     display: none;
+                // }
 
                 .companyHeaderImage {
                     object-fit: cover;
@@ -66,6 +70,10 @@
                     display: flex;
                     align-items: flex-end;
 
+                    @media screen and (max-width: 450px) {
+                        margin-bottom: -100px;
+                    }
+                
                     .companyName {
                         margin-bottom: 10px;
                         font-family: Jost;
@@ -74,6 +82,10 @@
                         font-size: 34px;
                         line-height: 32px;
                         color: #ffffff;
+
+                        @media screen and (max-width: 450px) {
+                            color: #2d507c;
+                        }
                     }
                 }
             }
@@ -89,6 +101,10 @@
 
         @media screen and (max-width: 1450px) {
             width: 98%;
+        }
+
+        @media screen and (max-width: 450px) {
+            margin-top: 100px;
         }
 
         .companyMainBlock {
@@ -244,6 +260,10 @@
                 width: 98%;
             }
 
+            @media screen and (max-width: calc(450px * 1.33)) {
+                flex-direction: column;
+            }
+
             .companyHeaderImageBlock {
                 margin-left: 50px;
                 margin-bottom: -105px;
@@ -263,9 +283,9 @@
                     min-width: 100px;
                 }
 
-                @media screen and (max-width: calc(450px * 1.33)) {
-                    display: none;
-                }
+                // @media screen and (max-width: calc(450px * 1.33)) {
+                //     display: none;
+                // }
 
                 .companyHeaderImage {
                     object-fit: cover;
@@ -291,6 +311,10 @@
                     display: flex;
                     align-items: flex-end;
 
+                    @media screen and (max-width: 450px) {
+                        margin-bottom: -100px;
+                    }
+
                     .companyName {
                         margin-bottom: 10px;
                         font-family: Jost;
@@ -299,6 +323,10 @@
                         font-size: 34px;
                         line-height: 32px;
                         color: #ffffff;
+
+                        @media screen and (max-width: calc(450px* 1.33)) {
+                            color: #2d507c;
+                        }
                     }
                 }
             }
@@ -314,6 +342,10 @@
 
         @media screen and (max-width: calc(1450px * 1.33)) {
             width: 98%;
+        }
+
+        @media screen and (max-width: calc(450px * 1.33)) {
+            margin-top: 100px;
         }
 
         .companyMainBlock {
