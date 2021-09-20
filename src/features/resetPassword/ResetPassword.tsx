@@ -1,6 +1,5 @@
 import React from 'react';
 import './ResetPassword.scss';
-import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/state/store';
 import { BaseInformation } from '../../components/block/baseInformation/BaseInformation';
 import { resetPasswordRequested, selectResetPassword } from './resetPasswordSlice';
@@ -15,7 +14,7 @@ export const ResetPassword = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (state.errors.size == 0) {
+        if (state.errors.size === 0) {
             let params = new URLSearchParams(window.location.search);
 
             let req: ResetPasswordRequestModel = {
@@ -48,7 +47,7 @@ export const ResetPassword = () => {
         const reCount = /[0-9a-zA-Z]{8,}/;
         const reFull = /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}/;
 
-        if (model.confirmNewPassword == '') {
+        if (model.confirmNewPassword === '') {
             errors.set('confirmnewpassword', 'Password is required')
         }
 

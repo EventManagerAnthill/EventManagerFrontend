@@ -4,8 +4,9 @@ export const mapToRequestModel = (data: SignUpModel): SignUpRequestModel => {
     return {
         firstName: data.firstName,
         lastName: data.lastName,
-        dateOfBirth: new Date(data.dateOfBirth!),
+        birthDate: new Date(data.birthDate!),
         email: data.email,
         password: data.password,
+        emailVerification: data.emailVerification,
     };
 }

@@ -1,10 +1,11 @@
 export interface SignUpModel {
-    firstName : string;
-    lastName : string;
-    dateOfBirth? : string;
-    email : string;
-    password : string;
-    repeatPassword : string;
+    firstName: string;
+    lastName: string;
+    birthDate?: string;
+    email: string;
+    password: string;
+    repeatPassword: string;
+    emailVerification: boolean;
 }
 
 export interface SignUpFormModel {
@@ -14,9 +15,10 @@ export interface SignUpFormModel {
 }
 
 export interface SignUpRequestModel {
-    firstName : string;
-    lastName : string;
-    dateOfBirth? : Date;
-    email : string;
-    password : string;
+    firstName: string;
+    lastName: string;
+    birthDate?: Date;
+    email: string;
+    password: string;
+    emailVerification: boolean;
 }

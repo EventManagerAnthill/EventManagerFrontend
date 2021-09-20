@@ -17,17 +17,36 @@ export const MyCompanies = () => {
     const userId = useAppSelector(selectUserFormId);
     const redirectTo = useAppSelector(selectRouterRedirectTo);
     const companyIsLoading = useAppSelector(selectCompanyIsLoading);
+    const [companyName, setCompanyName] = React.useState<string>("");
 
     React.useEffect(() => {
         let param = new URLSearchParams();
         param.append("userId", String(userId));
         param.append("page", String(companiesByOwner?.paging?.currentPage ?? "1"));
         param.append("pagesize", "10");
+        if (companyName !== "") {
+            param.append("companyName", companyName);
+        }
         dispatch(getAllCompaniesByOwnerRequested(param));
         if (redirectTo) {
             dispatch(routerReset());
         }
     }, [userId, redirectTo]);
+
+    React.useEffect(() => {
+        if (companiesByOwner && companiesByOwner.paging) {
+            if (companiesByOwner.paging.currentPage > companiesByOwner.paging.totalPages) {
+                let param = new URLSearchParams();
+                param.append("userId", String(userId));
+                param.append("page", "1");
+                param.append("pagesize", "10");
+                if (companyName !== "") {
+                    param.append("companyName", companyName);
+                }
+                dispatch(getAllCompaniesByOwnerRequested(param));
+            }
+        }
+    }, [companiesByOwner?.paging?.totalPages]);
 
     const onClickPage = (numberPage: number) => {
         let param = new URLSearchParams();
@@ -51,14 +70,18 @@ export const MyCompanies = () => {
         <>
             {companyIsLoading && <Spinner />}
             <div className="myCompanies">
+                <div className="myCompaniesSearch">
+                    <input className="input" placeholder="Company name" onChange={e => setCompanyName(e.currentTarget.value)} />
+                </div>
                 <div className="myCompaniesMain">
                     {companiesByOwner && companiesByOwner.paging && companiesByOwner.paging.totalItems > 0 ?
                         companiesByOwner && companiesByOwner.companies && companiesByOwner.companies.map((company) =>
                             <div className="companyMain">
                                 <CompanyForList id={company.id} name={company.name} fotoUrl={company.fotoUrl!} userRole={company.userRole} />
                             </div>
-                        ) :
-                        <span className="companyMainText">Here you will see the list of your companies. Create your first company!</span>
+                        ) : companyName == "" ?
+                            <span className="companyMainText">Here you will see the list of your companies. Create your first company!</span> :
+                            <span className="companyMainText">No results were found for your search</span>
                     }
                 </div>
                 <div className="myCompaniesFooter">

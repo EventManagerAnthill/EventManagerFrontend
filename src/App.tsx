@@ -16,11 +16,13 @@ import { LeftBar } from './features/leftBar/LeftBar';
 import { selectLeftBarOpen } from './features/leftBar/leftBarSlice';
 import { CompanyNew } from './components/authorized/company/companyNew/CompanyNew';
 import { Company } from './components/authorized/company/company/Company';
-import { EventForCompany } from './components/authorized/event/eventForCompany/EventForCompany';
 import { CompanyEdit } from './components/authorized/company/companyEdit/CompanyEdit';
 import { SnackbarComponent } from './features/snackbar/Snackbar';
 import { CompanyList } from './components/authorized/company/companyList/CompanyList';
 import { CompanyMembers } from './components/authorized/company/companyMembers/CompanyMembers';
+import { EventNew } from './components/authorized/event/eventNew/EventNew';
+import { EventComponent } from './components/authorized/event/event/Event';
+import { EventEdit } from './components/authorized/event/eventEdit/EventEdit';
 
 const App = () => {
   const location = useLocation();
@@ -40,24 +42,24 @@ const App = () => {
   if (!token) {
     return (
       <>
-      <SnackbarComponent />
-      <Switch>
-        <Route path="/identify">
-          <Identify />
-        </Route>
-        <Route path="/resetpassword">
-          <ResetPassword />
-        </Route>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
-        <Route path="/">
-          <Welcome />
-        </Route>
-      </Switch>
+        <SnackbarComponent />
+        <Switch>
+          <Route path="/identify">
+            <Identify />
+          </Route>
+          <Route path="/resetpassword">
+            <ResetPassword />
+          </Route>
+          <Route path="/signin">
+            <SignIn />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/">
+            <Welcome />
+          </Route>
+        </Switch>
       </>
     )
   }
@@ -73,12 +75,14 @@ const App = () => {
             <Route path="/personalsettings">
               <PersonalSettings />
             </Route>
+            <Route exact path="/company/:companyId/event/new" component={EventNew} />
             <Route exact path="/company/new" component={CompanyNew} />
             <Route exact path="/company/:companyId/edit" component={CompanyEdit} />
             <Route exact path="/company/:companyId/members" component={CompanyMembers} />
             <Route exact path="/company/list" component={CompanyList} />
             <Route path="/company/:companyId" component={Company} />
-            <Route path="/event" component={EventForCompany} />
+            <Route exact path="/event/:eventId/edit" component={EventEdit} />
+            <Route path="/event/:eventId" component={EventComponent} />
           </Switch>
         </div>
       </div>

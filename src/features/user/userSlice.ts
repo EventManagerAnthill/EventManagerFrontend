@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { act } from 'react-dom/test-utils';
 import { RootState } from '../../app/state/store';
 import { GetCompanyUsersModel, UserFormModel, UserModel, UserUploadPhotoModel } from './userModel';
 

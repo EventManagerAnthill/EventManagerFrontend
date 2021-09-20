@@ -1,0 +1,283 @@
+.eventContainer {
+    .eventHeader {
+        height: 300px;
+        background: rgba(87, 115, 150, 0.8);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+
+        @media screen and (max-width: 850px) {
+            height: 150px;
+        }
+
+        .eventHeaderPoster {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+    .eventMain {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 70%;
+        margin: 0 auto;
+
+        @media screen and (max-width: 1450px) {
+            width: 98%;
+        }
+
+        .eventMainBlock {
+            width: 100%;
+            padding-top: 10px;
+
+            .eventMainInfo {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                margin-left: 25px;
+
+                @media screen and (max-width: 450px) {
+                    margin-left: 12px;
+                }
+
+                .eventMainNameBlock {
+                    display: flex;
+                    align-items: flex-end;
+
+                    .eventName {
+                        margin-bottom: 10px;
+                        font-family: Jost;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 34px;
+                        line-height: 32px;
+                        color: #2c5d7d;
+                    }
+                }
+            }
+
+            .eventMainTimeBlock {
+                margin-left: 25px;
+                width: 100%;
+
+                @media screen and (max-width: 850px) {
+                    margin-left: 25px;
+                }
+
+                @media screen and (max-width: 750px ) {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                @media screen and (max-width: 450px) {
+                    margin-left: 15px;
+                }
+                .text {
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 23px;
+                    word-break: break-all;
+                    color: #2c5d7d;
+                }
+            }
+
+            .eventMainDescriptionBlock {
+                margin-left: 25px;
+
+                @media screen and (max-width: 850px) {
+                    margin-left: 25px;
+                }
+
+                @media screen and (max-width: 450px) {
+                    margin-left: 15px;
+                }
+
+                .eventMainDescription {
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 23px;
+                    word-break: break-all;
+                    color: #2c5d7d;
+                }
+            }
+        }
+
+        .eventMainButtonsBlock {
+            width: 100%;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            .eventMainButton {
+                width: 24%;
+                background: #2d507c;
+                border-radius: 8px;
+                height: 56px;
+                border: none;
+
+                cursor: pointer;
+                font-family: Jost;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 22px;
+                line-height: 32px;
+                /* identical to box height */
+                margin: 5px;
+
+                color: #ffffff;
+
+                @media screen and (max-width: 1050px) {
+                    width: 98%;
+                }
+            }
+        }
+    }
+}
+
+.eventContainerLeftBar {
+    .eventHeader {
+        height: 300px;
+        background: rgba(87, 115, 150, 0.8);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+
+        @media screen and (max-width: calc(850px * 1.33)) {
+            height: 150px;
+        }
+        .eventHeaderPoster {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .eventMain {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 70%;
+        margin: 0 auto;
+
+        @media screen and (max-width: calc(1450px * 1.33)) {
+            width: 98%;
+        }
+
+        .eventMainBlock {
+            width: 100%;
+            padding-top: 10px;
+
+            .eventMainInfo {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                margin-left: 25px;
+
+                @media screen and (max-width: 450px) {
+                    margin-left: 12px;
+                }
+
+                .eventMainNameBlock {
+                    display: flex;
+                    align-items: flex-end;
+
+                    .eventName {
+                        margin-bottom: 10px;
+                        font-family: Jost;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 34px;
+                        line-height: 32px;
+                        color: #2c5d7d;
+                    }
+                }
+            }
+
+            .eventMainTimeBlock {
+                margin-left: 25px;
+                width: 100%;
+
+                @media screen and (max-width: 850px * 1.33) {
+                    margin-left: 25px;
+                }
+
+                @media screen and (max-width: 750px * 1.33) {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                @media screen and (max-width: 450px * 1.33) {
+                    margin-left: 15px;
+                }
+                .text {
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 23px;
+                    word-break: break-all;
+                    color: #2c5d7d;
+                }
+            }
+
+            .eventMainDescriptionBlock {
+                margin-left: 25px;
+
+                @media screen and (max-width: calc(850px * 1.33)) {
+                    margin-left: 25px;
+                }
+
+                @media screen and (max-width: calc(450px * 1.33)) {
+                    margin-left: 15px;
+                }
+
+                .eventMainDescription {
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 23px;
+                    word-break: break-all;
+                    color: #2c5d7d;
+                }
+            }
+        }
+
+        .eventMainButtonsBlock {
+            width: 100%;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            .eventMainButton {
+                width: 24%;
+                background: #2d507c;
+                border-radius: 8px;
+                height: 56px;
+                border: none;
+
+                cursor: pointer;
+                font-family: Jost;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 22px;
+                line-height: 32px;
+                /* identical to box height */
+                margin: 5px;
+
+                color: #ffffff;
+
+                @media screen and (max-width: calc(1050px * 1.33)) {
+                    width: 98%;
+                }
+            }
+        }
+    }
+}

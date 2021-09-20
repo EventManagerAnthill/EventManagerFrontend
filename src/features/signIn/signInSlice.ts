@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { actionChannel } from 'redux-saga/effects';
 import { RootState } from '../../app/state/store';
 import { SignInFormModel, SignInModel, SignInSNModel } from './signInModel';
 

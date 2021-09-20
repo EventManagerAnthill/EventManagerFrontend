@@ -1,9 +1,9 @@
 import { put, call, takeLatest } from "redux-saga/effects";
 import { TokenData } from "./signInData";
 import { SignInModel, SignInSNModel, TokenModel } from "./signInModel";
-import { signInSlice} from "./signInSlice";
+import { signInSlice } from "./signInSlice";
 import { routerSlice } from "../routerSlice";
-import * as Api from "./signInAPI"; 
+import * as Api from "./signInAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { BadRequestError } from "../../api/exceptions";
 import { snackbarSlice } from "../snackbar/snackbarSlice";
@@ -21,15 +21,18 @@ function* signInRequested(action: PayloadAction<SignInModel>) {
         const model: TokenModel = { ...data };
 
         localStorage.setItem('token', JSON.stringify(model));
-        
-        yield put(routerSlice.actions.routerRedirect('/'));
+
+        if (sessionStorage.getItem('path')) {
+            yield put(routerSlice.actions.routerRedirect(sessionStorage.getItem('path')!));
+        } else
+            yield put(routerSlice.actions.routerRedirect('/'));
 
         yield put(signInSlice.actions.signInSucceed());
     } catch (e) {
         yield put(signInSlice.actions.signInFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
-        } 
+        }
     }
 }
 
@@ -39,15 +42,18 @@ function* signInGoogleRequested(action: PayloadAction<SignInSNModel>) {
         const model: TokenModel = { ...data };
 
         localStorage.setItem('token', JSON.stringify(model));
-        
-        yield put(routerSlice.actions.routerRedirect('/'));
+
+        if (sessionStorage.getItem('path')) {
+            yield put(routerSlice.actions.routerRedirect(sessionStorage.getItem('path')!));
+        } else
+            yield put(routerSlice.actions.routerRedirect('/'));
 
         yield put(signInSlice.actions.signInSucceed());
     } catch (e) {
         yield put(signInSlice.actions.signInFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
-        } 
+        }
     }
 }
 
@@ -57,15 +63,18 @@ function* signInFacebookRequested(action: PayloadAction<SignInSNModel>) {
         const model: TokenModel = { ...data };
 
         localStorage.setItem('token', JSON.stringify(model));
-        
-        yield put(routerSlice.actions.routerRedirect('/'));
+
+        if (sessionStorage.getItem('path')) {
+            yield put(routerSlice.actions.routerRedirect(sessionStorage.getItem('path')!));
+        } else
+            yield put(routerSlice.actions.routerRedirect('/'));
 
         yield put(signInSlice.actions.signInSucceed());
     } catch (e) {
         yield put(signInSlice.actions.signInFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
-        } 
+        }
     }
 }
 
@@ -77,6 +86,6 @@ function* signInValidateUser(action: PayloadAction<string>) {
         yield put(signInSlice.actions.signInFailed(e))
         if (e instanceof BadRequestError) {
             yield put(snackbarSlice.actions.snackbarOpen({ message: e.message, severity: 'error' }))
-        } 
+        }
     }
 }

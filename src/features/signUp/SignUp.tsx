@@ -14,7 +14,7 @@ export const SignUp = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (state.errors.size == 0) {
+        if (state.errors.size === 0) {
             dispatch(signUpRequested(state.signUpModel));
         }
     }
@@ -36,6 +36,12 @@ export const SignUp = () => {
         });
     }
 
+    React.useEffect(() => {
+        if (sessionStorage.getItem('emailVerification')) {
+            setModel({ ...state.signUpModel, emailVerification: Boolean(sessionStorage.getItem('emailVerification')) })
+        }
+    }, []);
+
     const validatePassword = (model: SignUpModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
         let error: string = '';
@@ -45,7 +51,7 @@ export const SignUp = () => {
         const reCount = /[0-9a-zA-Z]{8,}/;
         const reFull = /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}/;
 
-        if (model.repeatPassword == '') {
+        if (model.repeatPassword === '') {
             errors.set('repeatpassword', 'Password is required')
         }
 
@@ -81,7 +87,7 @@ export const SignUp = () => {
 
     return (
         <>
-        {signUp.isLoading && <Spinner />}
+            {signUp.isLoading && <Spinner />}
             <div className="SignUpPage">
                 <div className="LeftBlock">
                     <div className="LeftBlock-TopBlock">
@@ -154,7 +160,7 @@ export const SignUp = () => {
                                             type="date"
                                             id="dateofbirth"
                                             autoComplete="bday"
-                                            onChange={(e) => setModel({ ...state.signUpModel, dateOfBirth: e.currentTarget.value })}
+                                            onChange={(e) => setModel({ ...state.signUpModel, birthDate: e.currentTarget.value })}
                                         />
                                     </label>
                                 </div>

@@ -1,6 +1,5 @@
 import { put, call, takeLatest } from "redux-saga/effects";
 import { userSlice } from "./userSlice";
-import { routerSlice } from "../routerSlice";
 import * as Api from "./userAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { GetCompanyUsersData, UserData } from "./userData";

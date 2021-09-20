@@ -17,17 +17,36 @@ export const AllCompanies = () => {
     const userId = useAppSelector(selectUserFormId);
     const redirectTo = useAppSelector(selectRouterRedirectTo);
     const companyIsLoading = useAppSelector(selectCompanyIsLoading);
+    const [companyName, setCompanyName] = React.useState<string>("");
 
     React.useEffect(() => {
         let param = new URLSearchParams();
         param.append("userId", String(userId));
         param.append("page", String(companiesByUser?.paging?.currentPage ?? "1"));
         param.append("pagesize", "10");
+        if (companyName !== "") {
+            param.append("companyName", companyName);
+        }
         dispatch(getAllCompaniesByUserRequested(param));
         if (redirectTo) {
             dispatch(routerReset());
         }
-    }, [userId, redirectTo]);
+    }, [userId, redirectTo, companyName]);
+
+    React.useEffect(() => {
+        if (companiesByUser && companiesByUser.paging) {
+            if (companiesByUser.paging.currentPage > companiesByUser.paging.totalPages) {
+                let param = new URLSearchParams();
+                param.append("userId", String(userId));
+                param.append("page", "1");
+                param.append("pagesize", "10");
+                if (companyName !== "") {
+                    param.append("companyName", companyName);
+                }
+                dispatch(getAllCompaniesByUserRequested(param));
+            }
+        }
+    }, [companiesByUser?.paging?.totalPages]);
 
     const onClickPage = (numberPage: number) => {
         let param = new URLSearchParams();
@@ -51,14 +70,18 @@ export const AllCompanies = () => {
         <>
             {companyIsLoading && <Spinner />}
             <div className="allCompanies">
+                <div className="allCompaniesSearch">
+                    <input className="input" placeholder="Company name" onChange={e => setCompanyName(e.currentTarget.value)} />
+                </div>
                 <div className="allCompaniesMain">
-                    {companiesByUser && companiesByUser.paging && companiesByUser.paging.totalItems > 0 ?
+                    {companiesByUser && companiesByUser.paging && (companiesByUser.paging.totalItems > 0) ?
                         companiesByUser && companiesByUser.companies && companiesByUser.companies.map((company) =>
                             <div className="companyMain">
                                 <CompanyForList id={company.id} name={company.name} fotoUrl={company.fotoUrl!} userRole={company.userRole} />
                             </div>
-                        ) :
-                        <span className="companyMainText">Here you will see the list of your companies. Create your first company!</span>
+                        ) : companyName == "" ?
+                            <span className="companyMainText">Here you will see the list of your companies. Create your first company!</span> :
+                            <span className="companyMainText">No results were found for your search</span>
                     }
                 </div>
                 <div className="allCompaniesFooter">

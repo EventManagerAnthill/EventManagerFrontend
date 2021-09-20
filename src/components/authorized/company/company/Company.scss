@@ -19,6 +19,10 @@
                 width: 98%;
             }
 
+            @media screen and (max-width: 450px) {
+                flex-direction: column;
+            }
+
             .companyHeaderImageBlock {
                 margin-left: 50px;
                 margin-bottom: -105px;
@@ -38,9 +42,9 @@
                     min-width: 100px;
                 }
 
-                @media screen and (max-width: 450px) {
-                    display: none;
-                }
+                // @media screen and (max-width: 450px) {
+                //     display: none;
+                // }
 
                 .companyHeaderImage {
                     object-fit: cover;
@@ -66,6 +70,10 @@
                     display: flex;
                     align-items: flex-end;
 
+                    @media screen and (max-width: 450px) {
+                        margin-bottom: -100px;
+                    }
+                
                     .companyName {
                         margin-bottom: 10px;
                         font-family: Jost;
@@ -74,6 +82,10 @@
                         font-size: 34px;
                         line-height: 32px;
                         color: #ffffff;
+
+                        @media screen and (max-width: 450px) {
+                            color: #2d507c;
+                        }
                     }
                 }
             }
@@ -89,6 +101,10 @@
 
         @media screen and (max-width: 1450px) {
             width: 98%;
+        }
+
+        @media screen and (max-width: 450px) {
+            margin-top: 100px;
         }
 
         .companyMainBlock {
@@ -173,6 +189,54 @@
             }
         }
     }
+
+    .companyMainFooter {
+        display: flex;
+        justify-content: flex-start;
+        width: 98%;
+        margin: 20px;
+        padding-top: 30px;
+        flex-direction: column;
+        .blockTotal {
+            margin-bottom: 40px;
+            .total {
+                font-family: Jost;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 26px;
+
+                color: #2c5d7d;
+            }
+        }
+        .blockButtons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .blockPagesButtons {
+                display: flex;
+                .pageButton {
+                    cursor: pointer;
+                    margin-right: 36px;
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 26px;
+                    color: #2c5d7d;
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none;
+                    -khtml-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                }
+                .pageButtonNotActive {
+                    color: rgba(44, 93, 125, 0.31);
+                }
+            }
+        }
+    }
 }
 
 .companyContainerLeftBar {
@@ -196,6 +260,10 @@
                 width: 98%;
             }
 
+            @media screen and (max-width: calc(450px * 1.33)) {
+                flex-direction: column;
+            }
+
             .companyHeaderImageBlock {
                 margin-left: 50px;
                 margin-bottom: -105px;
@@ -215,9 +283,9 @@
                     min-width: 100px;
                 }
 
-                @media screen and (max-width: calc(450px * 1.33)) {
-                    display: none;
-                }
+                // @media screen and (max-width: calc(450px * 1.33)) {
+                //     display: none;
+                // }
 
                 .companyHeaderImage {
                     object-fit: cover;
@@ -243,6 +311,10 @@
                     display: flex;
                     align-items: flex-end;
 
+                    @media screen and (max-width: 450px) {
+                        margin-bottom: -100px;
+                    }
+
                     .companyName {
                         margin-bottom: 10px;
                         font-family: Jost;
@@ -251,6 +323,10 @@
                         font-size: 34px;
                         line-height: 32px;
                         color: #ffffff;
+
+                        @media screen and (max-width: calc(450px* 1.33)) {
+                            color: #2d507c;
+                        }
                     }
                 }
             }
@@ -266,6 +342,10 @@
 
         @media screen and (max-width: calc(1450px * 1.33)) {
             width: 98%;
+        }
+
+        @media screen and (max-width: calc(450px * 1.33)) {
+            margin-top: 100px;
         }
 
         .companyMainBlock {
@@ -347,6 +427,54 @@
 
             .companyMainEvenBlock {
                 margin: 20px;
+            }
+        }
+
+        .companyMainFooter {
+            display: flex;
+            justify-content: flex-start;
+            width: 98%;
+            margin: 20px;
+            padding-top: 30px;
+            flex-direction: column;
+            .blockTotal {
+                margin-bottom: 40px;
+                .total {
+                    font-family: Jost;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 26px;
+
+                    color: #2c5d7d;
+                }
+            }
+            .blockButtons {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .blockPagesButtons {
+                    display: flex;
+                    .pageButton {
+                        cursor: pointer;
+                        margin-right: 36px;
+                        font-family: Jost;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 18px;
+                        line-height: 26px;
+                        color: #2c5d7d;
+                        -webkit-touch-callout: none;
+                        -webkit-user-select: none;
+                        -khtml-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                    }
+                    .pageButtonNotActive {
+                        color: rgba(44, 93, 125, 0.31);
+                    }
+                }
             }
         }
     }

@@ -11,13 +11,12 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        margin-bottom: 40px;
 
         .headerInputsBlock {
             display: flex;
             width: 100%;
-            justify-content: space-around;
-    
+            justify-content: space-between;
+
             @media screen and (max-width: 1150px) {
                 flex-direction: column;
             }
@@ -27,20 +26,20 @@
             }
 
             .headerInputAndButtonBlock {
-                margin: 10px;
                 width: 48%;
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
                 align-items: flex-start;
 
                 @media screen and (max-width: 1150px) {
                     width: 100%;
+                    padding: 10px 0px;
                 }
 
                 @media screen and (max-width: 650px) {
                     flex-direction: column;
                 }
-                
+
                 input:active,
                 :hover,
                 :focus {
@@ -91,8 +90,6 @@
                     @media screen and (max-width: 650px) {
                         margin-top: 20px;
                     }
-
-                    
                 }
 
                 .headerInputAndSpanBlock {
@@ -132,6 +129,53 @@
         }
     }
 
+    .companyMemberHR {
+        opacity: 0.4;
+        margin: 10px 0px;
+    }
+
+    .companyMembersSearch {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0px;
+
+        @media screen and (max-width: 650px) {
+            flex-direction: column;
+        }
+        .searchInput {
+            width: 48%;
+
+            @media screen and (max-width: 650px) {
+                width: 100%;
+                padding: 10px 0px;
+            }
+
+            input:active,
+            :hover,
+            :focus {
+                outline: 0;
+                outline-offset: 0;
+            }
+            .input {
+                width: 100%;
+                box-sizing: border-box;
+                background: #f8f8f8;
+                border-radius: 8px;
+                height: 49px;
+                border: 1px solid #e5e5e5;
+                padding-left: 16px;
+
+                font-family: Jost;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 23px;
+
+                color: #2e354f;
+            }
+        }
+    }
+
     .companyMembersMain {
         display: flex;
         flex-wrap: wrap;
@@ -140,6 +184,18 @@
 
         .membersBlock {
             padding: 0 24px 18px 0;
+        }
+
+        .companyMembersMainText {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 26px;
+            line-height: 38px;
+
+            color: #2c5d7d;
+
+            padding-bottom: 20px;
         }
     }
 
@@ -199,13 +255,12 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        margin-bottom: 40px;
 
         .headerInputsBlock {
             display: flex;
             width: 100%;
-            justify-content: space-around;
-    
+            justify-content: space-between;
+
             @media screen and (max-width: 1150px * 1.33) {
                 flex-direction: column;
             }
@@ -215,20 +270,20 @@
             }
 
             .headerInputAndButtonBlock {
-                margin: 10px;
                 width: 48%;
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
                 align-items: flex-start;
 
                 @media screen and (max-width: 1150px * 1.33) {
                     width: 100%;
+                    padding: 10px 0px;
                 }
 
                 @media screen and (max-width: 650px * 1.33) {
                     flex-direction: column;
                 }
-                
+
                 input:active,
                 :hover,
                 :focus {
@@ -279,8 +334,6 @@
                     @media screen and (max-width: 650px * 1.33) {
                         margin-top: 20px;
                     }
-
-                    
                 }
 
                 .headerInputAndSpanBlock {
@@ -318,6 +371,53 @@
                 }
             }
         }
+    }   
+
+    .companyMemberHR {
+        opacity: 0.4;
+        margin: 10px 0px;
+    }
+
+    .companyMembersSearch {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0px;
+
+        @media screen and (max-width: 650px * 1.33) {
+            flex-direction: column;
+        }
+        .searchInput {
+            width: 48%;
+
+            @media screen and (max-width: 650px * 1.33) {
+                width: 100%;
+                padding: 10px 0px;
+            }
+
+            input:active,
+            :hover,
+            :focus {
+                outline: 0;
+                outline-offset: 0;
+            }
+            .input {
+                width: 100%;
+                box-sizing: border-box;
+                background: #f8f8f8;
+                border-radius: 8px;
+                height: 49px;
+                border: 1px solid #e5e5e5;
+                padding-left: 16px;
+
+                font-family: Jost;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 23px;
+
+                color: #2e354f;
+            }
+        }
     }
 
     .companyMembersMain {
@@ -328,6 +428,18 @@
 
         .membersBlock {
             padding: 0 24px 18px 0;
+        }
+
+        .companyMembersMainText {
+            font-family: Jost;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 26px;
+            line-height: 38px;
+
+            color: #2c5d7d;
+
+            padding-bottom: 20px;
         }
     }
 
