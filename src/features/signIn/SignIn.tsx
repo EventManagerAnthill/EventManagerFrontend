@@ -23,7 +23,7 @@ export const SignIn = () => {
 
 
     React.useEffect(() => {
-        if (location.search != "") {
+        if (location.search !== "") {
             console.log(location.search);
             dispatch(signInValidateUser(location.search));
         }

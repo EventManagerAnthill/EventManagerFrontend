@@ -7,9 +7,9 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { SignUpModel } from "./signUpModel";
 import { mapToRequestModel } from "./signUpMapper";
 import { UserData } from "../user/userData";
+import { BadRequestError } from "../../api/exceptions";
 import { UserModel } from "../user/userModel";
 import { mapToUserModel } from "../user/userMapper";
-import { BadRequestError } from "../../api/exceptions";
 
 export function* signUpSaga() {
     yield takeLatest(signUpSlice.actions.signUpRequested, signUpRequested);

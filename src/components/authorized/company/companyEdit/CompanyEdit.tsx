@@ -2,9 +2,9 @@ import React from "react";
 import './CompanyEdit.scss';
 import { useAppDispatch, useAppSelector } from "../../../../app/state/store";
 import { selectLeftBarOpen } from "../../../../features/leftBar/leftBarSlice";
-import { createCompanyRequested, deletePhotoRequested, editCompanyRequested, getCompanyRequested, selectCompany, selectCompanyEdit, uploadPhotoRequested } from "../../../../features/company/companySlice";
-import { CompanyFormModel, CompanyModel, CompanyUploadModel } from "../../../../features/company/companyModel";
-import { useHistory, useParams } from "react-router-dom";
+import { deletePhotoRequested, editCompanyRequested, getCompanyRequested, selectCompany, selectCompanyEdit, uploadPhotoRequested } from "../../../../features/company/companySlice";
+import { CompanyFormModel, CompanyModel } from "../../../../features/company/companyModel";
+import { useParams } from "react-router-dom";
 import { selectUserFormId } from "../../../../features/user/userSlice";
 import { Spinner } from "../../../spinner/Spinner";
 
@@ -88,7 +88,7 @@ export const CompanyEdit = () => {
 
     return (
         <>
-        {companyEdit.isLoading && <Spinner />}
+            {companyEdit.isLoading && <Spinner />}
             <form className={isLeftBarOpen ? "companyEditWithLeftBar" : "companyEdit"} onSubmit={e => handleSubmit(e)}>
                 <div className="companyEditMain">
                     <div className="companyEditForm">

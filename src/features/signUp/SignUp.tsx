@@ -14,7 +14,7 @@ export const SignUp = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (state.errors.size == 0) {
+        if (state.errors.size === 0) {
             dispatch(signUpRequested(state.signUpModel));
         }
     }
@@ -51,7 +51,7 @@ export const SignUp = () => {
         const reCount = /[0-9a-zA-Z]{8,}/;
         const reFull = /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}/;
 
-        if (model.repeatPassword == '') {
+        if (model.repeatPassword === '') {
             errors.set('repeatpassword', 'Password is required')
         }
 

@@ -9,7 +9,7 @@ export const Welcome = () => {
   const location = useLocation();
 
   React.useEffect(() => {
-    if (location.search != "") {
+    if (location.search !== "") {
       history.push("/signin");
       sessionStorage.setItem('emailVerification', 'true');
       sessionStorage.setItem('path', location.pathname + location.search);
@@ -21,7 +21,7 @@ export const Welcome = () => {
       <div className="HomePage-DivHeading">
         <span className="HomePage-Heading">Welcome to simple and convenient event planner!</span>
       </div>
-      <div className="HomePage-DivLogo"><img className="HomePage-Logo" src={LogoBlue} /></div>
+      <div className="HomePage-DivLogo"><img className="HomePage-Logo" src={LogoBlue} alt=""/></div>
       <div className="HomePage-DivButton">
         <button
           className="HomePage-Button"

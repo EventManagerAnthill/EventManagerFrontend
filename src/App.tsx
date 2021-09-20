@@ -16,7 +16,6 @@ import { LeftBar } from './features/leftBar/LeftBar';
 import { selectLeftBarOpen } from './features/leftBar/leftBarSlice';
 import { CompanyNew } from './components/authorized/company/companyNew/CompanyNew';
 import { Company } from './components/authorized/company/company/Company';
-import { EventForCompany } from './components/authorized/event/eventForCompany/EventForCompany';
 import { CompanyEdit } from './components/authorized/company/companyEdit/CompanyEdit';
 import { SnackbarComponent } from './features/snackbar/Snackbar';
 import { CompanyList } from './components/authorized/company/companyList/CompanyList';
@@ -43,24 +42,24 @@ const App = () => {
   if (!token) {
     return (
       <>
-      <SnackbarComponent />
-      <Switch>
-        <Route path="/identify">
-          <Identify />
-        </Route>
-        <Route path="/resetpassword">
-          <ResetPassword />
-        </Route>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
-        <Route path="/">
-          <Welcome />
-        </Route>
-      </Switch>
+        <SnackbarComponent />
+        <Switch>
+          <Route path="/identify">
+            <Identify />
+          </Route>
+          <Route path="/resetpassword">
+            <ResetPassword />
+          </Route>
+          <Route path="/signin">
+            <SignIn />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/">
+            <Welcome />
+          </Route>
+        </Switch>
       </>
     )
   }
